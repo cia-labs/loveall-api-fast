@@ -65,7 +65,7 @@ class Store(Base):
     creation_time = Column(DateTime, nullable=False, default=datetime.now())
     modification_time = Column(DateTime, nullable=False, default=datetime.now())
 
-    def __init__(self, name, address, city, state, zip_code, phone, created_by, creation_time,
+    def __init__(self, name, address, city, state, zip_code, phone,user_id, created_by, creation_time,
                     modification_time):
             """
             Constructor for the Store class
@@ -76,6 +76,7 @@ class Store(Base):
             self.state = state
             self.zip_code = zip_code
             self.phone = phone
+            self.user_id = user_id
             self.created_by = created_by
             self.creation_time = creation_time
             self.modification_time = modification_time

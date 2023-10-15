@@ -19,7 +19,7 @@ class Subscription(Base):
     __tablename__ = 'subscription'
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     name = Column(String(50), unique=True, nullable=False)
-    number = Column(String(50), unique=True, nullable=False)
+    sub_number = Column(String(50), unique=True, nullable=False)
     user_id = Column(Integer,ForeignKey('user.id', ondelete='cascade'), nullable=False)
     subscription_type_id = Column(Integer,ForeignKey('subscription_type.id', ondelete='cascade'), nullable=False)
     uuid = Column(String(36), unique=True, nullable=False)
@@ -31,17 +31,21 @@ class Subscription(Base):
     modification_time = Column(DateTime, nullable=False, default=datetime.now())
     # todo: add payment data related to subscription later
 
-    def __init__(self, name, uuid, deployment_type, teams, groups, created_by, creation_time,
-                 modification_time):
+    def __init__(self, name ,sub_number, user_id, subscription_type_id, uuid, start_date, end_date, enabled, created_by, creation_time, modification_time):
         """
         Constructor for the Subscription class
         """
         self.name = name
+        self.sub_number = sub_number
+        self.user_id = user_id
+        self.subscription_type_id = subscription_type_id
         self.uuid = uuid
+        self.start_date = start_date
+        self.end_date = end_date
+        self.enabled = enabled
         self.created_by = created_by
         self.creation_time = creation_time
         self.modification_time = modification_time
-
 
 
 

@@ -28,8 +28,8 @@ class AuthService:
             raise HTTPException(status_code=404, detail="User not found")
         if not verify_password(user.password, userData.password):
             raise HTTPException(status_code=401, detail="Incorrect password")
-        # access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-        access_token_expires = timedelta(minutes=8600)
+
+        access_token_expires = timedelta(minutes=Config.ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = create_access_token(
             data={"sub": user.email}, expires_delta=access_token_expires
         )
@@ -45,9 +45,7 @@ class AuthService:
 
     async def create_jwt_token(self, email: str, password: str):
         user = await self.authenticate_user(email, password)
-        #TODO: fix from config
-        # access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-        access_token_expires = timedelta(minutes=8600)
+        access_token_expires = timedelta(minutes=Config.ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = create_access_token(
             data={"sub": user.email}, expires_delta=access_token_expires
         )
@@ -91,7 +89,7 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, Config.JWT_SECRET, algorithm=Config.JWT_ALGORITHM)
     return encoded_jwt
 
 # async def authenticate_user(email: str, password: str):

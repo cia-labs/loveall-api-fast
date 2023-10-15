@@ -57,34 +57,35 @@ class UserDBActions:
         """
         try:
             # UserSchema(**user)
+            print(user)
             logger.info(f'INFO: Creating new user with the data - {user}')
-            resp, msg = self.fetch_user_by_name(user.get('name'))
+            resp, msg = self.fetch_user_by_name(user.name)
             if resp:
                 
-                logger.error(f'User with name {user.get("name")} is already registered')
-                return False, f'User with name {user.get("name")} is already registered'
+                logger.error(f'User with name {user.name} is already registered')
+                return False, f'User with name {user.name} is already registered'
             if not resp and msg is None:
                 print("resp",msg)
                 logger.error(msg)
                 return False, msg
-            logger.info(f'INFO: Created user ORM with - {user.get("name")}')
-            new_user = User(name=user.get('name'),
-                            email=user.get('email'),
-                            password= get_password_hash(user.get('password')),
-                            role=user.get('role'),
-                            is_active=user.get('is_active'),
-                            created_by=user.get('created_by'),
+            logger.info(f'INFO: Created user ORM with - {user.name}')
+            new_user = User(name=user.name,
+                            email=user.email,
+                            password= get_password_hash(user.password),
+                            role=user.role,
+                            is_active=0,
+                            created_by="",
                             creation_time=datetime.now(),
                             modification_time=datetime.now())
-            logger.info(f'INFO: Saving the new user {user.get("name")}')
+            logger.info(f'INFO: Saving the new user {user.name}')
             self.db.add(new_user)
-            logger.info(f'INFO: Committing the new user {user.get("name")}')
+            logger.info(f'INFO: Committing the new user {user.name}')
             self.db.commit()
-            logger.info(f'INFO: New user {user.get("name")} saved successfully')
-            return True, f'New user {user.get("name")} saved successfully'
+            logger.info(f'INFO: New user {user.name} saved successfully')
+            return True, f'New user {user.name} saved successfully'
         except Exception as e:
-            logger.exception(f'Facing issue while saving the new user {user.get("name")} - {e}')
-            return False, f'Facing issue while saving the new user {user.get("name")}'
+            logger.exception(f'Facing issue while saving the new user {user.name} - {e}')
+            return False, f'Facing issue while saving the new user {user.name}'
 
 def get_password_hash(password: str):
     """

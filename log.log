@@ -1,1 +1,718 @@
 Oct 15 13:04:48:10s LoveallAPI [6381]: Application is Shutting Down
+Oct 15 13:09:05:10s LoveallAPI [7424]: Application is Starting Up
+Oct 15 13:10:08:10s LoveallAPI [7424]: Application is Shutting Down
+Oct 15 13:10:23:10s LoveallAPI [7478]: Application is Starting Up
+Oct 15 13:11:15:10s LoveallAPI [7478]: Application is Shutting Down
+Oct 15 13:14:50:10s LoveallAPI [7819]: Application is Starting Up
+Oct 15 13:15:12:10s LoveallAPI [7819]: Application is Shutting Down
+Oct 15 13:17:03:10s LoveallAPI [8137]: Application is Starting Up
+Oct 15 13:17:08:10s LoveallAPI [8137]: Application is Shutting Down
+Oct 15 13:17:51:10s LoveallAPI [8255]: Application is Starting Up
+Oct 15 13:19:06:10s LoveallAPI [8255]: Application is Shutting Down
+Oct 15 13:19:49:10s LoveallAPI [8410]: Application is Starting Up
+Oct 15 13:20:21:10s LoveallAPI [8410]: Application is Shutting Down
+Oct 15 13:20:22:10s LoveallAPI [8467]: Application is Starting Up
+Oct 15 13:20:46:10s LoveallAPI [8467]: Application is Shutting Down
+Oct 15 13:21:05:10s LoveallAPI [8561]: Application is Starting Up
+Oct 15 13:21:11:10s LoveallAPI [8561]: Application is Shutting Down
+Oct 15 13:27:50:10s LoveallAPI [9033]: Application is Starting Up
+Oct 15 13:27:54:10s LoveallAPI [9033]: Creating new user with the data - {'name': 'cdcdc', 'email': 'admin@admin.com', 'password': 'admin', 'role': 'admin', 'is_active': True, 'created_by': 'created_by'}
+Oct 15 13:27:54:10s LoveallAPI [9033]: INFO: Creating new user with the data - {'name': 'cdcdc', 'email': 'admin@admin.com', 'password': 'admin', 'role': 'admin', 'is_active': True, 'created_by': 'created_by'}
+Oct 15 13:27:54:10s LoveallAPI [9033]: INFO: Created user ORM with - cdcdc
+Oct 15 13:27:54:10s LoveallAPI [9033]: INFO: Saving the new user cdcdc
+Oct 15 13:27:54:10s LoveallAPI [9033]: INFO: Committing the new user cdcdc
+Oct 15 13:27:54:10s LoveallAPI [9033]: INFO: New user cdcdc saved successfully
+Oct 15 13:27:54:10s LoveallAPI [9033]: New user cdcdc saved successfully
+Oct 15 13:28:45:10s LoveallAPI [9033]: Application is Shutting Down
+Oct 15 13:29:14:10s LoveallAPI [9227]: Application is Starting Up
+Oct 15 13:30:37:10s LoveallAPI [9227]: Application is Shutting Down
+Oct 15 13:30:38:10s LoveallAPI [9330]: Application is Starting Up
+Oct 15 13:30:44:10s LoveallAPI [9330]: Creating new user with the data - 
+Oct 15 13:30:44:10s LoveallAPI [9330]: INFO: Creating new user with the data - id=0 name='test' email='test@test.com' password='test' role='admin' is_active=True created_by='' creation_time=datetime.datetime(2021, 1, 1, 0, 0) modification_time=datetime.datetime(2021, 1, 1, 0, 0)
+Oct 15 13:30:44:10s LoveallAPI [9330]: Facing issue while saving the new user - 'UserSchema' object has no attribute 'get'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/user.py", line 61, in save_new_user
+    resp, msg = self.fetch_user_by_name(user.get('name'))
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pydantic/main.py", line 759, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'UserSchema' object has no attribute 'get'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/services/user/user.py", line 56, in create_user
+    resp, msg = self.user_db_actions.save_new_user(user)
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/user.py", line 86, in save_new_user
+    logger.exception(f'Facing issue while saving the new user {user.get("name")} - {e}')
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pydantic/main.py", line 759, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'UserSchema' object has no attribute 'get'
+Oct 15 13:31:34:10s LoveallAPI [9330]: Application is Shutting Down
+Oct 15 13:31:35:10s LoveallAPI [9464]: Application is Starting Up
+Oct 15 13:31:42:10s LoveallAPI [9464]: Creating new user with the data - 
+Oct 15 13:31:42:10s LoveallAPI [9464]: INFO: Creating new user with the data - id=0 name='test' email='test@test.com' password='test' role='admin' is_active=True created_by='' creation_time=datetime.datetime(2021, 1, 1, 0, 0) modification_time=datetime.datetime(2021, 1, 1, 0, 0)
+Oct 15 13:31:42:10s LoveallAPI [9464]: Facing issue while saving the new user - 'UserSchema' object has no attribute 'get'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/user.py", line 62, in save_new_user
+    resp, msg = self.fetch_user_by_name(user.get('name'))
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pydantic/main.py", line 759, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'UserSchema' object has no attribute 'get'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/services/user/user.py", line 56, in create_user
+    resp, msg = self.user_db_actions.save_new_user(user)
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/user.py", line 87, in save_new_user
+    logger.exception(f'Facing issue while saving the new user {user.get("name")} - {e}')
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pydantic/main.py", line 759, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'UserSchema' object has no attribute 'get'
+Oct 15 13:32:37:10s LoveallAPI [9464]: Application is Shutting Down
+Oct 15 13:32:38:10s LoveallAPI [9562]: Application is Starting Up
+Oct 15 13:32:49:10s LoveallAPI [9562]: Creating new user with the data - 
+Oct 15 13:32:49:10s LoveallAPI [9562]: INFO: Creating new user with the data - id=0 name='test' email='test@test.com' password='test' role='admin' is_active=True created_by='' creation_time=datetime.datetime(2021, 1, 1, 0, 0) modification_time=datetime.datetime(2021, 1, 1, 0, 0)
+Oct 15 13:32:49:10s LoveallAPI [9562]: INFO: Created user ORM with - test
+Oct 15 13:32:49:10s LoveallAPI [9562]: Facing issue while saving the new user test - 'UserSchema' object has no attribute 'get'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/user.py", line 72, in save_new_user
+    new_user = User(name=user.get('name'),
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pydantic/main.py", line 759, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'UserSchema' object has no attribute 'get'
+Oct 15 13:32:49:10s LoveallAPI [9562]: Facing issue while saving the new user - Facing issue while saving the new user test
+Oct 15 13:34:37:10s LoveallAPI [9562]: Application is Shutting Down
+Oct 15 13:34:38:10s LoveallAPI [9731]: Application is Starting Up
+Oct 15 13:34:42:10s LoveallAPI [9731]: Creating new user with the data - 
+Oct 15 13:34:42:10s LoveallAPI [9731]: INFO: Creating new user with the data - id=0 name='test' email='test@test.com' password='test' role='admin' is_active=True created_by='' creation_time=datetime.datetime(2021, 1, 1, 0, 0) modification_time=datetime.datetime(2021, 1, 1, 0, 0)
+Oct 15 13:34:42:10s LoveallAPI [9731]: INFO: Created user ORM with - test
+Oct 15 13:34:42:10s LoveallAPI [9731]: INFO: Saving the new user test
+Oct 15 13:34:42:10s LoveallAPI [9731]: INFO: Committing the new user test
+Oct 15 13:34:42:10s LoveallAPI [9731]: INFO: New user test saved successfully
+Oct 15 13:34:42:10s LoveallAPI [9731]: New user id=0 name='test' email='test@test.com' password='test' role='admin' is_active=True created_by='' creation_time=datetime.datetime(2021, 1, 1, 0, 0) modification_time=datetime.datetime(2021, 1, 1, 0, 0) saved successfully
+Oct 15 15:06:56:10s LoveallAPI [9731]: Application is Shutting Down
+Oct 15 15:06:57:10s LoveallAPI [11392]: Application is Starting Up
+Oct 15 15:07:01:10s LoveallAPI [11392]: Application is Shutting Down
+Oct 15 15:07:04:10s LoveallAPI [11443]: Application is Starting Up
+Oct 15 15:07:26:10s LoveallAPI [11443]: Application is Shutting Down
+Oct 15 15:08:33:10s LoveallAPI [11676]: Application is Starting Up
+Oct 15 15:08:52:10s LoveallAPI [11676]: Creating new store with the data - id=0 name='test' address='test' city='test' state='test' zip_code='test' phone='test' user_id=1 created_by='' creation_time=datetime.datetime(2021, 1, 1, 0, 0) modification_time=datetime.datetime(2021, 1, 1, 0, 0)
+Oct 15 15:08:52:10s LoveallAPI [11676]: Facing issue while saving the new store - Class 'app.schema.store.StoreSchema' is not mapped
+Traceback (most recent call last):
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 3431, in add
+    state = attributes.instance_state(instance)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pydantic/main.py", line 759, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'StoreSchema' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 46, in save_new_store
+    self.db.add(store)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 3433, in add
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'app.schema.store.StoreSchema' is not mapped
+Oct 15 15:08:52:10s LoveallAPI [11676]: Facing issue while saving the new store - Facing issue while saving the new store - Class 'app.schema.store.StoreSchema' is not mapped
+Oct 15 15:09:32:10s LoveallAPI [11676]: Application is Shutting Down
+Oct 15 15:09:34:10s LoveallAPI [11747]: Application is Starting Up
+Oct 15 15:09:40:10s LoveallAPI [11747]: Creating new store with the data - id=0 name='test' address='test' city='test' state='test' zip_code='test' phone='test' user_id=1 created_by='' creation_time=datetime.datetime(2021, 1, 1, 0, 0) modification_time=datetime.datetime(2021, 1, 1, 0, 0)
+Oct 15 15:09:40:10s LoveallAPI [11747]: Facing issue while saving the new store - __init__() got an unexpected keyword argument 'id'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 46, in save_new_store
+    self.db.add(Store(**store.dict()))
+TypeError: __init__() got an unexpected keyword argument 'id'
+Oct 15 15:09:40:10s LoveallAPI [11747]: Facing issue while saving the new store - Facing issue while saving the new store - __init__() got an unexpected keyword argument 'id'
+Oct 15 15:11:48:10s LoveallAPI [11747]: Application is Shutting Down
+Oct 15 15:11:49:10s LoveallAPI [11867]: Application is Starting Up
+Oct 15 15:11:52:10s LoveallAPI [11867]: Application is Shutting Down
+Oct 15 15:11:54:10s LoveallAPI [11908]: Application is Starting Up
+Oct 15 15:12:31:10s LoveallAPI [11908]: Application is Shutting Down
+Oct 15 15:12:32:10s LoveallAPI [11999]: Application is Starting Up
+Oct 15 15:12:40:10s LoveallAPI [11999]: Application is Shutting Down
+Oct 15 15:12:41:10s LoveallAPI [12042]: Application is Starting Up
+Oct 15 15:13:24:10s LoveallAPI [12042]: Creating new user with the data - 
+Oct 15 15:13:24:10s LoveallAPI [12042]: INFO: Creating new user with the data - name='cdcdc' email='admin@admin.com' password='admin'
+Oct 15 15:13:24:10s LoveallAPI [12042]: INFO: Created user ORM with - cdcdc
+Oct 15 15:13:24:10s LoveallAPI [12042]: Facing issue while saving the new user cdcdc - 'UserSchema' object has no attribute 'role'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/user.py", line 75, in save_new_user
+    role=user.role,
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pydantic/main.py", line 759, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'UserSchema' object has no attribute 'role'
+Oct 15 15:13:24:10s LoveallAPI [12042]: Facing issue while saving the new user - Facing issue while saving the new user cdcdc
+Oct 15 15:16:10:10s LoveallAPI [12042]: Application is Shutting Down
+Oct 15 15:16:11:10s LoveallAPI [12254]: Application is Starting Up
+Oct 15 15:16:33:10s LoveallAPI [12254]: Creating new user with the data - 
+Oct 15 15:16:33:10s LoveallAPI [12254]: INFO: Creating new user with the data - name='cdcdc' email='admin@admin.com' password='admin' role='admin'
+Oct 15 15:16:33:10s LoveallAPI [12254]: INFO: Created user ORM with - cdcdc
+Oct 15 15:16:34:10s LoveallAPI [12254]: Facing issue while saving the new user cdcdc - 'UserSchema' object has no attribute 'is_active'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/user.py", line 76, in save_new_user
+    is_active=user.is_active,
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pydantic/main.py", line 759, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'UserSchema' object has no attribute 'is_active'
+Oct 15 15:16:34:10s LoveallAPI [12254]: Facing issue while saving the new user - Facing issue while saving the new user cdcdc
+Oct 15 15:16:51:10s LoveallAPI [12254]: Application is Shutting Down
+Oct 15 15:16:52:10s LoveallAPI [12313]: Application is Starting Up
+Oct 15 15:16:54:10s LoveallAPI [12313]: Creating new user with the data - 
+Oct 15 15:16:54:10s LoveallAPI [12313]: INFO: Creating new user with the data - name='cdcdc' email='admin@admin.com' password='admin' role='admin'
+Oct 15 15:16:54:10s LoveallAPI [12313]: INFO: Created user ORM with - cdcdc
+Oct 15 15:16:54:10s LoveallAPI [12313]: INFO: Saving the new user cdcdc
+Oct 15 15:16:54:10s LoveallAPI [12313]: INFO: Committing the new user cdcdc
+Oct 15 15:16:54:10s LoveallAPI [12313]: INFO: New user cdcdc saved successfully
+Oct 15 15:16:54:10s LoveallAPI [12313]: New user name='cdcdc' email='admin@admin.com' password='admin' role='admin' saved successfully
+Oct 15 15:17:22:10s LoveallAPI [12313]: Application is Shutting Down
+Oct 15 15:17:24:10s LoveallAPI [12381]: Application is Starting Up
+Oct 15 15:18:08:10s LoveallAPI [12381]: User fetched successfully with the name: 
+Oct 15 15:18:26:10s LoveallAPI [12381]: Creating new user with the data - 
+Oct 15 15:18:26:10s LoveallAPI [12381]: INFO: Creating new user with the data - name='cdcdc' email='admin@admin.com' password='admin' role='merchant'
+Oct 15 15:18:26:10s LoveallAPI [12381]: User with name cdcdc is already registered
+Oct 15 15:18:26:10s LoveallAPI [12381]: Facing issue while saving the new user - User with name cdcdc is already registered
+Oct 15 15:18:37:10s LoveallAPI [12381]: Creating new user with the data - 
+Oct 15 15:18:37:10s LoveallAPI [12381]: INFO: Creating new user with the data - name='merch' email='merch@merch.com' password='merch' role='merchant'
+Oct 15 15:18:37:10s LoveallAPI [12381]: INFO: Created user ORM with - merch
+Oct 15 15:18:37:10s LoveallAPI [12381]: INFO: Saving the new user merch
+Oct 15 15:18:37:10s LoveallAPI [12381]: INFO: Committing the new user merch
+Oct 15 15:18:37:10s LoveallAPI [12381]: INFO: New user merch saved successfully
+Oct 15 15:18:37:10s LoveallAPI [12381]: New user name='merch' email='merch@merch.com' password='merch' role='merchant' saved successfully
+Oct 15 15:18:43:10s LoveallAPI [12381]: User fetched successfully with the name: 
+Oct 15 15:18:45:10s LoveallAPI [12381]: User fetched successfully with the name: 
+Oct 15 15:20:02:10s LoveallAPI [12381]: Application is Shutting Down
+Oct 15 15:20:03:10s LoveallAPI [12545]: Application is Starting Up
+Oct 15 15:20:25:10s LoveallAPI [12545]: Facing issue while fetching the new store  - Store with name cdcdc not found
+Oct 15 15:21:43:10s LoveallAPI [12545]: Application is Shutting Down
+Oct 15 15:21:45:10s LoveallAPI [12658]: Application is Starting Up
+Oct 15 15:22:09:10s LoveallAPI [12658]: Creating new store with the data - name='merch' address='merch' city='merch' state='merch' zip_code='merch' phone='merch'
+Oct 15 15:22:09:10s LoveallAPI [12658]: Facing issue while saving the new store - __init__() missing 3 required positional arguments: 'created_by', 'creation_time', and 'modification_time'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 46, in save_new_store
+    self.db.add(Store(**store.dict()))
+TypeError: __init__() missing 3 required positional arguments: 'created_by', 'creation_time', and 'modification_time'
+Oct 15 15:22:09:10s LoveallAPI [12658]: Facing issue while saving the new store - Facing issue while saving the new store - __init__() missing 3 required positional arguments: 'created_by', 'creation_time', and 'modification_time'
+Oct 15 15:23:31:10s LoveallAPI [12658]: Application is Shutting Down
+Oct 15 15:23:32:10s LoveallAPI [12798]: Application is Starting Up
+Oct 15 15:23:37:10s LoveallAPI [12798]: Creating new store with the data - name='merch' address='merch' city='merch' state='merch' zip_code='merch' phone='merch'
+Oct 15 15:23:37:10s LoveallAPI [12798]: Facing issue while saving the new store - __init__() missing 1 required positional argument: 'created_by'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 46, in save_new_store
+    self.db.add(Store(**store.dict(),**{
+TypeError: __init__() missing 1 required positional argument: 'created_by'
+Oct 15 15:23:37:10s LoveallAPI [12798]: Facing issue while saving the new store - Facing issue while saving the new store - __init__() missing 1 required positional argument: 'created_by'
+Oct 15 15:23:49:10s LoveallAPI [12798]: Application is Shutting Down
+Oct 15 15:23:50:10s LoveallAPI [12854]: Application is Starting Up
+Oct 15 15:23:52:10s LoveallAPI [12854]: Creating new store with the data - name='merch' address='merch' city='merch' state='merch' zip_code='merch' phone='merch'
+Oct 15 15:23:52:10s LoveallAPI [12854]: Facing issue while saving the new store - (pymysql.err.IntegrityError) (1048, "Column 'user_id' cannot be null")
+[SQL: INSERT INTO store (name, address, city, state, zip_code, phone, user_id, created_by, creation_time, modification_time) VALUES (%(name)s, %(address)s, %(city)s, %(state)s, %(zip_code)s, %(phone)s, %(user_id)s, %(created_by)s, %(creation_time)s, %(modification_time)s)]
+[parameters: {'name': 'merch', 'address': 'merch', 'city': 'merch', 'state': 'merch', 'zip_code': 'merch', 'phone': 'merch', 'user_id': None, 'created_by': '', 'creation_time': datetime.datetime(2023, 10, 15, 15, 23, 52, 153281), 'modification_time': datetime.datetime(2023, 10, 15, 15, 23, 52, 153282)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 822, in _read_query_result
+    result.read()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1048, "Column 'user_id' cannot be null")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 51, in save_new_store
+    self.db.commit()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1967, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1256, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1231, in _prepare_impl
+    self.session.flush()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4310, in flush
+    self._flush(objects)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4446, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4406, in _flush
+    flush_context.execute()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 1226, in _emit_insert_statements
+    result = connection.execute(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 822, in _read_query_result
+    result.read()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1048, "Column 'user_id' cannot be null")
+[SQL: INSERT INTO store (name, address, city, state, zip_code, phone, user_id, created_by, creation_time, modification_time) VALUES (%(name)s, %(address)s, %(city)s, %(state)s, %(zip_code)s, %(phone)s, %(user_id)s, %(created_by)s, %(creation_time)s, %(modification_time)s)]
+[parameters: {'name': 'merch', 'address': 'merch', 'city': 'merch', 'state': 'merch', 'zip_code': 'merch', 'phone': 'merch', 'user_id': None, 'created_by': '', 'creation_time': datetime.datetime(2023, 10, 15, 15, 23, 52, 153281), 'modification_time': datetime.datetime(2023, 10, 15, 15, 23, 52, 153282)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Oct 15 15:23:52:10s LoveallAPI [12854]: Facing issue while saving the new store - Facing issue while saving the new store - (pymysql.err.IntegrityError) (1048, "Column 'user_id' cannot be null")
+[SQL: INSERT INTO store (name, address, city, state, zip_code, phone, user_id, created_by, creation_time, modification_time) VALUES (%(name)s, %(address)s, %(city)s, %(state)s, %(zip_code)s, %(phone)s, %(user_id)s, %(created_by)s, %(creation_time)s, %(modification_time)s)]
+[parameters: {'name': 'merch', 'address': 'merch', 'city': 'merch', 'state': 'merch', 'zip_code': 'merch', 'phone': 'merch', 'user_id': None, 'created_by': '', 'creation_time': datetime.datetime(2023, 10, 15, 15, 23, 52, 153281), 'modification_time': datetime.datetime(2023, 10, 15, 15, 23, 52, 153282)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Oct 15 15:24:53:10s LoveallAPI [12854]: Facing issue while fetching the new store  - Store with name cdcdc not found
+Oct 15 15:38:47:10s LoveallAPI [12854]: Creating new store with the data - name='merch' address='merch' city='merch' state='merch' zip_code='merch' phone='merch'
+Oct 15 15:38:47:10s LoveallAPI [12854]: Facing issue while saving the new store - (pymysql.err.IntegrityError) (1048, "Column 'user_id' cannot be null")
+[SQL: INSERT INTO store (name, address, city, state, zip_code, phone, user_id, created_by, creation_time, modification_time) VALUES (%(name)s, %(address)s, %(city)s, %(state)s, %(zip_code)s, %(phone)s, %(user_id)s, %(created_by)s, %(creation_time)s, %(modification_time)s)]
+[parameters: {'name': 'merch', 'address': 'merch', 'city': 'merch', 'state': 'merch', 'zip_code': 'merch', 'phone': 'merch', 'user_id': None, 'created_by': '', 'creation_time': datetime.datetime(2023, 10, 15, 15, 38, 47, 536659), 'modification_time': datetime.datetime(2023, 10, 15, 15, 38, 47, 536661)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 822, in _read_query_result
+    result.read()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1048, "Column 'user_id' cannot be null")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 51, in save_new_store
+    }))
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1967, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1256, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1231, in _prepare_impl
+    self.session.flush()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4310, in flush
+    self._flush(objects)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4446, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4406, in _flush
+    flush_context.execute()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 1226, in _emit_insert_statements
+    result = connection.execute(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 822, in _read_query_result
+    result.read()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1048, "Column 'user_id' cannot be null")
+[SQL: INSERT INTO store (name, address, city, state, zip_code, phone, user_id, created_by, creation_time, modification_time) VALUES (%(name)s, %(address)s, %(city)s, %(state)s, %(zip_code)s, %(phone)s, %(user_id)s, %(created_by)s, %(creation_time)s, %(modification_time)s)]
+[parameters: {'name': 'merch', 'address': 'merch', 'city': 'merch', 'state': 'merch', 'zip_code': 'merch', 'phone': 'merch', 'user_id': None, 'created_by': '', 'creation_time': datetime.datetime(2023, 10, 15, 15, 38, 47, 536659), 'modification_time': datetime.datetime(2023, 10, 15, 15, 38, 47, 536661)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Oct 15 15:38:47:10s LoveallAPI [12854]: Facing issue while saving the new store - Facing issue while saving the new store - (pymysql.err.IntegrityError) (1048, "Column 'user_id' cannot be null")
+[SQL: INSERT INTO store (name, address, city, state, zip_code, phone, user_id, created_by, creation_time, modification_time) VALUES (%(name)s, %(address)s, %(city)s, %(state)s, %(zip_code)s, %(phone)s, %(user_id)s, %(created_by)s, %(creation_time)s, %(modification_time)s)]
+[parameters: {'name': 'merch', 'address': 'merch', 'city': 'merch', 'state': 'merch', 'zip_code': 'merch', 'phone': 'merch', 'user_id': None, 'created_by': '', 'creation_time': datetime.datetime(2023, 10, 15, 15, 38, 47, 536659), 'modification_time': datetime.datetime(2023, 10, 15, 15, 38, 47, 536661)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Oct 15 15:39:03:10s LoveallAPI [12854]: Application is Shutting Down
+Oct 15 15:39:05:10s LoveallAPI [13451]: Application is Starting Up
+Oct 15 15:39:11:10s LoveallAPI [13451]: Creating new store with the data - name='merch' address='merch' city='merch' state='merch' zip_code='merch' phone='merch'
+Oct 15 15:39:11:10s LoveallAPI [13451]: Facing issue while saving the new store - __init__() got an unexpected keyword argument 'user_id'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 46, in save_new_store
+    self.db.add(Store(**store.dict(),**{
+TypeError: __init__() got an unexpected keyword argument 'user_id'
+Oct 15 15:39:11:10s LoveallAPI [13451]: Facing issue while saving the new store - Facing issue while saving the new store - __init__() got an unexpected keyword argument 'user_id'
+Oct 15 15:40:26:10s LoveallAPI [13451]: Application is Shutting Down
+Oct 15 15:40:27:10s LoveallAPI [13550]: Application is Starting Up
+Oct 15 15:40:30:10s LoveallAPI [13550]: Creating new store with the data - name='merch' address='merch' city='merch' state='merch' zip_code='merch' phone='merch'
+Oct 15 15:40:30:10s LoveallAPI [13550]: Facing issue while saving the new store - __init__() got an unexpected keyword argument 'user_id'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 46, in save_new_store
+    self.db.add(Store(**store.dict(),**{
+TypeError: __init__() got an unexpected keyword argument 'user_id'
+Oct 15 15:40:30:10s LoveallAPI [13550]: Facing issue while saving the new store - Facing issue while saving the new store - __init__() got an unexpected keyword argument 'user_id'
+Oct 15 15:41:01:10s LoveallAPI [13550]: Application is Shutting Down
+Oct 15 15:41:02:10s LoveallAPI [13611]: Application is Starting Up
+Oct 15 15:41:03:10s LoveallAPI [13611]: Creating new store with the data - name='merch' address='merch' city='merch' state='merch' zip_code='merch' phone='merch'
+Oct 15 15:41:03:10s LoveallAPI [13611]: Facing issue while saving the new store - __init__() got an unexpected keyword argument 'user_id'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 48, in save_new_store
+    self.db.add(Store(**store.dict(),**{
+TypeError: __init__() got an unexpected keyword argument 'user_id'
+Oct 15 15:41:03:10s LoveallAPI [13611]: Facing issue while saving the new store - Facing issue while saving the new store - __init__() got an unexpected keyword argument 'user_id'
+Oct 15 15:42:07:10s LoveallAPI [13611]: Application is Shutting Down
+Oct 15 15:42:08:10s LoveallAPI [13695]: Application is Starting Up
+Oct 15 15:42:09:10s LoveallAPI [13695]: Creating new store with the data - name='merch' address='merch' city='merch' state='merch' zip_code='merch' phone='merch'
+Oct 15 15:42:09:10s LoveallAPI [13695]: Facing issue while saving the new store - __init__() got an unexpected keyword argument 'user_id'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 48, in save_new_store
+    self.db.add(Store(**store.dict(),**{
+TypeError: __init__() got an unexpected keyword argument 'user_id'
+Oct 15 15:42:09:10s LoveallAPI [13695]: Facing issue while saving the new store - Facing issue while saving the new store - __init__() got an unexpected keyword argument 'user_id'
+Oct 15 15:43:04:10s LoveallAPI [13695]: Application is Shutting Down
+Oct 15 15:43:06:10s LoveallAPI [13767]: Application is Starting Up
+Oct 15 15:43:07:10s LoveallAPI [13767]: Creating new store with the data - name='merch' address='merch' city='merch' state='merch' zip_code='merch' phone='merch'
+Oct 15 15:43:07:10s LoveallAPI [13767]: New store name='merch' address='merch' city='merch' state='merch' zip_code='merch' phone='merch' saved successfully
+Oct 15 15:43:44:10s LoveallAPI [13767]: Creating new store with the data - name='merch2' address='merch2' city='merch2' state='merch2' zip_code='merch2' phone='merch2'
+Oct 15 15:43:44:10s LoveallAPI [13767]: New store name='merch2' address='merch2' city='merch2' state='merch2' zip_code='merch2' phone='merch2' saved successfully
+Oct 15 17:00:55:10s LoveallAPI [13767]: Creating new store with the data - name='merch2' address='merch22' city='merch2' state='merch2' zip_code='merch2' phone='merch2'
+Oct 15 17:00:55:10s LoveallAPI [13767]: New store name='merch2' address='merch22' city='merch2' state='merch2' zip_code='merch2' phone='merch2' saved successfully
+Oct 15 17:01:39:10s LoveallAPI [13767]: Application is Shutting Down
+Oct 15 17:02:30:10s LoveallAPI [14550]: Application is Starting Up
+Oct 15 17:03:11:10s LoveallAPI [14550]: Updating store with the data - name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3'
+Oct 15 17:03:11:10s LoveallAPI [14550]: Facing issue while updating the store - 'StoreSchema' object has no attribute 'id'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 67, in update_store
+    self.db.query(Store).filter(Store.id == store.id).update(store)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pydantic/main.py", line 759, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'StoreSchema' object has no attribute 'id'
+Oct 15 17:03:12:10s LoveallAPI [14550]: Facing issue while updating the store - Facing issue while updating the store - 'StoreSchema' object has no attribute 'id'
+Oct 15 17:03:57:10s LoveallAPI [14550]: Application is Shutting Down
+Oct 15 17:03:58:10s LoveallAPI [14658]: Application is Starting Up
+Oct 15 17:04:01:10s LoveallAPI [14658]: Updating store with the data - name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3'
+Oct 15 17:04:01:10s LoveallAPI [14658]: Facing issue while updating the store - 'StoreSchema' object has no attribute 'id'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 67, in update_store
+    self.db.query(Store).filter(Store.id == store.id).update(Store(**store.dict()))
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/pydantic/main.py", line 759, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'StoreSchema' object has no attribute 'id'
+Oct 15 17:04:01:10s LoveallAPI [14658]: Facing issue while updating the store - Facing issue while updating the store - 'StoreSchema' object has no attribute 'id'
+Oct 15 17:07:07:10s LoveallAPI [14658]: Application is Shutting Down
+Oct 15 17:07:08:10s LoveallAPI [14844]: Application is Starting Up
+Oct 15 17:07:14:10s LoveallAPI [14844]: Updating store with the data - name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3'
+Oct 15 17:07:14:10s LoveallAPI [14844]: Facing issue while updating the store - update_store() missing 1 required positional argument: 'store'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/services/store/store.py", line 56, in update_store
+    resp, msg = self.store_db_actions.update_store(store)
+TypeError: update_store() missing 1 required positional argument: 'store'
+Oct 15 17:07:57:10s LoveallAPI [14844]: Application is Shutting Down
+Oct 15 17:07:58:10s LoveallAPI [14937]: Application is Starting Up
+Oct 15 17:11:07:10s LoveallAPI [14937]: Application is Shutting Down
+Oct 15 17:11:08:10s LoveallAPI [15082]: Application is Starting Up
+Oct 15 17:11:22:10s LoveallAPI [15082]: Application is Shutting Down
+Oct 15 17:11:23:10s LoveallAPI [15128]: Application is Starting Up
+Oct 15 17:13:00:10s LoveallAPI [15128]: Application is Shutting Down
+Oct 15 17:13:01:10s LoveallAPI [15229]: Application is Starting Up
+Oct 15 17:13:02:10s LoveallAPI [15229]: Updating store with the data - name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3'
+Oct 15 17:13:02:10s LoveallAPI [15229]: Facing issue while updating the store - update_store() missing 1 required positional argument: 'store_id'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/services/store/store.py", line 57, in update_store
+    resp, msg = self.store_db_actions.update_store(store)
+TypeError: update_store() missing 1 required positional argument: 'store_id'
+Oct 15 17:13:04:10s LoveallAPI [15229]: Updating store with the data - name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3'
+Oct 15 17:13:04:10s LoveallAPI [15229]: Facing issue while updating the store - update_store() missing 1 required positional argument: 'store_id'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/services/store/store.py", line 57, in update_store
+    resp, msg = self.store_db_actions.update_store(store)
+TypeError: update_store() missing 1 required positional argument: 'store_id'
+Oct 15 17:13:11:10s LoveallAPI [15229]: Application is Shutting Down
+Oct 15 17:13:12:10s LoveallAPI [15274]: Application is Starting Up
+Oct 15 17:13:13:10s LoveallAPI [15274]: Updating store with the data - name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3'
+Oct 15 17:13:13:10s LoveallAPI [15274]: Facing issue while updating the store - __init__() missing 4 required positional arguments: 'user_id', 'created_by', 'creation_time', and 'modification_time'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 68, in update_store
+    self.db.query(Store).filter(Store.id == store_id).update(Store(**store.dict()))
+TypeError: __init__() missing 4 required positional arguments: 'user_id', 'created_by', 'creation_time', and 'modification_time'
+Oct 15 17:13:13:10s LoveallAPI [15274]: Facing issue while updating the store - Facing issue while updating the store - __init__() missing 4 required positional arguments: 'user_id', 'created_by', 'creation_time', and 'modification_time'
+Oct 15 17:13:33:10s LoveallAPI [15274]: Application is Shutting Down
+Oct 15 17:13:34:10s LoveallAPI [15318]: Application is Starting Up
+Oct 15 17:13:35:10s LoveallAPI [15318]: Updating store with the data - name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3'
+Oct 15 17:13:35:10s LoveallAPI [15318]: Facing issue while updating the store - update() got an unexpected keyword argument 'name'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 68, in update_store
+    self.db.query(Store).filter(Store.id == store_id).update(**store.dict())
+TypeError: update() got an unexpected keyword argument 'name'
+Oct 15 17:13:35:10s LoveallAPI [15318]: Facing issue while updating the store - Facing issue while updating the store - update() got an unexpected keyword argument 'name'
+Oct 15 17:13:35:10s LoveallAPI [15318]: Updating store with the data - name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3'
+Oct 15 17:13:35:10s LoveallAPI [15318]: Facing issue while updating the store - update() got an unexpected keyword argument 'name'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/store.py", line 68, in update_store
+    self.db.query(Store).filter(Store.id == store_id).update(**store.dict())
+TypeError: update() got an unexpected keyword argument 'name'
+Oct 15 17:13:35:10s LoveallAPI [15318]: Facing issue while updating the store - Facing issue while updating the store - update() got an unexpected keyword argument 'name'
+Oct 15 17:13:50:10s LoveallAPI [15318]: Application is Shutting Down
+Oct 15 17:13:52:10s LoveallAPI [15383]: Application is Starting Up
+Oct 15 17:13:52:10s LoveallAPI [15383]: Updating store with the data - name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3'
+Oct 15 17:13:52:10s LoveallAPI [15383]: Store name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3' updated successfully
+Oct 15 17:14:19:10s LoveallAPI [15383]: Application is Shutting Down
+Oct 15 17:14:21:10s LoveallAPI [15431]: Application is Starting Up
+Oct 15 17:14:28:10s LoveallAPI [15431]: Updating store with the data - name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3'
+Oct 15 17:14:28:10s LoveallAPI [15431]: Store name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3' updated successfully
+Oct 15 17:14:39:10s LoveallAPI [15431]: Updating store with the data - name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3'
+Oct 15 17:14:39:10s LoveallAPI [15431]: Store name='merch3' address='merch3' city='merch3' state='merch3' zip_code='merch3' phone='merch3' updated successfully
+Oct 15 17:32:36:10s LoveallAPI [15431]: Application is Shutting Down
+Oct 15 17:34:21:10s LoveallAPI [16643]: Application is Starting Up
+Oct 15 17:34:24:10s LoveallAPI [16643]: Facing issue while fetching the new offer  - Offer with name cdcdc not found
+Oct 15 17:34:24:10s LoveallAPI [16643]: Facing issue while fetching the new offer  - Offer with name cdcdc not found
+Oct 15 17:34:25:10s LoveallAPI [16643]: Facing issue while fetching the new offer  - Offer with name cdcdc not found
+Oct 15 17:35:27:10s LoveallAPI [16643]: Application is Shutting Down
+Oct 15 17:35:42:10s LoveallAPI [16786]: Application is Starting Up
+Oct 15 17:37:30:10s LoveallAPI [16786]: Application is Shutting Down
+Oct 15 17:37:47:10s LoveallAPI [16968]: Application is Starting Up
+Oct 15 17:37:51:10s LoveallAPI [16968]: Creating new offer_type with the data - name='off1' description='off1'
+Oct 15 17:37:51:10s LoveallAPI [16968]: New offer_type name='off1' description='off1' saved successfully
+Oct 15 17:39:59:10s LoveallAPI [16968]: Application is Shutting Down
+Oct 15 17:40:00:10s LoveallAPI [17080]: Application is Starting Up
+Oct 15 17:40:41:10s LoveallAPI [17080]: Application is Shutting Down
+Oct 15 17:40:42:10s LoveallAPI [17143]: Application is Starting Up
+Oct 15 17:40:42:10s LoveallAPI [17143]: Updating offer_type with the data - name='off01' description='off01'
+Oct 15 17:40:42:10s LoveallAPI [17143]: OfferType name='off01' description='off01' updated successfully
+Oct 15 17:40:43:10s LoveallAPI [17143]: Updating offer_type with the data - name='off01' description='off01'
+Oct 15 17:40:43:10s LoveallAPI [17143]: OfferType name='off01' description='off01' updated successfully
+Oct 15 17:55:04:10s LoveallAPI [17143]: Application is Shutting Down
+Oct 15 17:55:32:10s LoveallAPI [18387]: Application is Starting Up
+Oct 15 17:56:01:10s LoveallAPI [18387]: Application is Shutting Down
+Oct 15 17:56:22:10s LoveallAPI [18511]: Application is Starting Up
+Oct 15 17:56:24:10s LoveallAPI [18511]: Facing issue while fetching the new offer  - Offer with name cdcdc not found
+Oct 15 17:56:24:10s LoveallAPI [18511]: Facing issue while fetching the new offer  - Offer with name cdcdc not found
+Oct 15 17:56:26:10s LoveallAPI [18511]: Facing issue while fetching the new offer  - Offer with name cdcdc not found
+Oct 15 17:58:00:10s LoveallAPI [18511]: Creating new offer with the data - name='off01' description='off01' start_date=datetime.datetime(2023, 10, 15, 17, 37, 52) end_date=datetime.datetime(2023, 10, 20, 17, 37, 52) priority=10 offer_type_id=1
+Oct 15 17:58:00:10s LoveallAPI [18511]: Facing issue while saving the new offer - __init__() got an unexpected keyword argument 'creation_time'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/offer.py", line 100, in save_new_offer
+    self.db.add(Offer(**offer.dict(),**{
+TypeError: __init__() got an unexpected keyword argument 'creation_time'
+Oct 15 17:58:00:10s LoveallAPI [18511]: Facing issue while saving the new offer - Facing issue while saving the new offer - __init__() got an unexpected keyword argument 'creation_time'
+Oct 15 17:58:46:10s LoveallAPI [18511]: Application is Shutting Down
+Oct 15 17:58:47:10s LoveallAPI [18596]: Application is Starting Up
+Oct 15 17:58:48:10s LoveallAPI [18596]: Creating new offer with the data - name='off01' description='off01' start_date=datetime.datetime(2023, 10, 15, 17, 37, 52) end_date=datetime.datetime(2023, 10, 20, 17, 37, 52) priority=10 offer_type_id=1
+Oct 15 17:58:48:10s LoveallAPI [18596]: Facing issue while saving the new offer - __init__() got an unexpected keyword argument 'creation_time'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/offer.py", line 100, in save_new_offer
+    self.db.add(Offer(**offer.dict(),**{
+TypeError: __init__() got an unexpected keyword argument 'creation_time'
+Oct 15 17:58:48:10s LoveallAPI [18596]: Facing issue while saving the new offer - Facing issue while saving the new offer - __init__() got an unexpected keyword argument 'creation_time'
+Oct 15 17:59:10:10s LoveallAPI [18596]: Application is Shutting Down
+Oct 15 17:59:11:10s LoveallAPI [18648]: Application is Starting Up
+Oct 15 17:59:12:10s LoveallAPI [18648]: Creating new offer with the data - name='off01' description='off01' start_date=datetime.datetime(2023, 10, 15, 17, 37, 52) end_date=datetime.datetime(2023, 10, 20, 17, 37, 52) priority=10 offer_type_id=1
+Oct 15 17:59:12:10s LoveallAPI [18648]: Facing issue while saving the new offer - __init__() got an unexpected keyword argument 'modification_time'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/offer.py", line 100, in save_new_offer
+    self.db.add(Offer(**offer.dict(),**{
+TypeError: __init__() got an unexpected keyword argument 'modification_time'
+Oct 15 17:59:12:10s LoveallAPI [18648]: Facing issue while saving the new offer - Facing issue while saving the new offer - __init__() got an unexpected keyword argument 'modification_time'
+Oct 15 17:59:19:10s LoveallAPI [18648]: Application is Shutting Down
+Oct 15 17:59:20:10s LoveallAPI [18692]: Application is Starting Up
+Oct 15 17:59:21:10s LoveallAPI [18692]: Creating new offer with the data - name='off01' description='off01' start_date=datetime.datetime(2023, 10, 15, 17, 37, 52) end_date=datetime.datetime(2023, 10, 20, 17, 37, 52) priority=10 offer_type_id=1
+Oct 15 17:59:21:10s LoveallAPI [18692]: Facing issue while saving the new offer - __init__() missing 1 required positional argument: 'enabled'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/offer.py", line 100, in save_new_offer
+    self.db.add(Offer(**offer.dict(),**{
+TypeError: __init__() missing 1 required positional argument: 'enabled'
+Oct 15 17:59:21:10s LoveallAPI [18692]: Facing issue while saving the new offer - Facing issue while saving the new offer - __init__() missing 1 required positional argument: 'enabled'
+Oct 15 17:59:34:10s LoveallAPI [18692]: Creating new offer with the data - name='off01' description='off01' start_date=datetime.datetime(2023, 10, 15, 17, 37, 52) end_date=datetime.datetime(2023, 10, 20, 17, 37, 52) priority=10 offer_type_id=1
+Oct 15 17:59:34:10s LoveallAPI [18692]: Facing issue while saving the new offer - __init__() missing 1 required positional argument: 'enabled'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/offer.py", line 100, in save_new_offer
+    self.db.add(Offer(**offer.dict(),**{
+TypeError: __init__() missing 1 required positional argument: 'enabled'
+Oct 15 17:59:34:10s LoveallAPI [18692]: Facing issue while saving the new offer - Facing issue while saving the new offer - __init__() missing 1 required positional argument: 'enabled'
+Oct 15 17:59:36:10s LoveallAPI [18692]: Application is Shutting Down
+Oct 15 17:59:37:10s LoveallAPI [18743]: Application is Starting Up
+Oct 15 17:59:38:10s LoveallAPI [18743]: Creating new offer with the data - name='off01' description='off01' start_date=datetime.datetime(2023, 10, 15, 17, 37, 52) end_date=datetime.datetime(2023, 10, 20, 17, 37, 52) priority=10 offer_type_id=1
+Oct 15 17:59:38:10s LoveallAPI [18743]: Facing issue while saving the new offer - __init__() got an unexpected keyword argument 'creation_time'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/offer.py", line 100, in save_new_offer
+    self.db.add(Offer(**offer.dict(),**{
+TypeError: __init__() got an unexpected keyword argument 'creation_time'
+Oct 15 17:59:38:10s LoveallAPI [18743]: Facing issue while saving the new offer - Facing issue while saving the new offer - __init__() got an unexpected keyword argument 'creation_time'
+Oct 15 18:00:17:10s LoveallAPI [18743]: Creating new offer with the data - name='off01' description='off01' start_date=datetime.datetime(2023, 10, 15, 17, 37, 52) end_date=datetime.datetime(2023, 10, 20, 17, 37, 52) priority=10 offer_type_id=1
+Oct 15 18:00:17:10s LoveallAPI [18743]: Facing issue while saving the new offer - __init__() got an unexpected keyword argument 'creation_time'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/offer.py", line 100, in save_new_offer
+    self.db.add(Offer(**offer.dict(),**{
+TypeError: __init__() got an unexpected keyword argument 'creation_time'
+Oct 15 18:00:17:10s LoveallAPI [18743]: Facing issue while saving the new offer - Facing issue while saving the new offer - __init__() got an unexpected keyword argument 'creation_time'
+Oct 15 18:00:17:10s LoveallAPI [18743]: Application is Shutting Down
+Oct 15 18:00:18:10s LoveallAPI [18790]: Application is Starting Up
+Oct 15 18:00:19:10s LoveallAPI [18790]: Creating new offer with the data - name='off01' description='off01' start_date=datetime.datetime(2023, 10, 15, 17, 37, 52) end_date=datetime.datetime(2023, 10, 20, 17, 37, 52) priority=10 offer_type_id=1
+Oct 15 18:00:19:10s LoveallAPI [18790]: Facing issue while saving the new offer - __init__() got an unexpected keyword argument 'creation_time'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/offer.py", line 100, in save_new_offer
+    self.db.add(Offer(**offer.dict(),**{
+TypeError: __init__() got an unexpected keyword argument 'creation_time'
+Oct 15 18:00:19:10s LoveallAPI [18790]: Facing issue while saving the new offer - Facing issue while saving the new offer - __init__() got an unexpected keyword argument 'creation_time'
+Oct 15 18:00:32:10s LoveallAPI [18790]: Application is Shutting Down
+Oct 15 18:00:33:10s LoveallAPI [18834]: Application is Starting Up
+Oct 15 18:00:34:10s LoveallAPI [18834]: Creating new offer with the data - name='off01' description='off01' start_date=datetime.datetime(2023, 10, 15, 17, 37, 52) end_date=datetime.datetime(2023, 10, 20, 17, 37, 52) priority=10 offer_type_id=1
+Oct 15 18:00:34:10s LoveallAPI [18834]: New offer name='off01' description='off01' start_date=datetime.datetime(2023, 10, 15, 17, 37, 52) end_date=datetime.datetime(2023, 10, 20, 17, 37, 52) priority=10 offer_type_id=1 saved successfully
+Oct 15 18:01:01:10s LoveallAPI [18834]: Facing issue while fetching the new offer  - Offer with name cdcdc not found
+Oct 15 18:01:41:10s LoveallAPI [18834]: Facing issue while fetching the new subscription_type  - SubscriptionType with name cdcdc not found
+Oct 15 18:02:04:10s LoveallAPI [18834]: Creating new subscription_type with the data - name='subtyp21' description='subtyp21'
+Oct 15 18:02:04:10s LoveallAPI [18834]: New subscription_type name='subtyp21' description='subtyp21' saved successfully
+Oct 15 18:02:46:10s LoveallAPI [18834]: Updating subscription_type with the data - name='subtype1' description='subtype1'
+Oct 15 18:02:46:10s LoveallAPI [18834]: Facing issue while updating the subscription_type - Unconsumed column names: modified_by
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/subscription.py", line 58, in update_subscription_type
+    self.db.query(SubscriptionType).filter(SubscriptionType.id == subscription_type_id).update({
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 3271, in update
+    result: CursorResult[Any] = self.session.execute(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2306, in execute
+    return self._execute_internal(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2188, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/bulk_persistence.py", line 1617, in orm_execute_statement
+    return super().orm_execute_statement(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1631, in _execute_clauseelement
+    compiled_sql, extracted_params, cache_hit = elem._compile_w_cache(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 704, in _compile_w_cache
+    compiled_sql = self._compiler(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 316, in _compiler
+    return dialect.statement_compiler(dialect, self, **kw)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/sql/compiler.py", line 1426, in __init__
+    Compiled.__init__(self, dialect, statement, **kwargs)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/sql/compiler.py", line 867, in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/sql/compiler.py", line 912, in process
+    return obj._compiler_dispatch(self, **kwargs)
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/sql/annotation.py", line 351, in _compiler_dispatch
+    return self.__element.__class__._compiler_dispatch(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/sql/visitors.py", line 143, in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/sql/compiler.py", line 6047, in visit_update
+    crud_params_struct = crud._get_crud_params(
+  File "/Users/surya.m/master-venv/lib/python3.9/site-packages/sqlalchemy/sql/crud.py", line 335, in _get_crud_params
+    raise exc.CompileError(
+sqlalchemy.exc.CompileError: Unconsumed column names: modified_by
+Oct 15 18:02:46:10s LoveallAPI [18834]: Facing issue while updating the subscription_type - Facing issue while updating the subscription_type - Unconsumed column names: modified_by
+Oct 15 18:03:43:10s LoveallAPI [18834]: Application is Shutting Down
+Oct 15 18:03:44:10s LoveallAPI [18992]: Application is Starting Up
+Oct 15 18:03:45:10s LoveallAPI [18992]: Updating subscription_type with the data - name='subtype1' description='subtype1'
+Oct 15 18:03:45:10s LoveallAPI [18992]: SubscriptionType name='subtype1' description='subtype1' updated successfully
+Oct 15 18:03:57:10s LoveallAPI [18992]: Updating subscription_type with the data - name='subtype1' description='subtype1'
+Oct 15 18:03:57:10s LoveallAPI [18992]: SubscriptionType name='subtype1' description='subtype1' updated successfully
+Oct 15 18:04:23:10s LoveallAPI [18992]: Updating subscription_type with the data - name='subtype1' description='subtype1'
+Oct 15 18:04:23:10s LoveallAPI [18992]: SubscriptionType name='subtype1' description='subtype1' updated successfully
+Oct 15 18:05:06:10s LoveallAPI [18992]: Facing issue while fetching the new subscription  - Subscription with name cdcdc not found
+Oct 15 18:07:06:10s LoveallAPI [18992]: Creating new subscription with the data - name='actual' number='actual' user_id=2 subscription_type_id=1 uuid='dcd' start_date=datetime.datetime(2023, 10, 15, 15, 16, 55) end_date=datetime.datetime(2023, 10, 25, 15, 16, 55)
+Oct 15 18:07:06:10s LoveallAPI [18992]: Facing issue while saving the new subscription - __init__() got an unexpected keyword argument 'number'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/subscription.py", line 107, in save_new_subscription
+    self.db.add(Subscription(**subscription.dict(),**{
+TypeError: __init__() got an unexpected keyword argument 'number'
+Oct 15 18:07:06:10s LoveallAPI [18992]: Facing issue while saving the new subscription - Facing issue while saving the new subscription - __init__() got an unexpected keyword argument 'number'
+Oct 15 18:10:33:10s LoveallAPI [18992]: Application is Shutting Down
+Oct 15 18:10:34:10s LoveallAPI [19335]: Application is Starting Up
+Oct 15 18:11:04:10s LoveallAPI [19335]: Creating new subscription with the data - name='actual' sub_number='actual' user_id=2 subscription_type_id=1 uuid='dcd' start_date=datetime.datetime(2023, 10, 15, 15, 16, 55) end_date=datetime.datetime(2023, 10, 25, 15, 16, 55)
+Oct 15 18:11:04:10s LoveallAPI [19335]: Facing issue while saving the new subscription - __init__() got an unexpected keyword argument 'sub_number'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/subscription.py", line 107, in save_new_subscription
+    self.db.add(Subscription(**subscription.dict(),**{
+TypeError: __init__() got an unexpected keyword argument 'sub_number'
+Oct 15 18:11:04:10s LoveallAPI [19335]: Facing issue while saving the new subscription - Facing issue while saving the new subscription - __init__() got an unexpected keyword argument 'sub_number'
+Oct 15 18:12:08:10s LoveallAPI [19335]: Application is Shutting Down
+Oct 15 18:12:09:10s LoveallAPI [19439]: Application is Starting Up
+Oct 15 18:12:12:10s LoveallAPI [19439]: Creating new subscription with the data - name='actual' sub_number='actual' user_id=2 subscription_type_id=1 uuid='dcd' start_date=datetime.datetime(2023, 10, 15, 15, 16, 55) end_date=datetime.datetime(2023, 10, 25, 15, 16, 55)
+Oct 15 18:12:12:10s LoveallAPI [19439]: Facing issue while saving the new subscription - __init__() missing 1 required positional argument: 'enabled'
+Traceback (most recent call last):
+  File "/Users/surya.m/Documents/CIAECO/loveall-api-fast/app/crud/subscription.py", line 107, in save_new_subscription
+    self.db.add(Subscription(**subscription.dict(),**{
+TypeError: __init__() missing 1 required positional argument: 'enabled'
+Oct 15 18:12:12:10s LoveallAPI [19439]: Facing issue while saving the new subscription - Facing issue while saving the new subscription - __init__() missing 1 required positional argument: 'enabled'
+Oct 15 18:12:33:10s LoveallAPI [19439]: Application is Shutting Down
+Oct 15 18:12:34:10s LoveallAPI [19492]: Application is Starting Up
+Oct 15 18:12:35:10s LoveallAPI [19492]: Creating new subscription with the data - name='actual' sub_number='actual' user_id=2 subscription_type_id=1 uuid='dcd' start_date=datetime.datetime(2023, 10, 15, 15, 16, 55) end_date=datetime.datetime(2023, 10, 25, 15, 16, 55)
+Oct 15 18:12:35:10s LoveallAPI [19492]: New subscription name='actual' sub_number='actual' user_id=2 subscription_type_id=1 uuid='dcd' start_date=datetime.datetime(2023, 10, 15, 15, 16, 55) end_date=datetime.datetime(2023, 10, 25, 15, 16, 55) saved successfully
+Oct 15 18:40:57:10s LoveallAPI [19492]: Application is Shutting Down

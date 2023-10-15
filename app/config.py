@@ -15,6 +15,7 @@ class Config:
     log_file = config_data.get("log_file")
     JWT_SECRET = config_data.get("auth").get("JWT_SECRET")
     JWT_ALGORITHM = config_data.get("auth").get("JWT_ALGORITHM")
+    ACCESS_TOKEN_EXPIRE_MINUTES = config_data.get("auth").get("ACCESS_TOKEN_EXPIRE_MINUTES")
     start_time = time.time()
 
 
