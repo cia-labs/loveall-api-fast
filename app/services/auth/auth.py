@@ -9,11 +9,11 @@ from app.utils.logger import api_logger
 # from app.config import settings
 from app.crud.user import UserDBActions
 from sqlalchemy.orm import Session
+from app import Config
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-JWT_SECRET = "please_please_update_me_please"
-JWT_ALGORITHM = "HS256"
+
 
 class AuthService:
     method_decorators = [api_logger]
@@ -34,8 +34,6 @@ class AuthService:
             data={"sub": user.email}, expires_delta=access_token_expires
         )
         return {"access_token": access_token, "token_type": "bearer"}
-        return {"msg":"yep"}
-    
 
     async def authenticate_user(self, email: str, password: str):
         user = await User.get_by_email(email)

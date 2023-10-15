@@ -13,6 +13,8 @@ class Config:
     VERSION_INFO = '1.0.0'
     log_base_dir = config_data.get("log_base_dir")
     log_file = config_data.get("log_file")
+    JWT_SECRET = config_data.get("auth").get("JWT_SECRET")
+    JWT_ALGORITHM = config_data.get("auth").get("JWT_ALGORITHM")
     start_time = time.time()
 
 
