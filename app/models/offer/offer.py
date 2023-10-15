@@ -10,7 +10,7 @@ class OfferType(Base):
     Defines the DB ORM model for the offerType table
     """
     __bind_key__ = 'loveall'
-    __tablename__ = 'offer-type'
+    __tablename__ = 'offer_type'
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     name = Column(String(50), nullable=False)
     description = Column(String(50), nullable=False)

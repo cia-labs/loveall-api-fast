@@ -14,21 +14,17 @@ app = create_app()
 def run():
     uvicorn.run(app, port=9000, host="127.0.0.1", log_level='info')
 
-
 def init_db():
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
-
 
 @app.on_event("startup")
 async def startup():
     log.info("Application is Starting Up")
 
-
 @app.on_event("shutdown")
 async def shutdown():
     log.info("Application is Shutting Down")
-
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Database Initialization Script")
