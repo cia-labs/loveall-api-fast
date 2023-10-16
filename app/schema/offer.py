@@ -19,5 +19,12 @@ class OfferSchema(BaseModel):
     end_date: datetime = Field(description="The offer end date", example="test")
     priority: int = Field(description="The offer priority", example="test")
     offer_type_id: int = Field(description="The offer offer_type_id", example="test")
+    store_id: int = Field(description="The offer store_id", example="test")
+
+
+
+
+
+
 
 

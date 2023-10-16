@@ -21,4 +21,4 @@ class UpdateStoreSchema(BaseModel):
     city: str = Field(description="The store city", example="test")
     state: str = Field(description="The store state", example="test")
     zip_code: str = Field(description="The store zip code", example="test")
-    phone: str = Field(description="The store phone", example="test")    
+    phone: str = Field(description="The store phone", example="test")

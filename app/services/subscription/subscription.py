@@ -22,10 +22,14 @@ class SubscriptionTypeService:
     def __init__(self):
         self.store_db_actions = None
     
-    async def fetch_subscription_type(self, request: Request, response: Response, db: Session = Depends(get_session)):
+    async def fetch_subscription_type(self, subscription_type_id: str ,request: Request, response: Response, db: Session = Depends(get_session),current_user: User= Depends(get_current_user)):
         try:
-            self.store_db_actions = SubscriptionTypeDBActions(db)
-            resp, msg = self.store_db_actions.fetch_subscription_type_by_name("cdcdc")
+            self.store_db_actions = SubscriptionTypeDBActions(db,current_user)
+            resp,msg = None,None
+            if subscription_type_id and len(subscription_type_id)>0:
+                resp, msg =  self.store_db_actions.fetch_subscription_type_by_id(subscription_type_id)
+            else:
+                resp, msg = self.store_db_actions.fetch_subscription_type()
             if resp:
                 log.info(f'SubscriptionType fetched successfully with the name: ')
                 return Resp.success(response, msg)
@@ -40,7 +44,7 @@ class SubscriptionTypeService:
     async def create_subscription_type(self,response: Response, subscription_type: SubscriptionTypeSchema = Body(...),db: Session = Depends(get_session), current_user: User= Depends(get_current_user)):
         try:
             log.info(f'Creating new subscription_type with the data - {subscription_type}')
-            self.store_db_actions = SubscriptionTypeDBActions(db)
+            self.store_db_actions = SubscriptionTypeDBActions(db,current_user)
             resp, msg = self.store_db_actions.save_new_subscription_type(subscription_type)
             if resp:
                 log.info(f'New subscription_type {subscription_type} saved successfully')
@@ -56,7 +60,7 @@ class SubscriptionTypeService:
         # todo : only user to update subscription_type details
         try:
             log.info(f'Updating subscription_type with the data - {subscription_type}')
-            self.store_db_actions = SubscriptionTypeDBActions(db)
+            self.store_db_actions = SubscriptionTypeDBActions(db,current_user)
             resp, msg = self.store_db_actions.update_subscription_type(subscription_type,subscription_type_id)
             if resp:
                 log.info(f'SubscriptionType {subscription_type} updated successfully')
@@ -74,10 +78,15 @@ class SubscriptionService:
     def __init__(self):
         self.store_db_actions = None
 
-    async def fetch_subscription(self, request: Request, response: Response, db: Session = Depends(get_session)):
+    async def fetch_subscription(self, subscription_id: str, request: Request, response: Response, db: Session = Depends(get_session),current_user: User= Depends(get_current_user)):
         try:
-            self.store_db_actions = SubscriptionDBActions(db)
-            resp, msg = self.store_db_actions.fetch_subscription_by_name("cdcdc")
+            
+            self.store_db_actions = SubscriptionDBActions(db,current_user)
+            resp, msg = None,None
+            if subscription_id and len(subscription_id)>0:
+                resp, msg =  self.store_db_actions.fetch_subscription_by_id(subscription_id)
+            else:
+                resp, msg = self.store_db_actions.fetch_subscription()
             if resp:
                 log.info(f'Subscription fetched successfully with the name: ')
                 return Resp.success(response, msg)
@@ -92,7 +101,8 @@ class SubscriptionService:
     async def create_subscription(self,response: Response, subscription: SubscriptionSchema = Body(...),db: Session = Depends(get_session), current_user: User= Depends(get_current_user)):
         try:
             log.info(f'Creating new subscription with the data - {subscription}')
-            self.store_db_actions = SubscriptionDBActions(db)
+            self.store_db_actions = SubscriptionDBActions(db,current_user)
+            
             resp, msg = self.store_db_actions.save_new_subscription(subscription)
             if resp:
                 log.info(f'New subscription {subscription} saved successfully')

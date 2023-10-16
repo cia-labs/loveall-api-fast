@@ -16,25 +16,52 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 class StoreDBActions:
     method_decorators = [api_logger]
 
-    def __init__(self, db):
+    def __init__(self, db,current_user: User):
         self.db = db
-    
-    def fetch_store_by_name(self, name: str):
+        self.current_user = current_user
+
+    def fetch_store(self):
+        """
+        Fetch store
+        :return: True if success else False
+        """
+        try:
+            stores=None
+            if self.current_user.is_superuser():
+                logger.info(f'User is superuser')
+                stores = self.db.query(Store).all()
+            else:
+                logger.info(f'User is not a superuser {self.current_user.id}')
+                stores = self.db.query(Store).filter(Store.user_id == self.current_user.id).all()
+            if stores:
+                return True, stores
+            return False, f'Store not found'
+        except Exception as e:
+            logger.exception(f'Facing issue while fetching the store - {e}')
+            return False, f'Facing issue while fetching the store'
+
+    def fetch_store_by_id(self, id: int):
         """
         Fetch store by name
         :param name: Name of the store
         :return: True if success else False
         """
         try:
-            stores = self.db.query(Store).filter(Store.name == name).all()
+            stores=None
+            if self.current_user.is_superuser():
+                logger.info(f'User is superuser')
+                stores = self.db.query(Store).filter(Store.id == id).all()
+            else:
+                logger.info(f'User is not a superuser {self.current_user.id}')
+                stores = self.db.query(Store).filter(Store.id == id).filter(Store.user_id==self.current_user.id).all()
             if stores:
                 return True, stores
-            return False, f'Store with name {name} not found'
+            return False, f'Store with name {id} not found'
         except Exception as e:
-            logger.exception(f'Facing issue while fetching the store with name {name} - {e}')
-            return False, f'Facing issue while fetching the store with name {name}'
-
-    def save_new_store(self, store: StoreSchema,user_id:int):
+            logger.exception(f'Facing issue while fetching the store with name {id} - {e}')
+            return False, f'Facing issue while fetching the store with name {id}'
+        
+    def save_new_store(self, store: StoreSchema):
         """
         Save new store
         :param store: New store details
@@ -42,14 +69,12 @@ class StoreDBActions:
         """
         try:
 
-            # StoreSchema(**store)
-            print(store)
-            print(user_id)
+            print(self.current_user.email)
             self.db.add(Store(**store.dict(),**{
-                "user_id": user_id,
+                "user_id": self.current_user.id,
                 "creation_time":datetime.now(),
                 "modification_time": datetime.now(),
-                "created_by" :""
+                "created_by" :self.current_user.email
             }))
             self.db.commit()
             return True, f'Store {store} saved successfully'
@@ -64,8 +89,21 @@ class StoreDBActions:
         :return: True if success else False
         """
         try:
-            # todo : handle errors
-            self.db.query(Store).filter(Store.id == store_id).update(store.dict())
+            result = None
+            final_update = {**store.dict(),**{
+                    "modification_time": str(datetime.now()),
+                }}
+            logger.info(f'User is superuser {self.current_user.is_superuser()} -- {self.current_user.email} -- {self.current_user.role}')
+            print(final_update)
+            if self.current_user.is_superuser():
+                logger.info(f'User is superuser')
+                # add modification time to store.dict()
+                
+                result = self.db.query(Store).filter(Store.id == store_id).update(final_update)
+            else:
+                result = self.db.query(Store).filter(Store.id == store_id,Store.user_id==self.current_user.id).update(final_update)
+            if result == 0:
+                return False, f'Store with id {store_id} not found for user'
             self.db.commit()
             return True, f'Store {store} updated successfully'
         except Exception as e:

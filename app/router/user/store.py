@@ -14,7 +14,7 @@ class StoreRouter:
         """
         self.storeService = StoreService()
         self.router = APIRouter(prefix='/store',tags=['Store'])
-        self.router.add_api_route(path='/', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
+        self.router.add_api_route(path='/{store_id:path}', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
                                   endpoint=self.storeService.fetch_store)
         
         self.router.add_api_route(path='/create', methods=['POST'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],

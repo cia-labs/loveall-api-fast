@@ -42,8 +42,13 @@ class Offer(Base):
     priority = Column(Integer, nullable=False)
     enabled = Column(Integer, nullable=False)
     offer_type_id = Column(Integer,ForeignKey('offer_type.id', ondelete='cascade'), nullable=False)
+    user_id = Column(Integer,ForeignKey('user.id', ondelete='cascade'), nullable=False)
+    store_id = Column(Integer,ForeignKey('store.id', ondelete='cascade'), nullable=False)
+    created_by = Column(String(50))
+    creation_time = Column(DateTime, nullable=False, default=datetime.now())
+    modification_time = Column(DateTime, nullable=False, default=datetime.now())
 
-    def __init__(self, name, description, start_date, end_date, priority, enabled, offer_type_id):
+    def __init__(self, name, description, start_date, end_date, priority, enabled, offer_type_id, user_id,store_id, created_by, creation_time, modification_time):
             """
             Constructor for the Offer class
             """
@@ -52,5 +57,12 @@ class Offer(Base):
             self.start_date = start_date
             self.end_date = end_date
             self.priority = priority
+            self.user_id = user_id
             self.enabled = enabled
             self.offer_type_id = offer_type_id
+            self.store_id = store_id
+            self.created_by = created_by
+            self.creation_time = creation_time
+            self.modification_time = modification_time
+
+

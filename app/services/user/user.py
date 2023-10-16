@@ -18,18 +18,21 @@ class UserService:
     def __init__(self):
         self.user_db_actions = None
 
-    async def fetch_user(self, request: Request, response: Response, db: Session = Depends(get_session),current_user: User = Depends(get_current_user)):
+    #todo: remove additional fields
+    async def fetch_user(self,user_id: str, request: Request, response: Response, db: Session = Depends(get_session),current_user: User = Depends(get_current_user)):
         try:
-            self.user_db_actions = UserDBActions(db)
-            
-            # resp, msg = self.user_db_actions.fetch_user_by_name(data.get('name'))
-            data={"name":""}
-            resp, msg = self.user_db_actions.fetch_user_by_name("cdcdc")
+            self.user_db_actions = UserDBActions(db,current_user)
+            resp, msg = None,None
+            if user_id and len(user_id)>0:
+                resp, msg =  self.user_db_actions.fetch_user_by_id(user_id)
+            else:
+                resp, msg = self.user_db_actions.fetch_user()
             if resp:
-                log.info(f'User fetched successfully with the name: {data.get("name")}')
+                log.info(f'User fetched successfully with the name:')
+                # return response without user password key
                 return Resp.success(response, msg)
             else:
-                log.error(f'Facing issue while fetching the new user {data.get("name")} - {msg}')
+                log.error(f'Facing issue while fetching the new user  {msg}')
                 return Resp.error(response, msg)
         except Exception as e:
             # log.exception(f'Facing issue while fetching the new user {data.get("name")} - {e}')
@@ -37,10 +40,10 @@ class UserService:
             return Resp.error(response, f'Facing issue in user -{e}')
 
 
-    async def create_user(self,response: Response, user: UserSchema = Body(...),db: Session = Depends(get_session)):
+    async def create_user(self,response: Response, user: UserSchema = Body(...),db: Session = Depends(get_session), current_user: User= Depends(get_current_user)):
         try:
             log.info(f'Creating new user with the data - ')
-            self.user_db_actions = UserDBActions(db)
+            self.user_db_actions = UserDBActions(db,current_user)
             resp, msg = self.user_db_actions.save_new_user(user)
             if resp:
                 log.info(f'New user {user} saved successfully')

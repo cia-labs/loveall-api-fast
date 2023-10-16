@@ -43,9 +43,15 @@ class User(Base):
             self.created_by = created_by
             self.creation_time = creation_time
             self.modification_time = modification_time
+    # is superuser
+    def is_superuser(self):
+        if self.role == 'admin':
+            return True
 
     def get_by_email(email):
         return User.query.filter_by(email=email).first()
+
+    
 
 class Store(Base):
     """
@@ -80,4 +86,3 @@ class Store(Base):
             self.created_by = created_by
             self.creation_time = creation_time
             self.modification_time = modification_time
-

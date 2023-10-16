@@ -21,3 +21,5 @@ class SubscriptionSchema(BaseModel):
     uuid : str = Field(description="The subscription uuid", example="test")
     start_date: datetime = Field(description="The subscription start date", example="test")
     end_date: datetime = Field(description="The subscription end date", example="test")
+
+

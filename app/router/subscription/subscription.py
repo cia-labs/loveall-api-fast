@@ -15,7 +15,7 @@ class SubscriptionTypeRouter:
         """
         self.subscriptionTypeRouter = SubscriptionTypeService()
         self.router = APIRouter(prefix='/subscriptionType',tags=['subscriptionType'])
-        self.router.add_api_route(path='/', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
+        self.router.add_api_route(path='/{subscription_type_id:path}', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
                                   endpoint=self.subscriptionTypeRouter.fetch_subscription_type)
         
         self.router.add_api_route(path='/create', methods=['POST'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
@@ -36,7 +36,7 @@ class SubscriptionRouter:
         """
         self.subscriptionRouter = SubscriptionService()
         self.router = APIRouter(prefix='/subscription',tags=['offerType'])
-        self.router.add_api_route(path='/', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
+        self.router.add_api_route(path='/{subscription_id:path}', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
                                   endpoint=self.subscriptionRouter.fetch_subscription)
         
         self.router.add_api_route(path='/create', methods=['POST'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],

@@ -6,6 +6,8 @@ from app.models.offer.offer import OfferType,Offer
 from app.schema.offer import OfferSchema
 from app.utils.logger import api_logger
 import logging
+from app.models.user.user import User
+
 
 
 from passlib.context import CryptContext
@@ -16,23 +18,37 @@ logger = logging.getLogger(__name__)
 class OfferTypeDBActions:
     method_decorators = [api_logger]
 
-    def __init__(self, db):
+    def __init__(self, db,current_user: User):
         self.db = db
+        self.current_user = current_user
 
-    def fetch_offer_type_by_name(self, name: str):
+    def fetch_offer_type(self):
+        """
+        Fetch offer_type
+        """
+        try:
+            offer_types = self.db.query(OfferType).all()
+            if offer_types:
+                return True, offer_types
+            return True, []
+        except Exception as e:
+            logger.exception(f'Facing issue while fetching the offer_type - {e}')
+            return False, f'Facing issue while fetching the offer_type'
+        
+    def fetch_offer_type_by_id(self, id: str):
         """
         Fetch offer_type by name
         :param name: Name of the offer_type
         :return: True if success else False
         """
         try:
-            offer_types = self.db.query(OfferType).filter(OfferType.name == name).all()
+            offer_types = self.db.query(OfferType).filter(OfferType.id == id).all()
             if offer_types:
                 return True, offer_types
-            return False, f'OfferType with name {name} not found'
+            return False, f'OfferType with name {id} not found'
         except Exception as e:
-            logger.exception(f'Facing issue while fetching the offer_type with name {name} - {e}')
-            return False, f'Facing issue while fetching the offer_type with name {name}'
+            logger.exception(f'Facing issue while fetching the offer_type with name {id} - {e}')
+            return False, f'Facing issue while fetching the offer_type with name {id}'
     
     def save_new_offer_type(self, offer_type: OfferType):
         """
@@ -41,10 +57,13 @@ class OfferTypeDBActions:
         :return: True if success else False
         """
         try:
+            # check if admin
+            if not self.current_user.is_superuser():
+                return False, f'Only admin can create offer_type'
             self.db.add(OfferType(**offer_type.dict(),**{
                 "creation_time":datetime.now(),
                 "modification_time": datetime.now(),
-                "created_by" :""
+                "created_by" :self.current_user.email
             }))
             self.db.commit()
             return True, f'OfferType {offer_type} saved successfully'
@@ -58,11 +77,18 @@ class OfferTypeDBActions:
         :param offer_type: offer_type details
         :return: True if success else False
         """
+        if not self.current_user.is_superuser():
+            return False, f'Only admin can update offer_type'
         try:
-            self.db.query(OfferType).filter(OfferType.id == offer_type_id).update(offer_type.dict())
+            result = None
+            final_update = {**offer_type.dict(),**{
+                "modification_time": datetime.now(),
+            }}            
+            result = self.db.query(OfferType).filter(OfferType.id == offer_type_id).update(final_update)
+            if result==0:
+                return False, f'OfferType with id {offer_type_id} not found'
             self.db.commit()
             return True, f'OfferType {offer_type} updated successfully'
-            return False, f'OfferType with id {offer_type_id} not found'
         except Exception as e:
             logger.exception(f'Facing issue while updating the offer_type - {e}')
             return False, f'Facing issue while updating the offer_type - {e}'
@@ -72,23 +98,45 @@ class OfferTypeDBActions:
 class OfferDBActions:
     method_decorators = [api_logger]
 
-    def __init__(self, db):
+    def __init__(self, db,current_user:User):
         self.db = db
+        self.current_user = current_user
 
-    def fetch_offer_by_name(self, name: str):
+    def fetch_offer(self):
+        """
+        Fetch offer
+        """
+        try:
+            offers = None
+            if self.current_user.is_superuser():
+                offers = self.db.query(Offer).all()
+            else:
+                offers = self.db.query(Offer).filter(Offer.user_id == self.current_user.id).all()
+            if offers:
+                return True, offers
+            return True,[]
+        except Exception as e:
+            logger.exception(f'Facing issue while fetching the offer - {e}')
+            return False, f'Facing issue while fetching the offer'
+
+    def fetch_offer_by_id(self, id: int):
         """
         Fetch offer by name
         :param name: Name of the offer
         :return: True if success else False
         """
         try:
-            offers = self.db.query(Offer).filter(Offer.name == name).all()
+            offers = None
+            if self.current_user.is_superuser():
+                offers = self.db.query(Offer).filter(Offer.id == id).all()
+            else:
+                offers = self.db.query(Offer).filter(Offer.id == id).filter(Offer.user_id == self.current_user.id).all()
             if offers:
                 return True, offers
-            return False, f'Offer with name {name} not found'
+            return False, f'Offer with name {id} not found'
         except Exception as e:
-            logger.exception(f'Facing issue while fetching the offer with name {name} - {e}')
-            return False, f'Facing issue while fetching the offer with name {name}'
+            logger.exception(f'Facing issue while fetching the offer with name {id} - {e}')
+            return False, f'Facing issue while fetching the offer with name {id}'
     
     def save_new_offer(self, offer: OfferSchema):
         """
@@ -98,9 +146,10 @@ class OfferDBActions:
         """
         try:
             self.db.add(Offer(**offer.dict(),**{
-                # "creation_time":datetime.now(),
-                # "modification_time": datetime.now(),
-                # "created_by" :"",
+                "user_id": self.current_user.id,
+                "creation_time":datetime.now(),
+                "modification_time": datetime.now(),
+                "created_by" :self.current_user.email,
                 "enabled":0
             }))
             self.db.commit()
@@ -109,26 +158,26 @@ class OfferDBActions:
             logger.exception(f'Facing issue while saving the new offer - {e}')
             return False, f'Facing issue while saving the new offer - {e}'
         
-    def update_offer(self, offer: Offer,offer_id: str):
+    def update_offer(self, offer: OfferSchema,offer_id: str):
         """
         Update offer
         :param offer: offer details
         :return: True if success else False
         """
         try:
-            offer = self.db.query(Offer).filter(Offer.id == offer_id).first()
-            if offer:
-                offer.name = offer.name
-                offer.description = offer.description
-                offer.start_date = offer.start_date
-                offer.end_date = offer.end_date
-                offer.priority = offer.priority
-                offer.enabled = offer.enabled
-                offer.offer_type_id = offer.offer_type_id
-                offer.modification_time = datetime.now()
-                self.db.commit()
-                return True, f'Offer {offer} updated successfully'
-            return False, f'Offer with id {offer_id} not found'
+            result = None
+            final_update = {**offer.dict(),**{
+                "modification_time": datetime.now(),
+            }}            
+            result = None
+            if self.current_user.is_superuser():
+                result = self.db.query(Offer).filter(Offer.id == offer_id).update(final_update)
+            else:
+                result = self.db.query(Offer).filter(Offer.id == offer_id).filter(Offer.user_id == self.current_user.id).update(final_update)
+            if result==0:
+                return False, f'Offer with id {offer_id} not found'
+            self.db.commit()
+            return True, f'Offer {offer} updated successfully'
         except Exception as e:
             logger.exception(f'Facing issue while updating the offer - {e}')
             return False, f'Facing issue while updating the offer - {e}'

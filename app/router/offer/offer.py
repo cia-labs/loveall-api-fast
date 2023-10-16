@@ -14,7 +14,7 @@ class OfferTypeRouter:
         """
         self.offerTypeRouter = OfferTypeService()
         self.router = APIRouter(prefix='/offerType',tags=['offerType'])
-        self.router.add_api_route(path='/', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
+        self.router.add_api_route(path='/{offer_type_id:path}', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
                                   endpoint=self.offerTypeRouter.fetch_offer_type)
         
         self.router.add_api_route(path='/create', methods=['POST'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
@@ -35,11 +35,12 @@ class OfferRouter:
         """
         self.offerRouter = OfferService()
         self.router = APIRouter(prefix='/offer',tags=['offer'])
-        self.router.add_api_route(path='/', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
+        self.router.add_api_route(path='/{offer_id:path}', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
                                   endpoint=self.offerRouter.fetch_offer)
         
+        # todo: only store owner can add offer based on store_id-user_id
         self.router.add_api_route(path='/create', methods=['POST'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
                                   endpoint=self.offerRouter.create_offer)
-        self.router.add_api_route(path='/update/{store_id:path}', methods=['PATCH'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
+        self.router.add_api_route(path='/update/{offer_id:path}', methods=['PATCH'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
                                   endpoint=self.offerRouter.update_offer)
 

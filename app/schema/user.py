@@ -8,7 +8,7 @@ class UserSchema(BaseModel):
     # id: int
     name: str = Field(description="The user name", example="test")
     email: str = Field(description="The user email", example="test@test.com")
-    password: str = Field(description="The user hashed password", example="test")
+    password: str = Field(description="The user hashed password", example="test",hidden_from_schema=True)
     role: str = Field(description="The user role", example="admin")
     # is_active: bool = Field(description="The user active status", example=True)
     # created_by: str = Field(description="Email of the creator", example="")

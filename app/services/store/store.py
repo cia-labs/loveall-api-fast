@@ -19,10 +19,15 @@ class StoreService:
     def __init__(self):
         self.store_db_actions = None
     
-    async def fetch_store(self, request: Request, response: Response, db: Session = Depends(get_session)):
+    async def fetch_store(self,store_id:str,request: Request, response: Response, db: Session = Depends(get_session),current_user: User= Depends(get_current_user)):
         try:
-            self.store_db_actions = StoreDBActions(db)
-            resp, msg = self.store_db_actions.fetch_store_by_name("cdcdc")
+
+            self.store_db_actions = StoreDBActions(db,current_user)
+            resp, msg = None,None
+            if store_id and len(store_id)>0:
+                resp, msg =  self.store_db_actions.fetch_store_by_id(store_id)
+            else:
+                resp, msg = self.store_db_actions.fetch_store()
             if resp:
                 log.info(f'Store fetched successfully with the name: ')
                 return Resp.success(response, msg)
@@ -34,11 +39,14 @@ class StoreService:
             log.exception(f'Facing issue while fetching the new store  - {e}')
             return Resp.error(response, f'Facing issue in store -{e}')
     
+        
+    
     async def create_store(self,response: Response, store: StoreSchema = Body(...),db: Session = Depends(get_session), current_user: User= Depends(get_current_user)):
         try:
+        
             log.info(f'Creating new store with the data - {store}')
-            self.store_db_actions = StoreDBActions(db)
-            resp, msg = self.store_db_actions.save_new_store(store,current_user.id)
+            self.store_db_actions = StoreDBActions(db,current_user=current_user)
+            resp, msg = self.store_db_actions.save_new_store(store)
             if resp:
                 log.info(f'New store {store} saved successfully')
                 return Resp.success(response, msg)
@@ -48,12 +56,15 @@ class StoreService:
         except Exception as e:
             log.exception(f'Facing issue while saving the new store - {e}')
             return Resp.error(response, f'Facing issue in store -{e}')
-        
+
     async def update_store(self,store_id: str,response: Response, store: StoreSchema = Body(...),db: Session = Depends(get_session), current_user: User= Depends(get_current_user)):
         # todo : only user to update store details
         try:
+            if not store_id or len(store_id) == 0:
+                log.error(f'No store id provided')
+                return Resp.error(response, f'No store id provided')
             log.info(f'Updating store with the data - {store}')
-            self.store_db_actions = StoreDBActions(db)
+            self.store_db_actions = StoreDBActions(db,current_user)
             resp, msg = self.store_db_actions.update_store(store,store_id)
             if resp:
                 log.info(f'Store {store} updated successfully')

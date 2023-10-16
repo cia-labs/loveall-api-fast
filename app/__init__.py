@@ -10,6 +10,7 @@ from .router.auth.auth import AuthRoutes
 from .router.user.store import StoreRouter
 from .router.offer.offer import OfferRouter,OfferTypeRouter
 from .router.subscription.subscription import SubscriptionRouter,SubscriptionTypeRouter
+from .router.transaction.transaction import TransactionRouter
 
 def create_app():
     app = FastAPI()
@@ -21,5 +22,7 @@ def create_app():
 
     app.include_router(SubscriptionRouter().router)
     app.include_router(SubscriptionTypeRouter().router)
+
+    app.include_router(TransactionRouter().router)
     
     return app

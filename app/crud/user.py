@@ -14,9 +14,39 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 class UserDBActions:
     db = None
 
-    def __init__(self, db):
+    def __init__(self, db, current_user:User):
         self.db = db
+        self.current_user = current_user
     
+    def fetch_user(self):
+        """
+        Fetch user
+        :return: True if success else False
+        """
+        try:
+            users = self.db.query(User).all()
+            if users:
+                return True, users
+            return False, f'No users found'
+        except Exception as e:
+            logger.exception(f'Facing issue while fetching the users - {e}')
+            return False, f'Facing issue while fetching the users'
+        
+    def fetch_user_by_id(self, user_id: str):
+        """
+        Fetch user by id
+        :param user_id: Id of the user
+        :return: True if success else False
+        """
+        try:
+            user_data = self.db.query(User).filter(User.id == user_id).first()
+            if user_data:
+                return True, user_data
+            return False, f'User with id {user_id} not found'
+        except Exception as e:
+            logger.exception(f'Facing issue while fetching the user with id {user_id} - {e}')
+            return False, f'Facing issue while fetching the user with id {user_id}'
+        
     def fetch_user_by_email(self, email: str):
         """
         Fetch user by email
@@ -56,8 +86,10 @@ class UserDBActions:
         :return: True if success else False
         """
         try:
+            if not self.current_user.is_superuser():
+                logger.error(f'User is not a superuser {self.current_user.id}')
+                return False, f'User is not a superuser {self.current_user.id}'
             # UserSchema(**user)
-            print(user)
             logger.info(f'INFO: Creating new user with the data - {user}')
             resp, msg = self.fetch_user_by_name(user.name)
             if resp:
@@ -74,7 +106,7 @@ class UserDBActions:
                             password= get_password_hash(user.password),
                             role=user.role,
                             is_active=0,
-                            created_by="",
+                            created_by=self.current_user.email,
                             creation_time=datetime.now(),
                             modification_time=datetime.now())
             logger.info(f'INFO: Saving the new user {user.name}')

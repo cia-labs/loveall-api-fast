@@ -21,7 +21,7 @@ class AuthService:
         self.auth_db_actions = None
 
     async def login (self, user:UserLoginSchema = Body(...) , db: Session = Depends(get_session)):
-        self.auth_db_actions = UserDBActions(db)
+        self.auth_db_actions = UserDBActions(db,User())
         found,userData=self.auth_db_actions.fetch_user_by_email(user.email)
         print(found,userData)
         if not found:
