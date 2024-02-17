@@ -1,6 +1,6 @@
 import jwt
 from datetime import datetime, timedelta
-from passlib.context import CryptContext
+
 from fastapi import HTTPException, status, Body, Depends
 from app.models.user.user import User
 from app.schema.user import UserLoginSchema
@@ -10,8 +10,7 @@ from app.utils.logger import api_logger
 from app.crud.user import UserDBActions
 from sqlalchemy.orm import Session
 from app import Config
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+from app.utils.utils import pwd_context
 
 
 
@@ -21,7 +20,17 @@ class AuthService:
         self.auth_db_actions = None
 
     async def login (self, user:UserLoginSchema = Body(...) , db: Session = Depends(get_session)):
-        self.auth_db_actions = UserDBActions(db,User())
+        self.auth_db_actions = UserDBActions(db,User(
+            name="",
+            email=user.email,
+            password=user.password,
+            role="",
+            is_active=0,
+            created_by="",
+            creation_time=datetime.now(),
+            modification_time=datetime.now()
+
+        ))
         found,userData=self.auth_db_actions.fetch_user_by_email(user.email)
         print(found,userData)
         if not found:

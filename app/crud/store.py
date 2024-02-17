@@ -1,17 +1,13 @@
 import json
 import uuid
 from datetime import datetime
-
 from app.models.user.user import User,Store
 from app.schema.store import StoreSchema
 from app.utils.logger import api_logger
 import logging
-
-
-from passlib.context import CryptContext
+from app.utils.utils import pwd_context
 
 logger = logging.getLogger(__name__)
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class StoreDBActions:
     method_decorators = [api_logger]

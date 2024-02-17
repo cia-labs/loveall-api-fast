@@ -6,10 +6,10 @@ from app.models.user.user import User
 from app.schema.user import UserSchema
 import logging
 
-from passlib.context import CryptContext
+from app.utils.utils import pwd_context
 
 logger = logging.getLogger(__name__)
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 
 class UserDBActions:
     db = None
@@ -54,9 +54,7 @@ class UserDBActions:
         :return: True if success else False
         """
         try:
-            print(email)
             user_data = self.db.query(User).filter(User.email == email).first()
-            print(user_data)
             if user_data:
                 return True, user_data
             return False, f'User with email {email} not found'
