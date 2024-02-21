@@ -62,7 +62,7 @@ class TransactionService:
             status, message = self.store_db_actions.save_new_transaction(transaction)
             if status:
                 return Resp.success(response,message)
-            return Resp().bad_request(message=message)
+            return Resp.error(response,message=message)
         except Exception as e:
             log.exception(f'Facing issue while saving the new transaction - {e}')
             return Resp().internal_server_error(message=f'Facing issue while saving the new transaction - {e}')
