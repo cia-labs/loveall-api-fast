@@ -16,6 +16,7 @@ class Transaction(Base):
     subscription_id = Column(Integer,ForeignKey('subscription.id', ondelete='cascade'), nullable=False)
     store_id = Column(Integer,ForeignKey('store.id', ondelete='cascade'), nullable=False)
     offer_id = Column(Integer,ForeignKey('offer.id', ondelete='cascade'), nullable=False)
+    discount_rate = Column(Integer, nullable=False)
     user_id = Column(Integer,ForeignKey('user.id', ondelete='cascade'), nullable=False)
     merchant_user_id = Column(Integer,ForeignKey('user.id', ondelete='cascade'), nullable=False)
     total_amount = Column(Integer, nullable=False)
@@ -27,7 +28,7 @@ class Transaction(Base):
     modification_time = Column(DateTime, nullable=False, default=datetime.now())
 
 
-    def __init__(self, subscription_id, store_id, offer_id, user_id, merchant_user_id,total_amount, offer_amount, bill_number, bill_date, created_by, creation_time, modification_time):
+    def __init__(self, subscription_id, store_id, offer_id, user_id, merchant_user_id,total_amount, offer_amount, bill_number, bill_date, created_by, creation_time, modification_time,discount_rate):
         """
         Constructor for the Transaction class
         """
@@ -43,6 +44,7 @@ class Transaction(Base):
         self.created_by = created_by
         self.creation_time = creation_time
         self.modification_time = modification_time
+        self.discount_rate = discount_rate
         
 
 

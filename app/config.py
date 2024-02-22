@@ -1,7 +1,8 @@
 import json
 import time
 
-base_dir = '/Users/surya.m/Documents/CIAECO/loveall-api-fast/'
+base_dir = '/app/'
+# base_dir = '/Users/surya.m/Documents/CIAECO/test/loveall-api-fast/'
 
 with open(base_dir + 'config.json') as config_file:
     config_data = json.load(config_file)

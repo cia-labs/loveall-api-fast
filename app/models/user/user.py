@@ -51,7 +51,6 @@ class User(Base):
     def get_by_email(email):
         return User.query.filter_by(email=email).first()
 
-    
 
 class Store(Base):
     """
