@@ -5,7 +5,7 @@ from app.services.auth.auth_bearer import JWTBearer
 
 class AuthRoutes:
     """
-    Router for auth
+    Router for auth test
     """
     
     def __init__(self):
