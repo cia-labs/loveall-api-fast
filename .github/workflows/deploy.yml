@@ -1,0 +1,35 @@
+name: Deploy FastAPI Application
+
+on:
+  push:
+    branches:
+      - main  # Set this to your default branch
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'  # Set this to the version you're using
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # - name: Deploy to server
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.HOST }}  # Set this in your repository's secrets
+      #     username: ${{ secrets.USERNAME }}  # Set this in your repository's secrets
+      #     key: ${{ secrets.SSH_KEY }}  # Set this in your repository's secrets
+      #     script: |
+      #       cd /path/to/your/fastapi/app  # Change to your app's directory
+      #       git pull origin main  # Pull the latest changes
+      #       # Any other deployment commands, e.g., restarting your application
+      #       # For example, if you use gunicorn:
+      #       pkill gunicorn
+      #       gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app -b 0.0.0.0:8000 &
