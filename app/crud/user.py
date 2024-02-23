@@ -84,6 +84,7 @@ class UserDBActions:
         :return: True if success else False
         """
         try:
+            print(self.current_user)
             if not self.current_user.is_superuser():
                 logger.error(f'User is not a superuser {self.current_user.id}')
                 return False, f'User is not a superuser {self.current_user.id}'

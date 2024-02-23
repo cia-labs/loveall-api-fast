@@ -6,6 +6,7 @@ from fastapi import FastAPI, Body, Depends
 from app.models.database import get_session
 from sqlalchemy.orm import Session
 from app.models.user.user import User
+import json
 
 
 class JWTBearer(HTTPBearer):
@@ -37,5 +38,6 @@ class JWTBearer(HTTPBearer):
 
 def get_current_user(token: str = Depends(JWTBearer()),db: Session = Depends(get_session)):
     decodedData = decodeJWT(token)
-    user_data = db.query(User).filter(User.email == decodedData.get("sub")).first()
+    details = json.loads(decodedData.get("sub"))
+    user_data = db.query(User).filter(User.email == details.get("email")).first()
     return  user_data

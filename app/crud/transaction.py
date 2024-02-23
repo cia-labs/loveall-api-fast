@@ -44,8 +44,10 @@ class TransactionDBActions:
             transaction = None
             if self.current_user.is_superuser():
                 transaction = self.db.query(Transaction).all()
-            else:
+            elif self.current_user.role == 'merchant':
                 transaction = self.db.query(Transaction).filter(Transaction.merchant_user_id == self.current_user.id).all()
+            else:
+                transaction = self.db.query(Transaction).filter(Transaction.user_id == self.current_user.id).all()
             if transaction:
                 return True, transaction
             return True,[]

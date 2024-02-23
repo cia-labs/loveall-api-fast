@@ -27,8 +27,7 @@ class StoreDBActions:
                 logger.info(f'User is superuser')
                 stores = self.db.query(Store).all()
             else:
-                logger.info(f'User is not a superuser {self.current_user.id}')
-                stores = self.db.query(Store).filter(Store.user_id == self.current_user.id).all()
+                stores = self.db.query(Store).all()
             if stores:
                 return True, stores
             return False, f'Store not found'

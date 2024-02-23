@@ -95,7 +95,10 @@ class SubscriptionDBActions:
         :return: True if success else False
         """
         try:
-            subscriptions = self.db.query(Subscription).all()
+            if self.current_user.is_superuser() or self.current_user.role == 'merchant':
+                subscriptions = self.db.query(Subscription).all()
+            else:
+                subscriptions = self.db.query(Subscription).filter(Subscription.user_id == self.current_user.id).all()
             if subscriptions:
                 return True, subscriptions
             return True, []
