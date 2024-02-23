@@ -11,7 +11,7 @@ from app.crud.user import UserDBActions
 from sqlalchemy.orm import Session
 from app import Config
 from app.utils.utils import pwd_context
-
+import json
 
 
 class AuthService:
