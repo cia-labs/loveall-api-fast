@@ -1,7 +1,15 @@
-# LoveAll Service
+# LoveAll
 
-to create database and clean and run
-python3 manager.py --init-db
+LoveAll is a loyalty platform by AF. The main focus is to create a loyalty platfrom in the restaurants space which funnels into helping the social causes enlisted by AF.
 
-to only run 
-python3 manager.py
+
+###### Usage:
+
+- To create database and clean and run `python3 manager.py --init-db`
+- To only run
+  `python3 manager.py`
+
+
+#TODO:
+
+Offer reoccurance login using rrule
