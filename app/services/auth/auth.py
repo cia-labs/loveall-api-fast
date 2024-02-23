@@ -46,10 +46,8 @@ class AuthService:
 
     async def authenticate_user(self, email: str, password: str):
         user = await User.get_by_email(email)
-        if not user:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
-        if not verify_password(password, user.hashed_password):
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect password")
+        if not user or not verify_password(password, user.hashed_password):
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect email or password")
         return user
 
     async def create_jwt_token(self, email: str, password: str):
