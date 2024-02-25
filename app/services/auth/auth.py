@@ -46,11 +46,8 @@ class AuthService:
             "is_active": userData.is_active
         }
         
-        # Serialize the dictionary to a JSON string
-        user_data_json = json.dumps(user_data_dict)
-        
         access_token = create_access_token(
-            data={"sub": user_data_json}, expires_delta=access_token_expires
+            data={"sub": user_data_dict}, expires_delta=access_token_expires
         )
         
         return {"access_token": access_token, "token_type": "bearer"}
