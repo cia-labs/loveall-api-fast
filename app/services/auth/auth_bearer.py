@@ -38,6 +38,6 @@ class JWTBearer(HTTPBearer):
 
 def get_current_user(token: str = Depends(JWTBearer()),db: Session = Depends(get_session)):
     decodedData = decodeJWT(token)
-    details = json.loads(decodedData.get("sub"))
+    details = decodedData["sub"]
     user_data = db.query(User).filter(User.email == details.get("email")).first()
     return  user_data
