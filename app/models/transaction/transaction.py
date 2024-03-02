@@ -28,7 +28,7 @@ class Transaction(Base):
     modification_time = Column(DateTime, nullable=False, default=datetime.now())
 
 
-    def __init__(self, subscription_id, store_id, offer_id, user_id, merchant_user_id,total_amount, offer_amount, bill_number, bill_date, created_by, creation_time, modification_time,discount_rate):
+    def __init__(self, subscription_id, store_id, offer_id, user_id, merchant_user_id,total_amount, offer_amount, bill_number, created_by, creation_time, modification_time,discount_rate):
         """
         Constructor for the Transaction class
         """
@@ -40,7 +40,6 @@ class Transaction(Base):
         self.merchant_user_id = merchant_user_id
         self.offer_amount = offer_amount
         self.bill_number = bill_number
-        self.bill_date = bill_date
         self.created_by = created_by
         self.creation_time = creation_time
         self.modification_time = modification_time

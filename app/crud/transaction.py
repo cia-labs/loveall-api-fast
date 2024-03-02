@@ -3,6 +3,8 @@ import uuid
 from datetime import datetime
 
 from app.models.transaction.transaction import Transaction
+from app.models.offer.offer import Offer
+from app.models.subscription.subscription import Subscription
 from app.schema.transaction import TransactionSchema
 from app.utils.logger import api_logger
 import logging
@@ -60,11 +62,24 @@ class TransactionDBActions:
         Save new transaction
         """
         try:
+            offer = self.db.query(Offer).filter(Offer.id == transaction.offer_id).first()
+            if not offer:
+                return False, f'Offer with id {transaction.offer_id} not found'
+            subscription = self.db.query(Subscription).filter(Subscription.id == transaction.subscription_id).first()
+            if not subscription:
+                return False, f'Subscription with id {transaction.subscription_id} not found'
+            
+            offer_amount = transaction.total_amount - (transaction.total_amount * offer.discount_rate/100)
+
             self.db.add(Transaction(**transaction.dict(),**{
                "merchant_user_id": self.current_user.id,
                "created_by": self.current_user.email,
                "creation_time": datetime.now(),
                 "modification_time": datetime.now(),
+                "discount_rate": offer.discount_rate,
+                "user_id": subscription.user_id,
+                "store_id": offer.store_id,
+                "offer_amount" : offer_amount
             }))
             self.db.commit()
             return True, f'Transaction {transaction} saved successfully'
