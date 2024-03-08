@@ -58,6 +58,7 @@ class SubscriptionType(Base):
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     name = Column(String(50), nullable=False)
     description = Column(String(50), nullable=False)
+    meta_data = Column(MutableDict.as_mutable(JSON()), nullable=False)
     created_by = Column(String(50))
     creation_time = Column(DateTime, nullable=False, default=datetime.now())
     modification_time = Column(DateTime, nullable=False, default=datetime.now())
