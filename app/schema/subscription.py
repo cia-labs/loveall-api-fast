@@ -8,6 +8,7 @@ class SubscriptionTypeSchema(BaseModel):
     """
     name: str = Field(description="The subscriptionType name", example="test")
     description: str = Field(description="The subscriptionType description", example="test")
+    meta_data: dict = Field(description="The subscriptionType meta_data", example="test")
 
 
 class SubscriptionSchema(BaseModel):
