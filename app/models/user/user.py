@@ -44,14 +44,15 @@ class User(Base):
             self.name = name
             self.email = email
             self.password = password
-            self.role = role
+            self.role  = role
             self.is_active = is_active
             self.created_by = created_by
             self.creation_time = creation_time
             self.modification_time = modification_time
+
     # is superuser
     def is_superuser(self):
-        if self.role == 'admin':
+        if self.role == UserRole.ADMIN: # type: ignore
             return True
 
     def get_by_email(email):
@@ -72,8 +73,8 @@ class Store(Base):
     user_id = Column(Integer,ForeignKey('user.id', ondelete='cascade'), nullable=False)
     created_by = Column(String(50))
     meta_data = Column(MutableDict.as_mutable(JSON()), nullable=False)
-    creation_time = Column(DateTime, nullable=False, default=datetime.now())
-    modification_time = Column(DateTime, nullable=False, default=datetime.now())
+    creation_time = Column(DateTime, nullable=False, default=func.now())
+    modification_time = Column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
 
     def __init__(self, name, address, city, state, zip_code, phone,user_id, created_by, creation_time,
                     modification_time):
