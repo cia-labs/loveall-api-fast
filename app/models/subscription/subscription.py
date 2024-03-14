@@ -1,5 +1,5 @@
 import enum
-from sqlalchemy import Column, String, DateTime, JSON, Integer, Enum, ForeignKey
+from sqlalchemy import Column, String, DateTime, JSON, Integer, Enum, ForeignKey,func
 from sqlalchemy.ext.mutable import MutableDict
 from datetime import datetime
 
@@ -23,12 +23,12 @@ class Subscription(Base):
     user_id = Column(Integer,ForeignKey('user.id', ondelete='cascade'), nullable=False)
     subscription_type_id = Column(Integer,ForeignKey('subscription_type.id', ondelete='cascade'), nullable=False)
     uuid = Column(String(36), unique=True, nullable=False)
-    start_date = Column(DateTime, nullable=False, default=datetime.now())
-    end_date = Column(DateTime, nullable=False, default=datetime.now())
+    start_date = Column(DateTime, nullable=False, default=func.now())
+    end_date = Column(DateTime, nullable=False, default=func.now())
     enabled = Column(Integer, default=0,nullable=False)
     created_by = Column(String(50))
-    creation_time = Column(DateTime, nullable=False, default=datetime.now())
-    modification_time = Column(DateTime, nullable=False, default=datetime.now())
+    creation_time = Column(DateTime, nullable=False, default=func.now())
+    modification_time = Column(DateTime, nullable=False, default=func.now())
     # todo: add payment data related to subscription later
 
     def __init__(self, name ,sub_number, user_id, subscription_type_id, uuid, start_date, end_date, enabled, created_by, creation_time, modification_time):
@@ -60,8 +60,8 @@ class SubscriptionType(Base):
     description = Column(String(50), nullable=False)
     meta_data = Column(MutableDict.as_mutable(JSON()), nullable=False)
     created_by = Column(String(50))
-    creation_time = Column(DateTime, nullable=False, default=datetime.now())
-    modification_time = Column(DateTime, nullable=False, default=datetime.now())
+    creation_time = Column(DateTime, nullable=False, default=func.now())
+    modification_time = Column(DateTime, nullable=False, default=func.now())
 
     def __init__(self, name, description, created_by, creation_time, modification_time):
         """

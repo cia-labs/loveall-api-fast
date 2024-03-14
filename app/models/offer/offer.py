@@ -1,5 +1,5 @@
 import enum
-from sqlalchemy import Column, String, DateTime, JSON, Integer, Enum, ForeignKey
+from sqlalchemy import Column, String, DateTime, JSON, Integer, Enum, ForeignKey, func
 from sqlalchemy.ext.mutable import MutableDict
 from datetime import datetime
 
@@ -15,8 +15,8 @@ class OfferType(Base):
     name = Column(String(50), nullable=False)
     description = Column(String(50), nullable=False)
     created_by = Column(String(50))
-    creation_time = Column(DateTime, nullable=False, default=datetime.now())
-    modification_time = Column(DateTime, nullable=False, default=datetime.now())
+    creation_time = Column(DateTime, nullable=False, default=func.now())
+    modification_time = Column(DateTime, nullable=False, default=func.now())
     is_active = Column(Integer, nullable=False, default=1)
     recurrence_pattern = Column(String(255), nullable=True)
 
@@ -42,8 +42,8 @@ class Offer(Base):
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     name = Column(String(50), nullable=False)
     description = Column(String(50), nullable=False)
-    start_date = Column(DateTime, nullable=False, default=datetime.now())
-    end_date = Column(DateTime, nullable=False, default=datetime.now())
+    start_date = Column(DateTime, nullable=False, default=func.now())
+    end_date = Column(DateTime, nullable=False, default=func.now())
     discount_rate = Column(Integer, nullable=False)
     #minimum_purchase_amount = Column(Integer, nullable=False)
     priority = Column(Integer, nullable=False)
@@ -53,8 +53,8 @@ class Offer(Base):
     store_id = Column(Integer,ForeignKey('store.id', ondelete='cascade'), nullable=False)
     subscription_type_id = Column(Integer,ForeignKey('subscription_type.id', ondelete='cascade'), nullable=False)
     created_by = Column(String(50))
-    creation_time = Column(DateTime, nullable=False, default=datetime.now())
-    modification_time = Column(DateTime, nullable=False, default=datetime.now())
+    creation_time = Column(DateTime, nullable=False, default=func.now())
+    modification_time = Column(DateTime, nullable=False, default=func.now())
 
     def __init__(self, name, description, start_date, end_date, discount_rate, priority, user_id, enabled, offer_type_id, store_id, created_by, creation_time, modification_time,subscription_type_id):
             """

@@ -1,5 +1,5 @@
 import enum
-from sqlalchemy import Column, String, DateTime, JSON, Integer, Enum, ForeignKey
+from sqlalchemy import Column, String, DateTime, JSON, Integer, Enum, ForeignKey, func
 from sqlalchemy.ext.mutable import MutableDict
 from datetime import datetime
 
@@ -22,10 +22,10 @@ class Transaction(Base):
     total_amount = Column(Integer, nullable=False)
     offer_amount = Column(Integer, nullable=False)
     bill_number = Column(String(50), nullable=False)
-    bill_date = Column(DateTime, nullable=False, default=datetime.now())
+    bill_date = Column(DateTime, nullable=False, default=func.now())
     created_by = Column(String(50))
-    creation_time = Column(DateTime, nullable=False, default=datetime.now())
-    modification_time = Column(DateTime, nullable=False, default=datetime.now())
+    creation_time = Column(DateTime, nullable=False, default=func.now())
+    modification_time = Column(DateTime, nullable=False, default=func.now())
 
 
     def __init__(self, subscription_id, store_id, offer_id, user_id, merchant_user_id,total_amount, offer_amount, bill_number, created_by, creation_time, modification_time,discount_rate):
