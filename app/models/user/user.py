@@ -1,5 +1,5 @@
 import enum
-from sqlalchemy import Column, String, DateTime, JSON, Integer, Enum, ForeignKey
+from sqlalchemy import Column, String, DateTime, JSON, Integer, Enum, ForeignKey, func
 from sqlalchemy.ext.mutable import MutableDict
 from datetime import datetime
 
@@ -14,6 +14,12 @@ class Deployment(enum.Enum):
     MULTI = 2
 
 
+class UserRole(enum.Enum):
+    ADMIN = 'admin'
+    CUSTOMER = 'customer'
+    MERCHANT = 'merchant'
+    ZOMBIE = 'zombie'
+
 class User(Base):
     """
     Defines the DB ORM model for the user table
@@ -21,14 +27,14 @@ class User(Base):
     __bind_key__ = 'loveall'
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
-    name = Column(String(50), nullable=False)
-    email = Column(String(50), unique=True, nullable=False)
+    name = Column(String(30), nullable=False)
+    email = Column(String(100), unique=True, nullable=False)
     password = Column(String(255), nullable=False)
-    role = Column(String(50), nullable=False)
+    role = Column(Enum(UserRole), nullable=False, default=UserRole.ZOMBIE)
     is_active = Column(Integer, default=0, nullable=False)
     created_by = Column(String(50))
-    creation_time = Column(DateTime, nullable=False, default=datetime.now())
-    modification_time = Column(DateTime, nullable=False, default=datetime.now())
+    creation_time = Column(DateTime, nullable=False, default=func.now())
+    modification_time = Column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
 
     def __init__(self, name, email, password, role, is_active, created_by, creation_time,
                     modification_time):
