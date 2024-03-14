@@ -3,10 +3,12 @@ import uuid
 from datetime import datetime
 
 from app.models.offer.offer import OfferType,Offer
-from app.schema.offer import OfferSchema
+from app.schema.offer import OfferSchema,OfferSchemaUpdate
+from app.models.subscription.subscription import SubscriptionType
+
 from app.utils.logger import api_logger
 import logging
-from app.models.user.user import User
+from app.models.user.user import User,Store
 
 
 
@@ -108,12 +110,40 @@ class OfferDBActions:
         """
         try:
             offers = None
+            baseObj = self.db.query(Offer,OfferType,SubscriptionType,Store).join(OfferType, Offer.offer_type_id == OfferType.id).join(SubscriptionType,Offer.store_id== SubscriptionType.id).join(Store,Offer.store_id==Store.id)
             if self.current_user.is_superuser():
-                offers = self.db.query(Offer).all()
+                offers = baseObj.all()
             else:
-                offers = self.db.query(Offer).filter(Offer.user_id == self.current_user.id).all()
+                offers = baseObj.filter(Offer.user_id == self.current_user.id).all()
             if offers:
-                return True, offers
+                # Format the result to include offer details along with offer type details
+                formatted_offers = [{
+                    'id': offer.id,
+                    'name': offer.name,
+                    'start_date': offer.start_date,
+                    'discount_rate': offer.discount_rate,
+                    'is_active': offer.is_active,
+                    'user_id': offer.user_id,
+                    'subscription_type_id': offer.subscription_type_id,
+                    'subscription_type_name': subscription_type.name,
+                    'subscription_type_description': subscription_type.description,
+                    'creation_time': offer.creation_time,
+                    'end_date': offer.end_date,
+                    'priority': offer.priority,
+                    'store_id': offer.store_id,
+                    'store_name': store_details.name,
+                    'store_city': store_details.city,
+                    'offer_description': offer.description,
+                    'created_by': offer.created_by,
+                    'offer_type_id': offer_type.id,
+                    'offer_type_name': offer_type.name,
+                    'offer_type_description': offer_type.description,
+                    'offer_type_recurrence_pattern': offer_type.recurrence_pattern
+
+                } for offer, offer_type,subscription_type, store_details in offers]
+
+                return True, formatted_offers                
+                
             return True,[]
         except Exception as e:
             logger.exception(f'Facing issue while fetching the offer - {e}')
@@ -121,18 +151,45 @@ class OfferDBActions:
 
     def fetch_offer_by_id(self, id: int):
         """
-        Fetch offer by name
+        Fetch offer by name and also populate offer type 
         :param name: Name of the offer
         :return: True if success else False
         """
         try:
             offers = None
+            baseObj = self.db.query(Offer,OfferType,SubscriptionType,Store).join(OfferType, Offer.offer_type_id == OfferType.id).join(SubscriptionType,Offer.store_id== SubscriptionType.id).join(Store,Offer.store_id==Store.id)
             if self.current_user.is_superuser():
-                offers = self.db.query(Offer).filter(Offer.id == id).all()
+                offers = baseObj.filter(Offer.id == id).all()
             else:
-                offers = self.db.query(Offer).filter(Offer.id == id).filter(Offer.user_id == self.current_user.id).all()
+                offers = baseObj.filter(Offer.id == id).filter(Offer.user_id == self.current_user.id).all()
             if offers:
-                return True, offers
+                # Format the result to include offer details along with offer type details
+                formatted_offers = [{
+                    'id': offer.id,
+                    'name': offer.name,
+                    'start_date': offer.start_date,
+                    'discount_rate': offer.discount_rate,
+                    'is_active': offer.is_active,
+                    'user_id': offer.user_id,
+                    'subscription_type_id': offer.subscription_type_id,
+                    'subscription_type_name': subscription_type.name,
+                    'subscription_type_description': subscription_type.description,
+                    'creation_time': offer.creation_time,
+                    'end_date': offer.end_date,
+                    'priority': offer.priority,
+                    'store_id': offer.store_id,
+                    'store_name': store_details.name,
+                    'store_city': store_details.city,
+                    'offer_description': offer.description,
+                    'created_by': offer.created_by,
+                    'offer_type_id': offer_type.id,
+                    'offer_type_name': offer_type.name,
+                    'offer_type_description': offer_type.description,
+                    'offer_type_recurrence_pattern': offer_type.recurrence_pattern
+
+                } for offer, offer_type,subscription_type, store_details in offers]
+
+                return True, formatted_offers
             return False, f'Offer with name {id} not found'
         except Exception as e:
             logger.exception(f'Facing issue while fetching the offer with name {id} - {e}')
@@ -158,7 +215,7 @@ class OfferDBActions:
             logger.exception(f'Facing issue while saving the new offer - {e}')
             return False, f'Facing issue while saving the new offer - {e}'
         
-    def update_offer(self, offer: OfferSchema,offer_id: str):
+    def update_offer(self, offer: OfferSchemaUpdate,offer_id: str):
         """
         Update offer
         :param offer: offer details

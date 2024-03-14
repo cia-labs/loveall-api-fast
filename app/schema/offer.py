@@ -24,6 +24,21 @@ class OfferSchema(BaseModel):
     store_id: int = Field(description="The offer store_id", example="test")
     subscription_type_id: int = Field(description="The offer subscription_type_id", example="test")
 
+class OfferSchemaUpdate(BaseModel):
+    """
+    Defines the schema for the offer table
+    """
+    name: str = Field(description="The offer name", example="test")
+    description: str = Field(description="The offer description", example="test")
+    start_date: datetime = Field(description="The offer start date", example="test")
+    end_date: datetime = Field(description="The offer end date", example="test")
+    discount_rate : int = Field(description="The offer discount rate", example="test")
+    priority: int = Field(description="The offer priority", example="test")
+    is_active : int = Field(description="The offer is_active", example="test")
+    offer_type_id: int = Field(description="The offer offer_type_id", example="test")
+    store_id: int = Field(description="The offer store_id", example="test")
+    subscription_type_id: int = Field(description="The offer subscription_type_id", example="test")
+
 
 
 
