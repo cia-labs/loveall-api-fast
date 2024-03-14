@@ -105,3 +105,23 @@ class TransactionDBActions:
         except Exception as e:
             logger.exception(f'Facing issue while updating the transaction - {e}')
             return False, f'Facing issue while updating the transaction - {e}'
+        
+                
+    def get_transaction_stats(self):
+        """
+        Get transaction stats
+        if merchant get no of transaction and total amount 
+        if customer get no of transaction and total amount saved
+        """
+        try:
+            result = None
+            if not self.current_user.is_superuser():
+                result = self.db.query(Transaction).filter(Transaction.user_id == self.current_user.id).all()
+            else:
+                result = self.db.query(Transaction).filter(Transaction.merchant_user_id == self.current_user.id).all()
+            if result:
+                return True, result
+            return True, []
+        except Exception as e:
+            logger.exception(f'Facing issue while getting the transaction stats - {e}')
+            return False, f'Facing issue while getting the transaction stats - {e}'

@@ -18,7 +18,6 @@ class UserRouter:
         #todo: make sure regular user doesnt have access to all users
         self.router.add_api_route(path='/{user_id:path}', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
                                   endpoint=self.userService.fetch_user)
-        
         self.router.add_api_route(path='/create', methods=['POST'],
                                   endpoint=self.userService.create_user)
         # self.router.add_api_route(path='/', methods=['PATCH'],

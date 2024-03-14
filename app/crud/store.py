@@ -1,6 +1,8 @@
 import json
 import uuid
 from datetime import datetime
+
+from sqlalchemy import or_
 from app.models.user.user import User,Store
 from app.schema.store import StoreSchema
 from app.utils.logger import api_logger
@@ -104,3 +106,17 @@ class StoreDBActions:
         except Exception as e:
             logger.exception(f'Facing issue while updating the store - {e}')
             return False, f'Facing issue while updating the store - {e}'
+        
+
+    def filter_store(self,filters: list[Any]):
+        """
+        Filter store
+        """
+        try:
+            stores = self.db.query(Store).filter(or_(*filters)).all()
+            if stores:
+                return True, stores
+            return False, f'Store not found'
+        except Exception as e:
+            logger.exception(f'Facing issue while fetching the store - {e}')
+            return False, f'Facing issue while fetching the store'

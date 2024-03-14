@@ -97,7 +97,24 @@ class OfferService:
             # log.exception(f'Facing issue while fetching the new user {data.get("name")} - {e}')
             log.exception(f'Facing issue while fetching the new offer  - {e}')
             return Resp.error(response, f'Facing issue in offer -{e}')
-        
+
+    async def filter_offer(self, request: Request, response: Response, db: Session = Depends(get_session),current_user: User= Depends(get_current_user)):
+        try:
+            self.store_db_actions = OfferDBActions(db,current_user)
+            print(request.json())
+            return Resp.success(response, "Offer fetched successfully with the name:")
+            # resp, msg = self.store_db_actions.filter_offer()
+            # if resp:
+            #     log.info(f'Offer fetched successfully with the name: ')
+            #     return Resp.success(response, msg)
+            # else:
+            #     log.error(f'Facing issue while fetching the new offer  - {msg}')
+            #     return Resp.error(response, msg)
+        except Exception as e:
+            # log.exception(f'Facing issue while fetching the new user {data.get("name")} - {e}')
+            log.exception(f'Facing issue while fetching the new offer  - {e}')
+            return Resp.error(response, f'Facing issue in offer -{e}')
+
     async def create_offer(self,response: Response, offer: OfferSchema = Body(...),db: Session = Depends(get_session), current_user: User= Depends(get_current_user)):
         try:
             log.info(f'Creating new offer with the data - {offer}')

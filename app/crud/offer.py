@@ -1,7 +1,12 @@
+from email.mime import base
 import json
+from typing import Any
 import uuid
 from datetime import datetime
 
+from sqlalchemy import or_
+
+from app.models import offer
 from app.models.offer.offer import OfferType,Offer
 from app.schema.offer import OfferSchema,OfferSchemaUpdate
 from app.models.subscription.subscription import SubscriptionType
@@ -132,7 +137,6 @@ class OfferDBActions:
                     'priority': offer.priority,
                     'store_id': offer.store_id,
                     'store_name': store_details.name,
-                    'store_city': store_details.city,
                     'offer_description': offer.description,
                     'created_by': offer.created_by,
                     'offer_type_id': offer_type.id,
@@ -238,3 +242,43 @@ class OfferDBActions:
         except Exception as e:
             logger.exception(f'Facing issue while updating the offer - {e}')
             return False, f'Facing issue while updating the offer - {e}'
+        
+
+    def filter_offer(self,filters :list[Any]):
+        """
+        Filter offer
+        """
+        try:
+            offers = None
+            baseObj = self.db.query(Offer,OfferType,SubscriptionType,Store).join(OfferType, Offer.offer_type_id == OfferType.id).join(SubscriptionType,Offer.store_id== SubscriptionType.id).join(Store,Offer.store_id==Store.id)
+            offers = baseObj.filter(or_(*filters)).all()
+            formatted_offers = [{
+                'id': offer.id,
+                'name': offer.name,
+                'start_date': offer.start_date,
+                'discount_rate': offer.discount_rate,
+                'is_active': offer.is_active,
+                'user_id': offer.user_id,
+                'subscription_type_id': offer.subscription_type_id,
+                'subscription_type_name': subscription_type.name,
+                'subscription_type_description': subscription_type.description,
+                'creation_time': offer.creation_time,
+                'end_date': offer.end_date,
+                'priority': offer.priority,
+                'store_id': offer.store_id,
+                'store_name': store_details.name,
+                'offer_description': offer.description,
+                'created_by': offer.created_by,
+                'offer_type_id': offer_type.id,
+                'offer_type_name': offer_type.name,
+                'offer_type_description': offer_type.description,
+                'offer_type_recurrence_pattern': offer_type.recurrence_pattern
+
+            } for offer, offer_type,subscription_type, store_details in offers]
+            # print(offers)
+            # print(baseObj)
+            return True, formatted_offers
+            # return True, []
+        except Exception as e:
+            logger.exception(f'Facing issue while fetching the offer - {e}')
+            return False, f'Facing issue while fetching the offer'
