@@ -42,7 +42,7 @@ class AuthService:
         user_data_dict = {
             "name": userData.name,
             "email": userData.email,
-            "role": userData.role,
+            "role": userData.role.value,
             "is_active": userData.is_active
         }
         

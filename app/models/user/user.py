@@ -1,5 +1,6 @@
 import enum
 from sqlalchemy import Column, String, DateTime, JSON, Integer, Enum, ForeignKey, func
+from sqlalchemy.orm import deferred
 from sqlalchemy.ext.mutable import MutableDict
 from datetime import datetime
 
@@ -29,7 +30,8 @@ class User(Base):
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     name = Column(String(30), nullable=False)
     email = Column(String(100), unique=True, nullable=False)
-    password = Column(String(255), nullable=False)
+    # uses deferred column loading 
+    password = deferred(Column(String(255), nullable=False))
     role = Column(Enum(UserRole), nullable=False, default=UserRole.ZOMBIE)
     is_active = Column(Integer, default=0, nullable=False)
     created_by = Column(String(50))
@@ -55,7 +57,7 @@ class User(Base):
         if self.role == UserRole.ADMIN: # type: ignore
             return True
 
-    def get_by_email(self,email):
+    def get_by_email(email):
         return User.query.filter_by(email=email).first()
 
 

@@ -38,13 +38,12 @@ class SearchService:
         query = self.query_params_to_filter(request.query_params._dict, Offer)
         self.search_db_actions =  OfferDBActions(db,current_user)
         resp, msg = self.search_db_actions.filter_offer(query)
-        print(resp,msg)
         if resp:
             log.info(f'Offer fetched successfully with the name: ')
-            return Resp.success(response, msg)
+            return Resp.success(response, msg) # type: ignore
         else:
             log.error(f'Facing issue while fetching the new offer  - {msg}')
-            return Resp.error(response, msg)
+            return Resp.error(response, msg) # type: ignore
     
     # search stores based on query params
     async def search_stores(self, \
