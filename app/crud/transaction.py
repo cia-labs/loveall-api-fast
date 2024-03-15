@@ -29,7 +29,7 @@ class TransactionDBActions:
             if self.current_user.is_superuser():
                 transaction = self.db.query(Transaction).filter(Transaction.id == transaction_id).all()
             else:
-                transaction = self.db.query(Transaction).filter(Transaction.id == transaction_id).filter(Transaction.merchant_user_id==self.current_user.id).all()
+                transaction = self.db.query(Transaction).filter(Transaction.id == transaction_id).filter(Transaction.merchant_id==self.current_user.id).all() # type: ignore
             if transaction:
                 return True, transaction
             return False, f'Transaction with id {transaction_id} not found'
@@ -47,9 +47,9 @@ class TransactionDBActions:
             if self.current_user.is_superuser():
                 transaction = self.db.query(Transaction).all()
             elif self.current_user.role == 'merchant':
-                transaction = self.db.query(Transaction).filter(Transaction.merchant_user_id == self.current_user.id).all()
+                transaction = self.db.query(Transaction).filter(Transaction.merchant_id == self.current_user.id).all() # type: ignore
             else:
-                transaction = self.db.query(Transaction).filter(Transaction.user_id == self.current_user.id).all()
+                transaction = self.db.query(Transaction).filter(Transaction.user_id == self.current_user.id).all() # type: ignore
             if transaction:
                 return True, transaction
             return True,[]
@@ -72,12 +72,12 @@ class TransactionDBActions:
             offer_amount = transaction.total_amount - (transaction.total_amount * offer.discount_rate/100)
 
             self.db.add(Transaction(**transaction.dict(),**{
-               "merchant_user_id": self.current_user.id,
+               "merchant_id": self.current_user.id,
                "created_by": self.current_user.email,
                "creation_time": datetime.now(),
                 "modification_time": datetime.now(),
                 "discount_rate": offer.discount_rate,
-                "user_id": subscription.user_id,
+                "customer_id": subscription.customer_id,
                 "store_id": offer.store_id,
                 "offer_amount" : offer_amount
             }))
@@ -97,7 +97,7 @@ class TransactionDBActions:
             if not self.current_user.is_superuser():
                 result = self.db.query(Transaction).filter(Transaction.id == transaction_id).update(final_update)
             else:
-                result = self.db.query(Transaction).filter(Transaction.id == transaction_id).filter(Transaction.merchant_user_id==self.current_user.id).update(final_update)
+                result = self.db.query(Transaction).filter(Transaction.id == transaction_id).filter(Transaction.merchant_id==self.current_user.id).update(final_update) # type: ignore
             if result==0:
                 return False, f'Transaction with id {transaction_id} not found'
             self.db.commit()
@@ -116,9 +116,9 @@ class TransactionDBActions:
         try:
             result = None
             if not self.current_user.is_superuser():
-                result = self.db.query(Transaction).filter(Transaction.user_id == self.current_user.id).all()
+                result = self.db.query(Transaction).filter(Transaction.user_id == self.current_user.id).all() # type: ignore
             else:
-                result = self.db.query(Transaction).filter(Transaction.merchant_user_id == self.current_user.id).all()
+                result = self.db.query(Transaction).filter(Transaction.merchant_id == self.current_user.id).all() # type: ignore
             if result:
                 return True, result
             return True, []

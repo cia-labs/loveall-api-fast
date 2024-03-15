@@ -5,7 +5,7 @@ from datetime import datetime
 from app.models.subscription.subscription import SubscriptionType,Subscription
 from app.schema.subscription import SubscriptionSchema,SubscriptionTypeSchema
 from app.utils.logger import api_logger
-from app.models.user.user import User
+from app.models.user.user import User, UserRole
 import logging
 
 from passlib.context import CryptContext
@@ -95,10 +95,10 @@ class SubscriptionDBActions:
         :return: True if success else False
         """
         try:
-            if self.current_user.is_superuser() or self.current_user.role == 'merchant':
+            if self.current_user.is_superuser() or self.current_user.role == UserRole.MERCHANT: # type: ignore
                 subscriptions = self.db.query(Subscription).all()
             else:
-                subscriptions = self.db.query(Subscription).filter(Subscription.user_id == self.current_user.id).all()
+                subscriptions = self.db.query(Subscription).filter(Subscription.customer_id == self.current_user.id).all() # type: ignore
             if subscriptions:
                 return True, subscriptions
             return True, []

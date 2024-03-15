@@ -109,7 +109,7 @@ class OfferDBActions:
             if self.current_user.is_superuser():
                 offers = baseObj.all()
             else:
-                offers = baseObj.filter(Offer.user_id == self.current_user.id).all() # type: ignore
+                offers = baseObj.filter(Offer.merchant_id == self.current_user.id).all() # type: ignore
             if offers:
                 # Format the result to include offer details along with offer type details
                 formatted_offers = [{
@@ -118,7 +118,7 @@ class OfferDBActions:
                     'start_date': offer.start_date,
                     'discount_rate': offer.discount_rate,
                     'is_active': offer.is_active,
-                    'user_id': offer.user_id,
+                    'merchant_id': offer.merchant_id,
                     'subscription_type_id': offer.subscription_type_id,
                     'subscription_type_name': subscription_type.name,
                     'subscription_type_description': subscription_type.description,
@@ -155,7 +155,7 @@ class OfferDBActions:
             if self.current_user.is_superuser():
                 offers = baseObj.filter(Offer.id == id).all()
             else:
-                offers = baseObj.filter(Offer.id == id).filter(Offer.user_id == self.current_user.id).all() # type: ignore
+                offers = baseObj.filter(Offer.id == id).filter(Offer.merchant_id == self.current_user.id).all() # type: ignore
             if offers:
                 # Format the result to include offer details along with offer type details
                 formatted_offers = [{
@@ -164,7 +164,7 @@ class OfferDBActions:
                     'start_date': offer.start_date,
                     'discount_rate': offer.discount_rate,
                     'is_active': offer.is_active,
-                    'user_id': offer.user_id,
+                    'merchant_id': offer.merchant_id,
                     'subscription_type_id': offer.subscription_type_id,
                     'subscription_type_name': subscription_type.name,
                     'subscription_type_description': subscription_type.description,
@@ -224,7 +224,7 @@ class OfferDBActions:
             if self.current_user.is_superuser():
                 result = self.db.query(Offer).filter(Offer.id == offer_id).update(final_update)
             else:
-                result = self.db.query(Offer).filter(Offer.id == offer_id).filter(Offer.user_id == self.current_user.id).update(final_update) # type: ignore
+                result = self.db.query(Offer).filter(Offer.id == offer_id).filter(Offer.merchant_id == self.current_user.id).update(final_update) # type: ignore
             if result==0:
                 return False, f'Offer with id {offer_id} not found'
             self.db.commit()
@@ -248,7 +248,7 @@ class OfferDBActions:
                 'start_date': offer.start_date,
                 'discount_rate': offer.discount_rate,
                 'is_active': offer.is_active,
-                'user_id': offer.user_id,
+                'merchant_id': offer.merchant_id,
                 'subscription_type_id': offer.subscription_type_id,
                 'subscription_type_name': subscription_type.name,
                 'subscription_type_description': subscription_type.description,
