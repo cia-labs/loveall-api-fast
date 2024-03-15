@@ -55,7 +55,7 @@ class User(Base):
         if self.role == UserRole.ADMIN: # type: ignore
             return True
 
-    def get_by_email(email):
+    def get_by_email(self,email):
         return User.query.filter_by(email=email).first()
 
 
@@ -70,13 +70,13 @@ class Store(Base):
     description = Column(String(250), nullable=False)
     address = Column(String(50), nullable=False)
     phone = Column(String(50), nullable=False)
-    user_id = Column(Integer,ForeignKey('user.id', ondelete='cascade'), nullable=False)
+    merchant_id = Column(Integer,ForeignKey('user.id', ondelete='cascade'), nullable=False)
     created_by = Column(String(50))
     meta_data = Column(MutableDict.as_mutable(JSON()), nullable=False)
     creation_time = Column(DateTime, nullable=False, default=func.now())
     modification_time = Column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
 
-    def __init__(self, name, address, city, state, zip_code, phone,user_id, created_by, creation_time,
+    def __init__(self, name, address, city, state, zip_code, phone,merchant_id, created_by, creation_time,
                     modification_time):
             """
             Constructor for the Store class
@@ -87,7 +87,7 @@ class Store(Base):
             self.state = state
             self.zip_code = zip_code
             self.phone = phone
-            self.user_id = user_id
+            self.merchant_id = merchant_id
             self.created_by = created_by
             self.creation_time = creation_time
             self.modification_time = modification_time

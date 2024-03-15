@@ -51,7 +51,7 @@ class StoreDBActions:
                 stores = self.db.query(Store).filter(Store.id == id).all()
             else:
                 logger.info(f'User is not a superuser {self.current_user.id}')
-                stores = self.db.query(Store).filter(Store.id == id).filter(Store.user_id==self.current_user.id).all()
+                stores = self.db.query(Store).filter(Store.id == id).filter(Store.merchant_id==self.current_user.id).all() # type: ignore
             if stores:
                 return True, stores
             return False, f'Store with name {id} not found'
@@ -99,7 +99,7 @@ class StoreDBActions:
                 
                 result = self.db.query(Store).filter(Store.id == store_id).update(final_update)
             else:
-                result = self.db.query(Store).filter(Store.id == store_id,Store.user_id==self.current_user.id).update(final_update)
+                result = self.db.query(Store).filter(Store.id == store_id,Store.merchant_id==self.current_user.id).update(final_update) # type: ignore
             if result == 0:
                 return False, f'Store with id {store_id} not found for user'
             self.db.commit()
