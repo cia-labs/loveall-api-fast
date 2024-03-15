@@ -1,26 +1,16 @@
 from email.mime import base
-import json
 from typing import Any
-import uuid
 from datetime import datetime
-
 from sqlalchemy import or_
-
-from app.models import offer
 from app.models.offer.offer import OfferType,Offer
 from app.schema.offer import OfferSchema,OfferSchemaUpdate
 from app.models.subscription.subscription import SubscriptionType
-
 from app.utils.logger import api_logger
 import logging
 from app.models.user.user import User,Store
 
 
-
-from passlib.context import CryptContext
-
 logger = logging.getLogger(__name__)
-
 
 class OfferTypeDBActions:
     method_decorators = [api_logger]
@@ -115,11 +105,11 @@ class OfferDBActions:
         """
         try:
             offers = None
-            baseObj = self.db.query(Offer,OfferType,SubscriptionType,Store).join(OfferType, Offer.offer_type_id == OfferType.id).join(SubscriptionType,Offer.store_id== SubscriptionType.id).join(Store,Offer.store_id==Store.id)
+            baseObj = self.db.query(Offer,OfferType,SubscriptionType,Store).join(OfferType, Offer.offer_type_id == OfferType.id).join(SubscriptionType,Offer.store_id== SubscriptionType.id).join(Store,Offer.store_id==Store.id) # type: ignore
             if self.current_user.is_superuser():
                 offers = baseObj.all()
             else:
-                offers = baseObj.filter(Offer.user_id == self.current_user.id).all()
+                offers = baseObj.filter(Offer.user_id == self.current_user.id).all() # type: ignore
             if offers:
                 # Format the result to include offer details along with offer type details
                 formatted_offers = [{
@@ -161,11 +151,11 @@ class OfferDBActions:
         """
         try:
             offers = None
-            baseObj = self.db.query(Offer,OfferType,SubscriptionType,Store).join(OfferType, Offer.offer_type_id == OfferType.id).join(SubscriptionType,Offer.store_id== SubscriptionType.id).join(Store,Offer.store_id==Store.id)
+            baseObj = self.db.query(Offer,OfferType,SubscriptionType,Store).join(OfferType, Offer.offer_type_id == OfferType.id).join(SubscriptionType,Offer.store_id== SubscriptionType.id).join(Store,Offer.store_id==Store.id) # type: ignore
             if self.current_user.is_superuser():
                 offers = baseObj.filter(Offer.id == id).all()
             else:
-                offers = baseObj.filter(Offer.id == id).filter(Offer.user_id == self.current_user.id).all()
+                offers = baseObj.filter(Offer.id == id).filter(Offer.user_id == self.current_user.id).all() # type: ignore
             if offers:
                 # Format the result to include offer details along with offer type details
                 formatted_offers = [{
@@ -234,7 +224,7 @@ class OfferDBActions:
             if self.current_user.is_superuser():
                 result = self.db.query(Offer).filter(Offer.id == offer_id).update(final_update)
             else:
-                result = self.db.query(Offer).filter(Offer.id == offer_id).filter(Offer.user_id == self.current_user.id).update(final_update)
+                result = self.db.query(Offer).filter(Offer.id == offer_id).filter(Offer.user_id == self.current_user.id).update(final_update) # type: ignore
             if result==0:
                 return False, f'Offer with id {offer_id} not found'
             self.db.commit()
@@ -250,7 +240,7 @@ class OfferDBActions:
         """
         try:
             offers = None
-            baseObj = self.db.query(Offer,OfferType,SubscriptionType,Store).join(OfferType, Offer.offer_type_id == OfferType.id).join(SubscriptionType,Offer.store_id== SubscriptionType.id).join(Store,Offer.store_id==Store.id)
+            baseObj = self.db.query(Offer,OfferType,SubscriptionType,Store).join(OfferType, Offer.offer_type_id == OfferType.id).join(SubscriptionType,Offer.store_id== SubscriptionType.id).join(Store,Offer.store_id==Store.id) # type: ignore
             offers = baseObj.filter(or_(*filters)).all()
             formatted_offers = [{
                 'id': offer.id,
