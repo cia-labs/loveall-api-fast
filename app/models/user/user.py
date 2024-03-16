@@ -70,7 +70,7 @@ class Store(Base):
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     name = Column(String(50), nullable=False)
     description = Column(String(250), nullable=False)
-    address = Column(String(50), nullable=False)
+    address = Column(String(250), nullable=False)
     phone = Column(String(50), nullable=False)
     merchant_id = Column(Integer,ForeignKey('user.id', ondelete='cascade'), nullable=False)
     created_by = Column(String(50))
