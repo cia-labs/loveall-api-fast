@@ -45,13 +45,27 @@ subscription_type = [
 ]
 
 all_offers =  [
-    (1,"Gold_Daily","Gold Offer for daily","2024-03-20","2024-03-31","09:00:00","22:00:00",20,1,1,3,5,1,1,"admin","2024-03-15 12:00:00","2024-03-15 12:00:00"),
+    (1,"Gold_Daily","Gold Offer for daily","2024-03-20","2024-03-31","09:00:00","22:00:00",10,1,1,3,5,1,1,"admin","2024-03-15 12:00:00","2024-03-15 12:00:00"),
     (2,"Gold_Weekend","Gold Offer for weekend","2024-03-20","2024-03-31","09:00:00","22:00:00",20,1,2,3,5,1,1,"admin","2024-03-15 12:00:00","2024-03-15 12:00:00"),
 ]
 
 
 all_subscription = [
-    (
+    (1,"Gold_Surya","ALL001",2,1,'6ba7b810-9dad-11d1-80b4-00c04fd430c8',"2024-03-15 12:00:00","2025-03-15 12:00:00",1,"admin","2024-03-15 12:00:00","2024-03-15 12:00:00"),
+    (2,"Gold_Raj","ALL002",4,1,'F2D6E0E8-9998-4A83-B9AB-891806D8DD45',"2024-03-25 12:00:00","2025-03-25 12:00:00",1,"admin","2024-03-15 12:00:00","2024-03-15 12:00:00"),
+    (3,"Gold_Tejus","ALL003",6,1,'57354895-0E87-4C7C-9809-0A1A9457162B',"2024-03-05 12:00:00","2025-03-05 12:00:00",1,"admin","2024-03-15 12:00:00","2024-03-15 12:00:00"),
+]
+
+all_transactions = [
+    (1,1,1,1,20,1,5,1000,900,"123456123","2024-03-26 12:00:00","kausik","2024-03-26 12:00:00","2024-03-26 12:00:00"),
+    (2,1,1,1,20,1,5,100,90,"123456124","2024-03-26 12:00:00","kausik","2024-03-27 12:00:00","2024-03-27 12:00:00"),
+    (3,1,1,1,20,1,5,10000,9000,"123456125","2024-03-26 12:00:00","kausik","2024-03-28 12:00:00","2024-03-28 12:00:00"),
+    (4,1,1,1,20,1,5,2000,1800,"123456126","2024-03-26 12:00:00","kausik","2024-03-15 12:00:00","2024-03-15 12:00:00"),
+    (5,1,1,1,20,1,5,5000,4500,"123456127","2024-03-26 12:00:00","kausik","2024-03-16 12:00:00","2024-03-16 12:00:00"),
+    (6,1,1,1,20,1,5,7000,6300,"123456128","2024-03-26 12:00:00","kausik","2024-03-17 12:00:00","2024-03-17 12:00:00"),
+    (7,1,1,1,20,1,5,8000,7200,"123456129","2024-03-26 12:00:00","kausik","2024-03-18 12:00:00","2024-03-18 12:00:00"),
+    (8,1,1,1,20,1,5,9000,900,"123456112","2024-03-26 12:00:00","kausik","2024-03-19 12:00:00","2024-03-19 12:00:00"),
+    (9,1,1,1,20,1,5,6500,5850,"123456113","2024-03-26 12:00:00","kausik","2024-03-20 12:00:00","2024-03-20 12:00:00"),
 ]
 
 users=[]
@@ -97,6 +111,14 @@ try:
         for offer in all_offers:
             cursor.execute("INSERT INTO `offer` (id, name, description, start_date, end_date, start_time, end_time, discount_rate, priority,is_active, offer_type_id, merchant_id,store_id,subscription_type_id, created_by, creation_time, modification_time) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", offer)
             connection.commit()
+        
+        for subscription in all_subscription:
+            cursor.execute("INSERT INTO `subscription` (id, name, sub_number, customer_id, subscription_type_id, uuid, start_date, end_date, enabled, created_by, creation_time, modification_time) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", subscription)
+            connection.commit()
+        
+        for transaction in all_transactions:
+            cursor.execute("INSERT INTO `transaction` (id, subscription_id, store_id, offer_id, discount_rate, customer_id, merchant_id, total_amount, offer_amount, bill_number, bill_date, created_by, creation_time, modification_time) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", transaction)
+            connection.commit()
 
 except Error as e:
     print("Error while connecting to MySQL", e)
@@ -108,4 +130,4 @@ finally:
         connection.close()
         print("MySQL connection is closed")
 
-#delete from subscription_type where 1=1;delete from offer_type where 1=1;delete from store where 1=1;delete from user where 1=1;delete from offer where 1=1;
+#delete from subscription_type where 1=1;delete from offer_type where 1=1;delete from store where 1=1;delete from user where 1=1;delete from offer where 1=1;delete from subscription where 1=1;delete from transaction where 1=1;
