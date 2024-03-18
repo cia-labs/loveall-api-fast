@@ -78,18 +78,29 @@ class Store(Base):
     creation_time = Column(DateTime, nullable=False, default=func.now())
     modification_time = Column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
 
-    def __init__(self, name, address, city, state, zip_code, phone,merchant_id, created_by, creation_time,
+    def __init__(self, name, address, phone,merchant_id, created_by, meta_data,creation_time,
                     modification_time):
             """
             Constructor for the Store class
             """
             self.name = name
             self.address = address
-            self.city = city
-            self.state = state
-            self.zip_code = zip_code
             self.phone = phone
             self.merchant_id = merchant_id
             self.created_by = created_by
+            self.meta_data = meta_data
             self.creation_time = creation_time
             self.modification_time = modification_time
+
+    def dict(self):
+        return {
+             "id": self.id,
+            "name": self.name,
+            "address": self.address,
+            "phone": self.phone,
+            "merchant_id": self.merchant_id,
+            "created_by": self.created_by,
+            "meta_data": self.meta_data,
+            "creation_time": self.creation_time,
+            "modification_time": self.modification_time
+        }

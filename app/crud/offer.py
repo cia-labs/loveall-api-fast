@@ -2,6 +2,7 @@ from email.mime import base
 from typing import Any
 from datetime import datetime
 from sqlalchemy import or_
+from app.models import offer
 from app.models.offer.offer import OfferType,Offer
 from app.schema.offer import OfferSchema,OfferSchemaUpdate
 from app.models.subscription.subscription import SubscriptionType
@@ -105,11 +106,7 @@ class OfferDBActions:
         """
         try:
             offers = None
-            baseObj = self.db.query(Offer,OfferType,SubscriptionType,Store).join(OfferType, Offer.offer_type_id == OfferType.id).join(SubscriptionType,Offer.store_id== SubscriptionType.id).join(Store,Offer.store_id==Store.id) # type: ignore
-            if self.current_user.is_superuser():
-                offers = baseObj.all()
-            else:
-                offers = baseObj.filter(Offer.merchant_id == self.current_user.id).all() # type: ignore
+            offers = self.db.query(Offer,OfferType,SubscriptionType,Store).join(OfferType, Offer.offer_type_id == OfferType.id).join(SubscriptionType,Offer.subscription_type_id== SubscriptionType.id).join(Store,Offer.store_id==Store.id).all() # type: ignore
             if offers:
                 # Format the result to include offer details along with offer type details
                 formatted_offers = [{
@@ -137,7 +134,6 @@ class OfferDBActions:
                 } for offer, offer_type,subscription_type, store_details in offers]
 
                 return True, formatted_offers                
-                
             return True,[]
         except Exception as e:
             logger.exception(f'Facing issue while fetching the offer - {e}')

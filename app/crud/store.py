@@ -3,8 +3,11 @@ from typing import Any
 import uuid
 from datetime import datetime
 
-from sqlalchemy import or_
+from sqlalchemy import and_, or_
+from app.models.offer.offer import Offer, OfferType
+from app.models.subscription.subscription import SubscriptionType
 from app.models.user.user import User,Store
+from app.schema import store
 from app.schema.store import StoreSchema
 from app.utils.logger import api_logger
 import logging
@@ -95,8 +98,6 @@ class StoreDBActions:
             print(final_update)
             if self.current_user.is_superuser():
                 logger.info(f'User is superuser')
-                # add modification time to store.dict()
-                
                 result = self.db.query(Store).filter(Store.id == store_id).update(final_update)
             else:
                 result = self.db.query(Store).filter(Store.id == store_id,Store.merchant_id==self.current_user.id).update(final_update) # type: ignore
@@ -121,3 +122,36 @@ class StoreDBActions:
         except Exception as e:
             logger.exception(f'Facing issue while fetching the store - {e}')
             return False, f'Facing issue while fetching the store'
+
+    def filter_listing_store(self,filters: list[Any],cond: str):
+        """
+        Filter store
+        """
+        try:
+            stores_response = self.db.query(Store,Offer,OfferType,SubscriptionType).join(Offer,Offer.store_id == Store.id).join(OfferType,OfferType.id == Offer.offer_type_id).join(SubscriptionType, SubscriptionType.id == Offer.subscription_type_id ) # type: ignore
+
+            if cond == "and":
+                stores_response = stores_response.filter(and_(*filters)).all()
+            else:
+                stores_response = stores_response.filter(or_(*filters)).all()
+
+            stores_indexed = {}
+            response_stores =[]
+            if stores_response:
+                for current_response in stores_response:
+                    current_store = current_response[0].dict()
+                    current_off = current_response[1].dict()
+                    current_off["offer_type"]=current_response[2]
+                    current_off["subscription_type"]=current_response[3]
+                    if stores_indexed.get(current_store.get('id')) is None:
+                        current_store["offers"] = [current_off]
+                        stores_indexed[current_store.get('id')] = current_store
+                    else:
+                        stores_indexed[current_store.get('id')]["offers"].append(current_off)
+                for k,v in stores_indexed.items():
+                    response_stores.append(v)
+                return True, response_stores
+            return False, f'Stores not found'
+        except Exception as e:
+            logger.exception(f'Facing issue while fetching the store - {e}')
+            return False, f'Facing issue while fetching the store'        

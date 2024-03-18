@@ -19,3 +19,7 @@ class SearchRouter:
         self.router = APIRouter(prefix='/search',tags=['search'])
         self.router.add_api_route(path='/offers', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
                                   endpoint=self.searchRouter.search_offers)
+        self.router.add_api_route(path='/stores', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
+                                    endpoint=self.searchRouter.search_stores)
+        self.router.add_api_route(path='/listing', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
+                                    endpoint=self.searchRouter.search_listing)

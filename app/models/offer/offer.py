@@ -58,7 +58,7 @@ class Offer(Base):
     creation_time = Column(DateTime, nullable=False, default=func.now())
     modification_time = Column(DateTime, nullable=False, default=func.now())
 
-    def __init__(self, name, description, start_date, end_date, start_time,end_time,discount_rate, priority, merchant_id, enabled, offer_type_id, store_id, created_by, creation_time, modification_time,subscription_type_id):
+    def __init__(self, name, description, start_date, end_date, start_time,end_time,discount_rate, priority, merchant_id, is_active, offer_type_id, store_id, created_by, creation_time, modification_time,subscription_type_id):
             """
             Constructor for the Offer class
             """
@@ -71,7 +71,7 @@ class Offer(Base):
             self.discount_rate = discount_rate
             self.priority = priority
             self.merchant_id = merchant_id
-            self.enabled = enabled
+            self.is_active = is_active
             self.offer_type_id = offer_type_id
             self.store_id = store_id
             self.created_by = created_by
@@ -80,3 +80,23 @@ class Offer(Base):
             self.subscription_type_id = subscription_type_id
 
 
+    def dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "start_date": self.start_date,
+            "end_date": self.end_date,
+            "start_time": self.start_time,
+            "end_time": self.end_time,
+            "discount_rate": self.discount_rate,
+            "priority": self.priority,
+            "merchant_id": self.merchant_id,
+            "is_active": self.is_active,
+            "offer_type_id": self.offer_type_id,
+            "store_id": self.store_id,
+            "created_by": self.created_by,
+            "creation_time": self.creation_time,
+            "modification_time": self.modification_time,
+            "subscription_type_id": self.subscription_type_id
+        }
