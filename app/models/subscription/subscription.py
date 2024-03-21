@@ -46,6 +46,21 @@ class Subscription(Base):
         self.created_by = created_by
         self.creation_time = creation_time
         self.modification_time = modification_time
+    
+    def dict(self):
+        return {
+            "name":self.name,
+            "sub_number":self.sub_number,
+            "customer_id":self.customer_id,
+            "subscription_type_id":self.subscription_type_id,
+            "uuid":self.uuid,
+            "start_date":self.start_date,
+            "end_date":self.end_date,
+            "enabled":self.enabled,
+            "created_by":self.created_by,
+            "creation_time":self.creation_time,
+            "modification_time":self.modification_time
+        }
 
 
 
@@ -74,3 +89,13 @@ class SubscriptionType(Base):
         self.created_by = created_by
         self.creation_time = creation_time
         self.modification_time = modification_time    
+
+    def dict(self):
+        return {
+            "name":self.name,
+            "description":self.description,
+            "discount_rate":self.discount_rate,
+            "created_by":self.created_by,
+            "creation_time":self.creation_time,
+            "modification_time":self.modification_time
+        }

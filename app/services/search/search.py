@@ -1,10 +1,10 @@
 from typing import Any, Dict
 
 import logging
-from app.crud import subscription
+from app.crud.subscription import SubscriptionDBActions
 from app.crud.offer import OfferDBActions
 from app.models.offer.offer import Offer, OfferType
-from app.models.subscription.subscription import SubscriptionType
+from app.models.subscription.subscription import Subscription, SubscriptionType
 from app.utils.logger import api_logger
 from app.utils.resp import Resp
 from app.models.database import get_session
@@ -91,3 +91,30 @@ class SearchService:
             return Resp.error(response, msg)
 
 
+    async def search_subscription(self, \
+                            request: Request, response: Response, db: Session = Depends(get_session),current_user: User= Depends(get_current_user)):
+        object_map = {
+                "user": User,
+                "subscription_type" : SubscriptionType
+            }
+        query_keys = request.query_params.keys()
+        nested_queries = []
+        # filtering based on "-" is presnet in array
+        for qkey in list(filter(lambda k: '-' in k, query_keys)):
+            key_name, key_val = qkey.split('-')
+            if object_map.get(key_name):
+                nested_queries.append(self.query_params_to_filter({key_val:request.query_params._dict[qkey]}, object_map[key_name])[0])
+
+        query = self.query_params_to_filter(request.query_params._dict, Subscription) + nested_queries
+        default_conditon : str= "or"
+        if request.query_params.get("cond"):
+            default_conditon = request.query_params.get("cond")  # type: ignore
+        self.search_db_actions =  SubscriptionDBActions(db,current_user)
+        print(query)
+        resp, msg = self.search_db_actions.filter_subscription(query,cond=default_conditon)
+        if resp:
+            log.info(f'Subscription fetched successfully with the name: ')
+            return Resp.success(response, msg)
+        else:
+            log.error(f'Facing issue while fetching the new subscription  - {msg}')
+            return Resp.error(response, msg)

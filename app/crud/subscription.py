@@ -1,6 +1,8 @@
 import json
+from typing import Any
 import uuid
 from datetime import datetime
+from sqlalchemy import and_, or_
 
 from app.models.subscription.subscription import SubscriptionType,Subscription
 from app.schema.subscription import SubscriptionSchema,SubscriptionTypeSchema
@@ -161,3 +163,31 @@ class SubscriptionDBActions:
             logger.exception(f'Facing issue while updating the subscription - {e}')
             return False, f'Facing issue while updating the subscription - {e}'
         
+
+    def filter_subscription(self, filters: list[Any],cond: str):
+        """
+        Filter subscription based on query
+        :param query: query to filter subscription
+        :return: True if success else False
+        """
+        try:
+            subscriptions = self.db.query(Subscription,SubscriptionType,User).join(
+                SubscriptionType,SubscriptionType.id == Subscription.id).join(
+                    User,User.id == Subscription.customer_id) # type: ignore
+            if cond == "and":
+                subscriptions = subscriptions.filter(and_(*filters)).all()
+            else:
+                subscriptions = subscriptions.filter(or_(*filters)).all()
+
+            all_subscriptions = []
+            if subscriptions:
+                for subscription_response in subscriptions:
+                    subscription_info = subscription_response[0].dict()
+                    subscription_info['subscription_type'] = subscription_response[1].dict()
+                    subscription_info['customer'] = subscription_response[2].dict()
+                    all_subscriptions.append(subscription_info)
+                return True, all_subscriptions
+            return False, f'Subscription not found'
+        except Exception as e:
+            logger.exception(f'Facing issue while filtering the subscription - {e}')
+            return False, f'Facing issue while filtering the subscription'

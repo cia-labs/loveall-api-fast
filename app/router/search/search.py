@@ -23,3 +23,5 @@ class SearchRouter:
                                     endpoint=self.searchRouter.search_stores)
         self.router.add_api_route(path='/listing', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
                                     endpoint=self.searchRouter.search_listing)
+        self.router.add_api_route(path='/subscription', methods=['GET'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
+                                    endpoint=self.searchRouter.search_subscription)        

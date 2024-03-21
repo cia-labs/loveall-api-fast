@@ -60,6 +60,17 @@ class User(Base):
     def get_by_email(email):
         return User.query.filter_by(email=email).first()
 
+    def dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "role": self.role,
+            "is_active": self.is_active,
+            "created_by": self.created_by,
+            "creation_time": self.creation_time,
+            "modification_time": self.modification_time
+        }
 
 class Store(Base):
     """
