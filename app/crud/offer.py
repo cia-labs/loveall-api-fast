@@ -246,19 +246,17 @@ class OfferDBActions:
                 'is_active': offer.is_active,
                 'merchant_id': offer.merchant_id,
                 'subscription_type_id': offer.subscription_type_id,
-                'subscription_type_name': subscription_type.name,
-                'subscription_type_description': subscription_type.description,
                 'creation_time': offer.creation_time,
                 'end_date': offer.end_date,
                 'priority': offer.priority,
                 'store_id': offer.store_id,
-                'store_name': store_details.name,
                 'offer_description': offer.description,
                 'created_by': offer.created_by,
-                'offer_type_id': offer_type.id,
-                'offer_type_name': offer_type.name,
-                'offer_type_description': offer_type.description,
-                'offer_type_recurrence_pattern': offer_type.recurrence_pattern
+
+                'offer_type': offer_type,
+                'subscription_type':subscription_type,
+                'store': store_details
+
 
             } for offer, offer_type,subscription_type, store_details in offers]
             # print(offers)
