@@ -54,7 +54,9 @@ class StoreDBActions:
                 stores = self.db.query(Store).filter(Store.id == id).all()
             else:
                 logger.info(f'User is not a superuser {self.current_user.id}')
-                stores = self.db.query(Store).filter(Store.id == id).filter(Store.merchant_id==self.current_user.id).all() # type: ignore
+                #TODO: fix this 
+                # stores = self.db.query(Store).filter(Store.id == id).filter(Store.merchant_id==self.current_user.id).all() # type: ignore
+                stores = self.db.query(Store).filter(Store.id == id).all() # type: ignore
             if stores:
                 return True, stores
             return False, f'Store with name {id} not found'
@@ -75,8 +77,16 @@ class StoreDBActions:
                 "user_id": self.current_user.id,
                 "creation_time":datetime.now(),
                 "modification_time": datetime.now(),
-                "created_by" :self.current_user.email
-            }))
+                "created_by" :self.current_user.email,
+                "meta_data" : {
+                    "gmaps":"",
+                    "images": {
+                        "primary": {},
+                        "secondary":[]
+                    },
+                }
+                }))
+        
             self.db.commit()
             return True, f'Store {store} saved successfully'
         except Exception as e:
@@ -108,7 +118,33 @@ class StoreDBActions:
         except Exception as e:
             logger.exception(f'Facing issue while updating the store - {e}')
             return False, f'Facing issue while updating the store - {e}'
-        
+
+    def update_meta_data(self, store_id: int,meta_data: dict):
+        """
+        Update store
+        :param store: Store details
+        :return: True if success else False
+        """
+        try:
+            result = None
+            final_update = {**{
+                    "meta_data": meta_data,
+                    "modification_time": str(datetime.now())
+                }}
+            logger.info(f'User is superuser {self.current_user.is_superuser()} -- {self.current_user.email} -- {self.current_user.role}')
+            if self.current_user.is_superuser():
+                logger.info(f'User is superuser')
+                result = self.db.query(Store).filter(Store.id == store_id).update(final_update)
+            else:
+                logger.info(f'User is not superuser {self.current_user.id}')
+                result = self.db.query(Store).filter(Store.id == store_id).update(final_update) # type: ignore
+            if result == 0:
+                return False, f'Store with id {store_id} not found for user'
+            self.db.commit()
+            return True, f'Store {store_id} updated successfully'
+        except Exception as e:
+            logger.exception(f'Facing issue while updating the store - {e}')
+            return False, f'Facing issue while updating the store - {e}'    
 
     def filter_store(self,filters: list[Any]):
         """

@@ -21,6 +21,8 @@ class StoreRouter:
                                   endpoint=self.storeService.create_store)
         self.router.add_api_route(path='/update/{store_id:path}', methods=['PATCH'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
                                   endpoint=self.storeService.update_store)
+        self.router.add_api_route(path='/upload/{store_id:path}/{images_key:path}', methods=['POST'],dependencies=[Depends(JWTBearer()),Depends(get_current_user)],
+                                  endpoint=self.storeService.upload_store_image)
         # self.router.add_api_route(path='/', methods=['DELETE'],
         #                           endpoint=self.storeService.delete_s)
 

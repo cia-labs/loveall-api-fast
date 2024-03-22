@@ -15,6 +15,7 @@ from .router.subscription.subscription import SubscriptionRouter,SubscriptionTyp
 from .router.transaction.transaction import TransactionRouter
 from .router.stats.stats import StatsRouter
 from .router.search.search import SearchRouter
+from .router.storage.storage import StorageRouter
 
 def create_app():
     app = FastAPI()
@@ -32,5 +33,6 @@ def create_app():
     app.include_router(StatsRouter().router)
 
     app.include_router(SearchRouter().router)
-
+    
+    app.include_router(StorageRouter().router)
     return app

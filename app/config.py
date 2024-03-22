@@ -1,4 +1,5 @@
 import json
+import os
 import time
 
 base_dir = '/app/'
@@ -14,8 +15,8 @@ class Config:
     VERSION_INFO = '1.0.0'
     log_base_dir = config_data.get("log_base_dir")
     log_file = config_data.get("log_file")
-    JWT_SECRET = config_data.get("auth").get("JWT_SECRET")
-    JWT_ALGORITHM = config_data.get("auth").get("JWT_ALGORITHM")
+    JWT_SECRET = os.getenv("JWT_SECRET")
+    JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
     ACCESS_TOKEN_EXPIRE_MINUTES = config_data.get("auth").get("ACCESS_TOKEN_EXPIRE_MINUTES")
     start_time = time.time()
 
@@ -23,20 +24,22 @@ class Config:
 class DevelopmentConfig(Config):
     ENV = 'dev'
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = config_data.get("DBS").get('SQLALCHEMY_DATABASE_URI')
+    # SQLALCHEMY_DATABASE_URI = config_data.get("DBS").get('SQLALCHEMY_DATABASE_URI')
+    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_BINDS = {
-        'loveall': config_data.get('DBS').get('SQLALCHEMY_DATABASE_URI')
+        # 'loveall': config_data.get('DBS').get('SQLALCHEMY_DATABASE_URI')
+        'loveall': os.getenv("SQLALCHEMY_DATABASE_URI")
     }
 
 
 class TestingConfig(Config):
     ENV = 'test'
     Debug = True
-    SQLALCHEMY_DATABASE_URI = config_data.get("DBS").get('TEST_SQLALCHEMY_DATABASE_URI')
+    SQLALCHEMY_DATABASE_URI = os.getenv("TEST_SQLALCHEMY_DATABASE_URI")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_BINDS = {
-        'loveall': config_data.get('DBS').get('TEST_SQLALCHEMY_DATABASE_URI')
+        'loveall': os.getenv("TEST_SQLALCHEMY_DATABASE_URI")
     }
     VERSION_INFO = '1.0.0'
 

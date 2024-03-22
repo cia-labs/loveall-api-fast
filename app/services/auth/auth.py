@@ -1,3 +1,4 @@
+import os
 import jwt
 from datetime import datetime, timedelta
 
@@ -104,7 +105,7 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, Config.JWT_SECRET, algorithm=Config.JWT_ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, os.getenv("JWT_SECRET") , algorithm=os.getenv("JWT_ALGORITHM"))
     return encoded_jwt
 
 # async def authenticate_user(email: str, password: str):
