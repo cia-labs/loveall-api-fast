@@ -1,0 +1,14 @@
+{
+    "log_base_dir":"/app/",
+    "log_file":"log.log",
+    "DBS":{
+        "SQLALCHEMY_DATABASE_URI":"",
+        "TEST_SQLALCHEMY_DATABASE_URI":""
+    },
+    "auth":{
+        "JWT_SECRET":"please_please_update_me_please",
+        "JWT_ALGORITHM":"HS256",
+        "ACCESS_TOKEN_EXPIRE_MINUTES": 8600
+    }
+
+}
