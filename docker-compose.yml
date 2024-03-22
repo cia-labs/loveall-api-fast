@@ -46,7 +46,7 @@ services:
     hostname: minio
     command: minio server --console-address ":9090" /data
     ports:
-      - 9000:9000
+      - ,:9000
       - 9090:9090        
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
