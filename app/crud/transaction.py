@@ -49,7 +49,7 @@ class TransactionDBActions:
             elif self.current_user.role == 'merchant':
                 transaction = self.db.query(Transaction).filter(Transaction.merchant_id == self.current_user.id).all() # type: ignore
             else:
-                transaction = self.db.query(Transaction).filter(Transaction.user_id == self.current_user.id).all() # type: ignore
+                transaction = self.db.query(Transaction).filter(Transaction.customer_id == self.current_user.id).all() # type: ignore
             if transaction:
                 return True, transaction
             return True,[]
