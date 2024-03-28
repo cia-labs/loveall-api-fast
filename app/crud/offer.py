@@ -8,7 +8,8 @@ from app.schema.offer import OfferSchema,OfferSchemaUpdate
 from app.models.subscription import SubscriptionType
 import logging
 import logging
-from app.models.user import User,Store
+from app.models.user import User
+from app.models.store import Store
 
 
 logger = logging.getLogger(__name__)

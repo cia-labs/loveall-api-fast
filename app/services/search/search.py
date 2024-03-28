@@ -13,7 +13,8 @@ from fastapi import Depends, Request, Body
 from sqlalchemy.orm.session import Session
 from starlette.responses import Response
 from app.schema.store import StoreSchema
-from app.models.user import Store, User
+from app.models.user import User
+from app.models.store import Store
 from app.services.auth.auth_bearer import get_current_user
 
 

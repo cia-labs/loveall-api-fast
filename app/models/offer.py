@@ -1,10 +1,6 @@
-import enum
-# from sqlalchemy import DateTime, Integer, String
 from sqlalchemy.sql.schema import Column, ForeignKey
 from sqlalchemy.sql.sqltypes import Integer, String, DateTime
 from sqlalchemy.sql.functions import func
-from sqlalchemy.ext.mutable import MutableDict
-from datetime import datetime
 
 from app.models.database import Base
 

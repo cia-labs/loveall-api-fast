@@ -1,5 +1,7 @@
-from sqlalchemy import JSON, Column, ForeignKey, Integer, String
+from sqlalchemy.sql.schema import Column, ForeignKey
+from sqlalchemy.sql.sqltypes import Integer, String, JSON, DateTime
 from app.models.database import Base
+from sqlalchemy.sql.functions import func
 from sqlalchemy.ext.mutable import MutableDict
 
 
@@ -15,3 +17,4 @@ class Storage(Base):
     filename = Column(String(255), nullable=False)
     bucket = Column(String(255), nullable=False)
     meta_data = Column(MutableDict.as_mutable(JSON()), nullable=False)
+    created_by =  Column(DateTime, nullable=False, default=func.now())

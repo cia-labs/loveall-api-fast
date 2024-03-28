@@ -6,7 +6,8 @@ from datetime import datetime
 from sqlalchemy import and_, or_
 from app.models.offer import Offer, OfferType
 from app.models.subscription import SubscriptionType
-from app.models.user import User,Store
+from app.models.user import User
+from app.models.store import Store
 from app.schema import store
 from app.schema.store import StoreSchema
 import logging

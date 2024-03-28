@@ -3,8 +3,6 @@ from sqlalchemy.sql.schema import Column, ForeignKey
 from sqlalchemy.sql.sqltypes import Integer, String, DateTime, JSON
 from sqlalchemy.sql.functions import func
 from sqlalchemy.ext.mutable import MutableDict
-from datetime import datetime
-
 from app.models.database import Base
 
 
@@ -33,7 +31,8 @@ class Subscription(Base):
     modification_time = Column(DateTime, nullable=False, default=func.now())
     # todo: add payment data related to subscription later
 
-    def __init__(self, name ,sub_number, customer_id, subscription_type_id, uuid, start_date, end_date, enabled, created_by, creation_time, modification_time):
+    def __init__(self, name ,sub_number, customer_id, subscription_type_id, uuid, \
+                 start_date, end_date, enabled, created_by, creation_time, modification_time):
         """
         Constructor for the Subscription class
         """

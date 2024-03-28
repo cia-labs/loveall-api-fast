@@ -1,8 +1,5 @@
-import json
-import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
-from typing import Generator
-from sqlalchemy.orm.session import Session, sessionmaker
+from sqlalchemy.orm.session import sessionmaker
 from app.config import ENV, config_by_name
 from sqlalchemy.engine.create import create_engine
 

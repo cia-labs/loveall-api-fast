@@ -1,10 +1,6 @@
-import enum
 from sqlalchemy.sql.schema import Column, ForeignKey
 from sqlalchemy.sql.sqltypes import Integer, String, DateTime
 from sqlalchemy.sql.functions import func
-from sqlalchemy.ext.mutable import MutableDict
-from datetime import datetime
-
 from app.models.database import Base
 
 
@@ -30,7 +26,8 @@ class Transaction(Base):
     modification_time = Column(DateTime, nullable=False, default=func.now())
 
 
-    def __init__(self, subscription_id, store_id, offer_id, customer_id, merchant_id,total_amount, offer_amount, bill_number, created_by, creation_time, modification_time,discount_rate):
+    def __init__(self, subscription_id, store_id, offer_id, customer_id, \
+                 merchant_id,total_amount, offer_amount, bill_number, created_by, creation_time, modification_time,discount_rate):
         """
         Constructor for the Transaction class
         """

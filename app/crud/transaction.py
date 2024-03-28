@@ -5,7 +5,8 @@ from datetime import datetime
 from app.models.transaction import Transaction
 from app.models.offer import Offer
 from app.models.subscription import Subscription
-from app.models.user import Store, UserRole
+from app.models.user import UserRole
+from app.models.store import Store
 from app.schema.transaction import TransactionSchema
 import logging
 import logging
