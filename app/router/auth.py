@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 from app.services.auth.auth import AuthService
 from fastapi import FastAPI, Body, Depends
-from app.services.auth.auth_bearer import JWTBearer
 
 class AuthRoutes:
     """

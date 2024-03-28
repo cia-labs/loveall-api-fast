@@ -1,7 +1,7 @@
 from math import log
 import os
 import time
-from typing import Dict
+from typing import Dict, Union
 from app import  Config
 import jwt
 import logging
@@ -14,29 +14,20 @@ def token_response(token: str):
         "access_token": token
     }
 
-
-def signJWT(user_id: str) -> Dict[str, str]:
-    payload = {
-        "user_id": user_id,
-        "expires": time.time() + 600
-    }
-    token = jwt.encode(payload, os.getenv("JWT_SECRET"), algorithm=os.getenv("JWT_ALGORITHM")) # type: ignore
-    
-
-    return token_response(token)
-
-
-def decodeJWT(token: str) -> dict:
+def signJWT(payload: dict):
     try:
-        print("before",token)
-        print("before",type(token))
-        print("vars: ",os.getenv("JWT_SECRET"),os.getenv("JWT_ALGORITHM"),os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
-
-        decoded_token = jwt.decode(token, os.getenv("JWT_SECRET"), algorithms=[os.getenv("JWT_ALGORITHM")]) # type: ignore
-        print("after",decoded_token)
-        print(decoded_token)
-        return decoded_token if decoded_token["exp"] >= time.time() else None
+        token = jwt.encode(payload, os.getenv("JWT_SECRET"), algorithm=os.getenv("JWT_ALGORITHM")) # type: ignore
+        return token,True
     except Exception as e:
-        print(e)
+        log.debug(f"Error signing token: {e}")
+        return {"error": f"{e}"},False
+
+def decodeJWT(token: str):
+    try:
+        decoded_token = jwt.decode(token, os.getenv("JWT_SECRET"), algorithms=[os.getenv("JWT_ALGORITHM")]) # type: ignore
+        if not decoded_token["exp"] >= time.time():
+            return {},False
+        return decoded_token,True
+    except Exception as e:
         log.debug(f"Error decoding token: {e}")
-        return {}
+        return {"failed":f"{e}"},False
