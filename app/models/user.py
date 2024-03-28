@@ -56,6 +56,13 @@ class User(Base):
     def is_superuser(self):
         if self.role == UserRole.ADMIN: # type: ignore
             return True
+    def is_merchant(self):
+        if self.role == UserRole.MERCHANT:
+            return True
+    def is_customer(self):
+        if self.role == UserRole.CUSTOMER:
+            return True
+    
 
     def get_by_email(email):
         return User.query.filter_by(email=email).first()
