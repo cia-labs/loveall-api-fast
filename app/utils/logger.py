@@ -1,29 +1,62 @@
-import logging
-import logging.handlers
-import time
-from functools import wraps
+from pydantic import BaseModel
 
-log = logging.getLogger(__name__)
+class LogConfig(BaseModel):
+    """Logging configuration to be set for the server"""
+    version: int = 1
 
+    disable_existing_loggers: bool = False
 
-def api_logger(func):
-    api_log = logging.getLogger("api_log")
+    formatters: dict = {
+        "extended": {
+            '()': 'coloredlogs.ColoredFormatter',
+            "format": "%(asctime)s - %(name)20s - %(levelname)6s - %(message)s",
+            "datefmt": "[%d/%b/%Y %H:%M:%S]"
+        },
+        "ecs": {
+          "()": "ecs_logging.StdlibFormatter"
+        },
+    }
 
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        request = kwargs.get('request')
-        api_info = "{url} - {method} - {data}".format(url=request.url, method=request.method, data=request.json())
-        api_log.info(api_info)
-        return func(*args, **kwargs)
+    handlers: dict = {
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+            "formatter": "extended",
+            "stream": "ext://sys.stdout",
+        },
+        "debug_file_handler": {
+            "class": "logging.FileHandler",
+            "level": "DEBUG",
+            "formatter": "extended",
+            "filename": "/Users/surya.m/Documents/CIAECO/test/loveall-api-fast/debug.log",
+            "encoding": "utf8",
+            "delay": True,
+        },
+        "error_file_handler": {
+            "class": "logging.FileHandler",
+            "level": "ERROR",
+            "formatter": "extended",
+            "filename": "/Users/surya.m/Documents/CIAECO/test/loveall-api-fast/error.log",
+            "encoding": "utf8",
+            "delay": True,
+        }
+    }
 
-    return wrapper
-
-
-def log_setup(filename):
-    log_handler = logging.handlers.TimedRotatingFileHandler(filename=filename, when='midnight', interval=1)
-    formatter = logging.Formatter('%(asctime)s LoveallAPI [%(process)d]: %(message)s', '%b %d %H:%M:%S:%ms')
-    formatter.converter = time.localtime
-    log_handler.setFormatter(formatter)
-    logger = logging.getLogger()
-    logger.addHandler(log_handler)
-    logger.setLevel(logging.INFO)
+    loggers: dict = {
+        # Fine-grained logging configuration for individual modules or classes
+        # Use this to set different log levels without changing 'real' code.
+        "myclasses": {
+            "level": "DEBUG",
+            "propagate": True
+        },
+        "usermessages": {
+            "level": "INFO",
+            "propagate": False,
+            "handlers": ["console"]
+        }
+    }
+    root: dict = {
+        "level": "DEBUG",
+        "handlers": ["debug_file_handler", "error_file_handler", 'console'],
+    }
+    

@@ -2,7 +2,8 @@ import json
 import uuid
 from datetime import datetime
 
-from app.models.user.user import User
+from app.models import user
+from app.models.user import User
 from app.schema.user import UserSchema
 import logging
 
@@ -47,14 +48,17 @@ class UserDBActions:
             logger.exception(f'Facing issue while fetching the user with id {user_id} - {e}')
             return False, f'Facing issue while fetching the user with id {user_id}'
         
-    def fetch_user_by_email(self, email: str):
+    def fetch_user_by_email(self, email: str)->tuple:
         """
         Fetch user by email
         :param email: Email of the user
         :return: True if success else False
         """
         try:
+            print("DEBUG")
+            print("DEBUG 2: ",self.db.query(User).all())
             user_data = self.db.query(User).filter(User.email == email).first()
+            # print(user_data)
             if user_data:
                 return True, user_data
             return False, f'User with email {email} not found'

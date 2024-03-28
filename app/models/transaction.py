@@ -44,6 +44,21 @@ class Transaction(Base):
         self.creation_time = creation_time
         self.modification_time = modification_time
         self.discount_rate = discount_rate
-        
-
+    
+    def dict(self):
+        return {
+            "id": self.id,
+            "subscription_id": self.subscription_id,
+            "store_id": self.store_id,
+            "offer_id": self.offer_id,
+            "customer_id": self.customer_id,
+            "merchant_id": self.merchant_id,
+            "total_amount": self.total_amount,
+            "offer_amount": self.offer_amount,
+            "bill_number": self.bill_number,
+            "created_by": self.created_by,
+            "creation_time": self.creation_time,
+            "modification_time": self.modification_time,
+            "discount_rate": self.discount_rate
+        }
 

@@ -8,8 +8,8 @@ pwd_context =CryptContext(schemes=["sha256_crypt"], deprecated="auto")
 config = {
     'user': 'root',
     'password': '',
-    'host': 'localhost',
-    'database': 'lall_test'
+    'host': '127.0.0.1',
+    'database': 'lall'
 }
 
 # Sample user data
@@ -25,10 +25,10 @@ raw_users = [
 ]
 
 stores = [
-    (1,"Radisson Blu Atria", "5-star hotel", "1, Palace Road, Bengaluru, Karnataka 560001", "080 2220 5205", 5, "Admin",'{"gmaps":"https://maps.app.goo.gl/uRk7BKcwWvCaWJWa8"}',"2024-03-15 16:14:59","2024-03-15 16:14:59"),
-    (2,"The Ritz-Carlton", "5-star hotel", "99, Residency Rd, Shanthala Nagar, Ashok Nagar, Bengaluru, Karnataka 560025", "080 4914 8000", 3, "Admin",'{"gmaps":"https://maps.app.goo.gl/sgJ2z7p7A9enu84P9"}',"2024-03-15 16:14:59","2024-03-15 16:14:59"),
-    (3,"The Oberoi", "5-star hotel", "37-39, Mahatma Gandhi Road, Bengaluru, Karnataka 560001", "080 2558 5858", 7, "Admin",'{"gmaps":"https://maps.app.goo.gl/cJLYnMGm2pSHB6aU6"}',"2024-03-15 16:14:59","2024-03-15 16:14:59"),
-    (4,"Taj West End", "5-star hotel","37-39, Mahatma Gandhi Road, Bengaluru, Karnataka 560001", "080 2558 5858", 8, "Admin",'{"gmaps":"https://maps.app.goo.gl/bnNz3a68QtvVWXVY6"}',"2024-03-15 16:14:59","2024-03-15 16:14:59"),
+    (1,"Radisson Blu Atria", "5-star hotel", "1, Palace Road, Bengaluru, Karnataka 560001", "080 2220 5205", 5, "Admin",'{"gmaps":"https://maps.app.goo.gl/uRk7BKcwWvCaWJWa8" , "images" : { "primary": {} , "secondary": [] }}',"2024-03-15 16:14:59","2024-03-15 16:14:59"),
+    (2,"The Ritz-Carlton", "5-star hotel", "99, Residency Rd, Shanthala Nagar, Ashok Nagar, Bengaluru, Karnataka 560025", "080 4914 8000", 3, "Admin",'{"gmaps":"https://maps.app.goo.gl/sgJ2z7p7A9enu84P9" , "images" : { "primary": {} , "secondary": [] }}',"2024-03-15 16:14:59","2024-03-15 16:14:59"),
+    (3,"The Oberoi", "5-star hotel", "37-39, Mahatma Gandhi Road, Bengaluru, Karnataka 560001", "080 2558 5858", 7, "Admin",'{"gmaps":"https://maps.app.goo.gl/cJLYnMGm2pSHB6aU6" , "images" : { "primary": {} , "secondary": [] }}',"2024-03-15 16:14:59","2024-03-15 16:14:59"),
+    (4,"Taj West End", "5-star hotel","37-39, Mahatma Gandhi Road, Bengaluru, Karnataka 560001", "080 2558 5858", 8, "Admin",'{"gmaps":"https://maps.app.goo.gl/bnNz3a68QtvVWXVY6" , "images" : { "primary": {} , "secondary": [] }}',"2024-03-15 16:14:59","2024-03-15 16:14:59"),
 ]
 
 offer_type = [
@@ -133,4 +133,4 @@ finally:
         connection.close()
         print("MySQL connection is closed")
 
-#delete from subscription_type where 1=1;delete from offer_type where 1=1;delete from store where 1=1;delete from user where 1=1;delete from offer where 1=1;delete from subscription where 1=1;delete from transaction where 1=1;
+#delete from subscription_type where 1=1;delete from offer_type where 1=1;delete from store where 1=1;delete from user where 1=1;delete from offer where 1=1;delete from subscription where 1=1;delete from transaction where 1=1;delete from storage where 1=1;

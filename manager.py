@@ -1,33 +1,34 @@
-import uvicorn
 import logging
+from logging.config import dictConfig
+import uvicorn
 from app import create_app, Config
-
 from app.models.database import engine, Base
-from app.utils.logger import log_setup
 import argparse
+# from app.services.auth import auth
+from app.utils.logger import LogConfig
 
-log_setup(filename=Config.log_base_dir + Config.log_file)
-print(Config)
+dictConfig(LogConfig().dict())
+
+
 log = logging.getLogger(__name__)
 
 app = create_app()
+# auth.handle_errors(app)
 
 
 def run():
-    uvicorn.run(app, port=10000, host="127.0.0.1", log_level='info')
+    uvicorn.run(app, port=10000, host="127.0.0.1", log_level='debug',log_config=LogConfig().dict())
 
 def init_db(fresh=False):
-    # if fresh:
-    #     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 
 @app.on_event("startup")
 async def startup():
-    log.info("Application is Starting Up")
+    log.debug("Application is Starting Up")
 
 @app.on_event("shutdown")
 async def shutdown():
-    log.info("Application is Shutting Down")
+    log.debug("Application is Shutting Down")
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Database Initialization Script")
@@ -37,14 +38,15 @@ def parse_args():
 
 def initialize_db():
     args = parse_args()
-    print("ALL_ARGS: ",args)
+    log.debug(f"args: {args}")
     if args.init_db:
         Base.metadata.create_all(bind=engine)
-        print("Database initialized successfully.")
+        log.debug("Database initialized successfully.")
         exit(0)
     if  args.populate_db:
-        print("pop initialized successfully.")
-        # populate_user_data()
+        log.debug("pop initialized successfully.")
+
 if __name__ == '__main__':
+    log.debug("Starting the application")
     initialize_db()
     run()

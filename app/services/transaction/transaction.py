@@ -1,5 +1,5 @@
 import logging
-from app.utils.logger import api_logger
+import logging
 from app.utils.resp import Resp
 from app.models.database import get_session
 from app.crud.transaction import TransactionDBActions
@@ -7,14 +7,14 @@ from fastapi import Depends, Request, Body
 from sqlalchemy.orm import Session
 from starlette.responses import Response
 from app.schema.transaction import TransactionSchema
-from app.models.user.user import User
-from app.models.transaction.transaction import Transaction
+from app.models.user import User
+from app.models.transaction import Transaction
 from app.services.auth.auth_bearer import get_current_user
 
 log = logging.getLogger(__name__)
 
 class TransactionService:
-    method_decorators = [api_logger]
+    
 
     def __init__(self):
         self.store_db_actions = None
@@ -25,16 +25,21 @@ class TransactionService:
         :return: True if success else False
         """
         try:
+            print("FETCH")
             self.store_db_actions = TransactionDBActions(db,current_user)
             result,msg = None,None
+
             if transaction_id and len(transaction_id)>0:
                 result, msg =  self.store_db_actions.fetch_transaction_by_id(transaction_id)
             else:
                 result, msg = self.store_db_actions.fetch_transaction()
+            
             if result:
                 return Resp.success(response,msg)
+
             return Resp.error(response, msg)
         except Exception as e:
+            print(e)
             log.exception(f'Facing issue while fetching the transaction - {e}')
             return Resp.error(response, f'Facing issue in transaction -{e}')
     

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
-from app.models.transaction.transaction import Transaction
+from app.models.transaction import Transaction
 
 class TransactionSchema(BaseModel):
     """

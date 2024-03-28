@@ -1,14 +1,14 @@
 import logging
-from app.models.storage.storage import Storage
-from app.models.user.user import User
-from app.utils.logger import api_logger
+from app.models.storage import Storage
+from app.models.user import User
+import logging
 
 logger = logging.getLogger(__name__)
 
 
 
 class StorageDBActions:
-    method_decorators = [api_logger]
+    
 
     def __init__(self, db,current_user: User):
         self.db = db

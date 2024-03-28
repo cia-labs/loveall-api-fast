@@ -2,18 +2,19 @@ import json
 import uuid
 from datetime import datetime
 
-from app.models.transaction.transaction import Transaction
-from app.models.offer.offer import Offer
-from app.models.subscription.subscription import Subscription
+from app.models.transaction import Transaction
+from app.models.offer import Offer
+from app.models.subscription import Subscription
+from app.models.user import Store, UserRole
 from app.schema.transaction import TransactionSchema
-from app.utils.logger import api_logger
+import logging
 import logging
 
 from passlib.context import CryptContext
 logger = logging.getLogger(__name__)
 
 class TransactionDBActions:
-    method_decorators = [api_logger]
+    
     def __init__(self, db,current_user):
         self.db = db
         self.current_user = current_user
@@ -43,16 +44,30 @@ class TransactionDBActions:
         :return: True if success else False
         """
         try:
-            transaction = None
+            data = []
+            transaction=None
+            # print(self.current_user.role,UserRole.MERCHANT)
             if self.current_user.is_superuser():
                 transaction = self.db.query(Transaction).all()
-            elif self.current_user.role == 'merchant':
-                transaction = self.db.query(Transaction).filter(Transaction.merchant_id == self.current_user.id).all() # type: ignore
+                for transac in transaction:
+                    data.append(transac)
+                return True,data
+            elif self.current_user.role == UserRole.MERCHANT:
+                print("running Merfch")
+                transaction = self.db.query(Transaction,Offer,Store,Subscription).join(Offer,Offer.id==Transaction.offer_id).join(Store,Store.id==Transaction.store_id).join(Subscription,Subscription.id==Transaction.subscription_id).all() # type: ignore
             else:
-                transaction = self.db.query(Transaction).filter(Transaction.customer_id == self.current_user.id).all() # type: ignore
+                print("running cus")
+                transaction = self.db.query(Transaction,Offer,Store,Subscription).join(Offer,Offer.id==Transaction.offer_id).join(Store,Store.id==Transaction.store_id).join(Subscription,Subscription.id==Transaction.subscription_id).all() # type: ignore
+            print(transaction)
             if transaction:
-                return True, transaction
-            return True,[]
+                for tnx,off,stor,sub in transaction:
+                    cur_tnx = tnx.dict()
+                    cur_tnx["offer"] = off
+                    cur_tnx["store"] = stor
+                    cur_tnx["subscription"] = sub
+                    data.append(cur_tnx)
+                return True, data
+            return True,data
         except Exception as e:
             logger.exception(f'Facing issue while fetching the transaction - {e}')
             return False, f'Facing issue while fetching the transaction'

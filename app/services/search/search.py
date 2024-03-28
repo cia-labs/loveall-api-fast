@@ -3,9 +3,9 @@ from typing import Any, Dict
 import logging
 from app.crud.subscription import SubscriptionDBActions
 from app.crud.offer import OfferDBActions
-from app.models.offer.offer import Offer, OfferType
-from app.models.subscription.subscription import Subscription, SubscriptionType
-from app.utils.logger import api_logger
+from app.models.offer import Offer, OfferType
+from app.models.subscription import Subscription, SubscriptionType
+import logging
 from app.utils.resp import Resp
 from app.models.database import get_session
 from app.crud.store import StoreDBActions
@@ -13,7 +13,7 @@ from fastapi import Depends, Request, Body
 from sqlalchemy.orm import Session
 from starlette.responses import Response
 from app.schema.store import StoreSchema
-from app.models.user.user import Store, User
+from app.models.user import Store, User
 from app.services.auth.auth_bearer import get_current_user
 
 
@@ -21,7 +21,7 @@ log = logging.getLogger(__name__)
 
 
 class SearchService:
-    method_decorators = [api_logger]
+    
 
     def __init__(self):
         self.search_db_actions = None

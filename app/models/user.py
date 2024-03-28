@@ -5,9 +5,9 @@ from sqlalchemy.ext.mutable import MutableDict
 from datetime import datetime
 
 from app.models.database import Base
-from app.models.offer.offer import OfferType
-from app.models.subscription.subscription import SubscriptionType
-from app.models.transaction.transaction import Transaction
+from app.models.offer import OfferType
+from app.models.subscription import SubscriptionType
+from app.models.transaction import Transaction
 
 
 class Deployment(enum.Enum):

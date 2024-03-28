@@ -1,5 +1,5 @@
 import logging
-from app.utils.logger import api_logger
+import logging
 from app.utils.resp import Resp
 from app.models.database import get_session
 from app.crud.subscription import SubscriptionDBActions,SubscriptionTypeDBActions
@@ -7,8 +7,8 @@ from fastapi import Depends, Request, Body
 from sqlalchemy.orm import Session
 from starlette.responses import Response
 from app.schema.subscription import SubscriptionSchema, SubscriptionTypeSchema
-from app.models.user.user import User
-from app.models.subscription.subscription import SubscriptionType,Subscription
+from app.models.user import User
+from app.models.subscription import SubscriptionType,Subscription
 from app.services.auth.auth_bearer import get_current_user
 
 
@@ -17,7 +17,7 @@ log = logging.getLogger(__name__)
 
 
 class SubscriptionTypeService:
-    method_decorators = [api_logger]
+    
 
     def __init__(self):
         self.store_db_actions = None
@@ -73,7 +73,7 @@ class SubscriptionTypeService:
             return Resp.error(response, f'Facing issue in subscription_type -{e}')
 
 class SubscriptionService:
-    method_decorators = [api_logger]
+    
 
     def __init__(self):
         self.store_db_actions = None

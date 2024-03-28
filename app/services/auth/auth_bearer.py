@@ -5,7 +5,7 @@ from .auth_handler import decodeJWT
 from fastapi import FastAPI, Body, Depends
 from app.models.database import get_session
 from sqlalchemy.orm import Session
-from app.models.user.user import User
+from app.models.user import User
 import json
 
 
@@ -16,8 +16,10 @@ class JWTBearer(HTTPBearer):
     async def __call__(self, request: Request):
         credentials: HTTPAuthorizationCredentials = await super(JWTBearer, self).__call__(request)
         if credentials:
+            print("got creds",credentials)
             if not credentials.scheme == "Bearer":
                 raise HTTPException(status_code=403, detail="Invalid authentication scheme.")
+            print("got creds as creds",credentials.credentials)
             if not self.verify_jwt(credentials.credentials):
                 raise HTTPException(status_code=403, detail="Invalid token or expired token.")
             return credentials.credentials
@@ -25,10 +27,11 @@ class JWTBearer(HTTPBearer):
             raise HTTPException(status_code=403, detail="Invalid authorization code.")
 
     def verify_jwt(self, jwtoken: str) -> bool:
+        print("Going to verify: ",jwtoken)
         isTokenValid: bool = False
         try:
             payload = decodeJWT(jwtoken)
-            print(payload)
+            print("decoded",payload)
         except:
             payload = None
         if payload:

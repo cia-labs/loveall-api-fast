@@ -17,3 +17,4 @@ COPY . /app/
 
 # Command to run the uvicorn server
 # CMD ["uvicorn", "manager:app", "--host", "0.0.0.0", "--port", "9000"]
+uvicorn manager:app --host 0.0.0.0 --port 9000

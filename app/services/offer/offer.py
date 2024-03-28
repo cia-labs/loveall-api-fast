@@ -1,5 +1,5 @@
 import logging
-from app.utils.logger import api_logger
+import logging
 from app.utils.resp import Resp
 from app.models.database import get_session
 from app.crud.offer import OfferDBActions,OfferTypeDBActions
@@ -7,15 +7,15 @@ from fastapi import Depends, Request, Body
 from sqlalchemy.orm import Session
 from starlette.responses import Response
 from app.schema.offer import OfferSchema,OfferTypeSchema,OfferSchemaUpdate
-from app.models.offer.offer import OfferType,Offer
+from app.models.offer import OfferType,Offer
 from app.services.auth.auth_bearer import get_current_user
-from app.models.user.user import User
+from app.models.user import User
 
 
 log = logging.getLogger(__name__)
 
 class OfferTypeService:
-    method_decorators = [api_logger]
+    
 
     def __init__(self):
         self.store_db_actions = None
@@ -74,7 +74,7 @@ class OfferTypeService:
         
 
 class OfferService:
-    method_decorators = [api_logger]
+    
 
     def __init__(self):
         self.store_db_actions = None
@@ -129,8 +129,8 @@ class OfferService:
         except Exception as e:
             log.exception(f'Facing issue while saving the new offer - {e}')
             return Resp.error(response, f'Facing issue in offer -{e}')
-        
-    async def update_offer(self,offer_id: str,response: Response, offer: OfferSchemaUpdate = Body(...),db: Session = Depends(get_session), current_user: User= Depends(get_current_user)):
+
+    async def update_offer(self,offer_id: str,response: Response, offer: dict = Body(...),db: Session = Depends(get_session), current_user: User= Depends(get_current_user)):
         # todo : only user to update offer details
         try:
             log.info(f'Updating offer with the data - {offer}')

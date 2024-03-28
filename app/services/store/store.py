@@ -7,8 +7,8 @@ import uuid
 
 from sqlalchemy import func
 from app.crud.storage import StorageDBActions
-from app.models.storage.storage import Storage
-from app.utils.logger import api_logger
+from app.models.storage import Storage
+import logging
 from app.utils.resp import Resp
 from app.utils.utils import MINIO_BUCKET_NAME, minio_client
 from app.models.database import get_session
@@ -17,14 +17,14 @@ from fastapi import Depends, File, Request, Body, UploadFile
 from sqlalchemy.orm import Session
 from starlette.responses import Response
 from app.schema.store import StoreSchema
-from app.models.user.user import User
+from app.models.user import User
 from app.services.auth.auth_bearer import get_current_user
 
 
 log = logging.getLogger(__name__)
 
 class StoreService:
-    method_decorators = [api_logger]
+    
 
     def __init__(self):
         self.store_db_actions = None
@@ -67,7 +67,7 @@ class StoreService:
             log.exception(f'Facing issue while saving the new store - {e}')
             return Resp.error(response, f'Facing issue in store -{e}')
 
-    async def update_store(self,store_id: str,response: Response, store: StoreSchema = Body(...),db: Session = Depends(get_session), current_user: User= Depends(get_current_user)):
+    async def update_store(self,store_id: str,response: Response, store: dict = Body(...),db: Session = Depends(get_session), current_user: User= Depends(get_current_user)):
         # todo : only user to update store details
         try:
             if not store_id or len(store_id) == 0:

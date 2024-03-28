@@ -6,9 +6,9 @@ import uuid
 
 from app.crud.storage import StorageDBActions
 from app.models.database import get_session
-from app.models.user.user import User
+from app.models.user import User
 from app.services.auth.auth_bearer import get_current_user
-from app.utils.logger import api_logger
+import logging
 from fastapi import Depends, UploadFile, File, HTTPException
 from sqlalchemy.orm import Session
 
@@ -18,7 +18,7 @@ from app.utils.utils import MINIO_BUCKET_NAME, minio_client
 log = logging.getLogger(__name__)
 
 class StorageService:
-    method_decorators = [api_logger]
+    
 
     def __init__(self):
         self.storage_db_actions = None

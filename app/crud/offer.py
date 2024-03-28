@@ -3,18 +3,18 @@ from typing import Any
 from datetime import datetime
 from sqlalchemy import or_
 from app.models import offer
-from app.models.offer.offer import OfferType,Offer
+from app.models.offer import OfferType,Offer
 from app.schema.offer import OfferSchema,OfferSchemaUpdate
-from app.models.subscription.subscription import SubscriptionType
-from app.utils.logger import api_logger
+from app.models.subscription import SubscriptionType
 import logging
-from app.models.user.user import User,Store
+import logging
+from app.models.user import User,Store
 
 
 logger = logging.getLogger(__name__)
 
 class OfferTypeDBActions:
-    method_decorators = [api_logger]
+    
 
     def __init__(self, db,current_user: User):
         self.db = db
@@ -94,7 +94,7 @@ class OfferTypeDBActions:
 
 
 class OfferDBActions:
-    method_decorators = [api_logger]
+    
 
     def __init__(self, db,current_user:User):
         self.db = db
@@ -205,22 +205,35 @@ class OfferDBActions:
             logger.exception(f'Facing issue while saving the new offer - {e}')
             return False, f'Facing issue while saving the new offer - {e}'
         
-    def update_offer(self, offer: OfferSchemaUpdate,offer_id: str):
+    def update_offer(self, offer: dict,offer_id: str):
         """
         Update offer
         :param offer: offer details
         :return: True if success else False
         """
+        print("to update: ",offer)
+        # if len(offer.keys())<1:
+        #     return False, f'No data to update'
         try:
             result = None
-            final_update = {**offer.dict(),**{
-                "modification_time": datetime.now(),
-            }}            
+            #TODO:fix_this
+            final_update = {**offer,**{
+                "modification_time":  datetime.now(),
+            }}
+
+            allowed = ["name", "description", "discount_rate", "is_active", "start_date","end_date","start_time","end_time","priority"]
+            filtered_update = {}
+            for key in final_update.keys():
+                if key  in allowed:
+                    filtered_update[key] = final_update[key]
+
             result = None
+            print(filtered_update)
             if self.current_user.is_superuser():
-                result = self.db.query(Offer).filter(Offer.id == offer_id).update(final_update)
+                result = self.db.query(Offer).filter(Offer.id == offer_id).update(filtered_update)
             else:
-                result = self.db.query(Offer).filter(Offer.id == offer_id).filter(Offer.merchant_id == self.current_user.id).update(final_update) # type: ignore
+                print("DEBUG : ---> ",offer_id, self.current_user.id)
+                result = self.db.query(Offer).filter(Offer.id == offer_id).filter(Offer.merchant_id == self.current_user.id).update(filtered_update) # type: ignore
             if result==0:
                 return False, f'Offer with id {offer_id} not found'
             self.db.commit()

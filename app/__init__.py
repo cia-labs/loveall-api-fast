@@ -7,15 +7,15 @@ from app import router
 from .models import database
 
 
-from .router.user.user import UserRouter
-from .router.auth.auth import AuthRoutes
-from .router.user.store import StoreRouter
-from .router.offer.offer import OfferRouter,OfferTypeRouter
-from .router.subscription.subscription import SubscriptionRouter,SubscriptionTypeRouter
-from .router.transaction.transaction import TransactionRouter
-from .router.stats.stats import StatsRouter
-from .router.search.search import SearchRouter
-from .router.storage.storage import StorageRouter
+from .router.user import UserRouter
+from .router.auth import AuthRoutes
+from .router.store import StoreRouter
+from .router.offer import OfferRouter,OfferTypeRouter
+from .router.subscription import SubscriptionRouter,SubscriptionTypeRouter
+from .router.transaction import TransactionRouter
+from .router.stats import StatsRouter
+from .router.search import SearchRouter
+from .router.storage import StorageRouter
 
 def create_app():
     app = FastAPI()

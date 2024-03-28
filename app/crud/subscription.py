@@ -4,17 +4,17 @@ import uuid
 from datetime import datetime
 from sqlalchemy import and_, or_
 
-from app.models.subscription.subscription import SubscriptionType,Subscription
+from app.models.subscription import SubscriptionType,Subscription
 from app.schema.subscription import SubscriptionSchema,SubscriptionTypeSchema
-from app.utils.logger import api_logger
-from app.models.user.user import User, UserRole
+import logging
+from app.models.user import User, UserRole
 import logging
 
 from passlib.context import CryptContext
 logger = logging.getLogger(__name__)
 
 class SubscriptionTypeDBActions:
-    method_decorators = [api_logger]
+    
     def __init__(self, db,current_user:User):
         self.db = db
         self.current_user = current_user
@@ -85,7 +85,7 @@ class SubscriptionTypeDBActions:
             return False, f'Facing issue while updating the subscription_type - {e}'
 
 class SubscriptionDBActions:
-    method_decorators = [api_logger]
+    
     def __init__(self, db,current_user:User):
         self.db = db
         self.current_user = current_user

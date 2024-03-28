@@ -1,10 +1,13 @@
 tests/reports/*
+.venv/
 .idea/
-config.json
 *.pyc
 __pycache__
 .pytest_cache
 log/
 *.log*
+*.db
 log.*
 log.log
+snippets
+.env

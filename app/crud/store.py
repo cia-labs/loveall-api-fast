@@ -4,19 +4,19 @@ import uuid
 from datetime import datetime
 
 from sqlalchemy import and_, or_
-from app.models.offer.offer import Offer, OfferType
-from app.models.subscription.subscription import SubscriptionType
-from app.models.user.user import User,Store
+from app.models.offer import Offer, OfferType
+from app.models.subscription import SubscriptionType
+from app.models.user import User,Store
 from app.schema import store
 from app.schema.store import StoreSchema
-from app.utils.logger import api_logger
+import logging
 import logging
 from app.utils.utils import pwd_context
 
 logger = logging.getLogger(__name__)
 
 class StoreDBActions:
-    method_decorators = [api_logger]
+    
 
     def __init__(self, db,current_user: User):
         self.db = db
@@ -93,7 +93,7 @@ class StoreDBActions:
             logger.exception(f'Facing issue while saving the new store - {e}')
             return False, f'Facing issue while saving the new store - {e}'
     
-    def update_store(self, store: StoreSchema,store_id: str):
+    def update_store(self, store: dict,store_id: str):
         """
         Update store
         :param store: Store details
@@ -101,11 +101,10 @@ class StoreDBActions:
         """
         try:
             result = None
-            final_update = {**store.dict(),**{
+            final_update = {**store,**{
                     "modification_time": str(datetime.now()),
                 }}
             logger.info(f'User is superuser {self.current_user.is_superuser()} -- {self.current_user.email} -- {self.current_user.role}')
-            print(final_update)
             if self.current_user.is_superuser():
                 logger.info(f'User is superuser')
                 result = self.db.query(Store).filter(Store.id == store_id).update(final_update)

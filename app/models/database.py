@@ -1,3 +1,4 @@
+import json
 import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -6,6 +7,8 @@ from sqlalchemy.orm import Session
 
 from app.config import ENV, config_by_name
 
+
+print("DEBUG: test ",config_by_name['test'].SQLALCHEMY_DATABASE_URI)
 if ENV == 'dev':
     engine = sqlalchemy.create_engine(
         config_by_name['dev'].SQLALCHEMY_DATABASE_URI
