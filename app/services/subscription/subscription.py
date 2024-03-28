@@ -4,7 +4,7 @@ from app.utils.resp import Resp
 from app.models.database import get_session
 from app.crud.subscription import SubscriptionDBActions,SubscriptionTypeDBActions
 from fastapi import Depends, Request, Body
-from sqlalchemy.orm import Session
+from sqlalchemy.orm.session import Session
 from starlette.responses import Response
 from app.schema.subscription import SubscriptionSchema, SubscriptionTypeSchema
 from app.models.user import User

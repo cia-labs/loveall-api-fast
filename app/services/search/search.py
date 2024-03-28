@@ -10,7 +10,7 @@ from app.utils.resp import Resp
 from app.models.database import get_session
 from app.crud.store import StoreDBActions
 from fastapi import Depends, Request, Body
-from sqlalchemy.orm import Session
+from sqlalchemy.orm.session import Session
 from starlette.responses import Response
 from app.schema.store import StoreSchema
 from app.models.user import Store, User

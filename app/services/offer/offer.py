@@ -4,7 +4,7 @@ from app.utils.resp import Resp
 from app.models.database import get_session
 from app.crud.offer import OfferDBActions,OfferTypeDBActions
 from fastapi import Depends, Request, Body
-from sqlalchemy.orm import Session
+from sqlalchemy.orm.session import Session
 from starlette.responses import Response
 from app.schema.offer import OfferSchema,OfferTypeSchema,OfferSchemaUpdate
 from app.models.offer import OfferType,Offer

@@ -14,7 +14,7 @@ from app.utils.utils import MINIO_BUCKET_NAME, minio_client
 from app.models.database import get_session
 from app.crud.store import StoreDBActions
 from fastapi import Depends, File, Request, Body, UploadFile
-from sqlalchemy.orm import Session
+from sqlalchemy.orm.session import Session
 from starlette.responses import Response
 from app.schema.store import StoreSchema
 from app.models.user import User

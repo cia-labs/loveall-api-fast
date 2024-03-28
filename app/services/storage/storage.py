@@ -10,7 +10,7 @@ from app.models.user import User
 from app.services.auth.auth_bearer import get_current_user
 import logging
 from fastapi import Depends, UploadFile, File, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm.session import Session
 
 from app.utils.utils import MINIO_BUCKET_NAME, minio_client
 

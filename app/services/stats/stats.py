@@ -3,7 +3,7 @@ import logging
 from app.utils.resp import Resp
 from app.models.database import get_session
 from fastapi import Depends, Request, Body
-from sqlalchemy.orm import Session
+from sqlalchemy.orm.session import Session
 from starlette.responses import Response
 from app.services.auth.auth_bearer import get_current_user
 from app.models.user import User
