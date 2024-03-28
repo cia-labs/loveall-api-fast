@@ -1,5 +1,7 @@
 import enum
-from sqlalchemy import Column, String, DateTime, JSON, Integer, Enum, ForeignKey,func
+from sqlalchemy.sql.schema import Column, ForeignKey
+from sqlalchemy.sql.sqltypes import Integer, String, DateTime, JSON
+from sqlalchemy.sql.functions import func
 from sqlalchemy.ext.mutable import MutableDict
 from datetime import datetime
 

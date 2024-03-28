@@ -6,8 +6,6 @@ from sqlalchemy.orm.session import Session, sessionmaker
 from app.config import ENV, config_by_name
 from sqlalchemy.engine.create import create_engine
 
-
-print("DEBUG: test ",config_by_name['test'].SQLALCHEMY_DATABASE_URI)
 if ENV == 'dev':
     engine = create_engine(
         config_by_name['dev'].SQLALCHEMY_DATABASE_URI
