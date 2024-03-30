@@ -1,14 +1,14 @@
 name: build-loveall-api
+
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
 
 permissions:
   contents: read
 
 jobs:
-  deploy:
+  build_and_delpoy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
