@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.9-slim
+FROM python:3.12-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -17,4 +17,4 @@ COPY . /app/
 
 # Command to run the uvicorn server
 # CMD ["uvicorn", "manager:app", "--host", "0.0.0.0", "--port", "9000"]
-uvicorn manager:app --host 0.0.0.0 --port 9000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "14000", "--reload"]
