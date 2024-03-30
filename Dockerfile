@@ -16,5 +16,4 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY . /app/
 
 # Command to run the uvicorn server
-# CMD ["uvicorn", "manager:app", "--host", "0.0.0.0", "--port", "9000"]
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "14000", "--reload"]
