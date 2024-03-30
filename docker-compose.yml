@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 volumes:
   data:
   # minio_data:
@@ -11,14 +11,16 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}      
     volumes:
-      - data:/var/lib/mysql
+      - loveall-db-data:/var/lib/mysql
     ports:
       - "3306:3306"
 
-  fastapi:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  loveall-api-fast-app:
+    image: ghcr.io/cia-labs/loveall-api-fast:${BUILD_HASH}
+    ports:
+      - 14000:14000
+    volumes:
+      - lovealldata:/data
     environment:
       SQLALCHEMY_DATABASE_URI: mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE}
       TEST_SQLALCHEMY_DATABASE_URI: mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE}
@@ -29,37 +31,5 @@ services:
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
       MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME}
       MINIO_HOSTNAME: minio:9000
-    command: 
-      - /bin/bash
-      - -c
-      - |
-        sleep 30
-        python3 /app/manager.py --init-db
-        uvicorn manager:app --reload --host 0.0.0.0 --port 8010
-    ports:
-      - "8010:8010"
     depends_on:
       - db
-  # minio:
-  #   image: minio/minio
-  #   # command: server /data
-  #   hostname: minio
-  #   command: minio server --console-address ":9090" /data
-  #   ports:
-  #     - 9091:9000
-  #     - 9090:9090        
-  #   environment:
-  #     MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-  #     MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
-
-  #   # ports:
-  #   #   - "9000:9000"
-  #   #   - "9001:9001"
-
-  #   volumes:
-  #     - minio_data:/data
-  #   healthcheck:
-  #     test: ["CMD", "curl", "-f", "http://localhost:9090/minio/health/live"]
-  #     interval: 30s
-  #     timeout: 20s
-  #     retries: 3
