@@ -1,9 +1,26 @@
 import logging
 
+from typing import Any, Union
+
+from pydantic import BaseModel
 from starlette.responses import Response
 from app.config import Config
+from app.models.user import User
+from app.schema.user import UserResponse, UserSchema
 
 log = logging.getLogger(__name__)
+
+class RespModel(BaseModel):
+    status: str
+    # version_info: dict
+    class Config:
+        orm_mode = True
+
+
+class RespUserModel(BaseModel):
+    # __response__: Response 
+    status: int
+    data: Union[UserResponse,str]
 
 
 class Resp:

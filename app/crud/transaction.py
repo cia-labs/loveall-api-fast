@@ -53,12 +53,10 @@ class TransactionDBActions:
                 for transac in transaction:
                     data.append(transac)
                 return True,data
-            elif self.current_user.role == UserRole.MERCHANT:
-                print("running Merfch")
-                transaction = self.db.query(Transaction,Offer,Store,Subscription).join(Offer,Offer.id==Transaction.offer_id).join(Store,Store.id==Transaction.store_id).join(Subscription,Subscription.id==Transaction.subscription_id).all() # type: ignore
+            elif self.current_user.is_merchant():
+                transaction = self.db.query(Transaction,Offer,Store,Subscription).join(Offer,Offer.id==Transaction.offer_id).join(Store,Store.id==Transaction.store_id).join(Subscription,Subscription.id==Transaction.subscription_id).filter(Transaction.merchant_id==self.current_user.id).all() # type: ignore
             else:
-                print("running cus")
-                transaction = self.db.query(Transaction,Offer,Store,Subscription).join(Offer,Offer.id==Transaction.offer_id).join(Store,Store.id==Transaction.store_id).join(Subscription,Subscription.id==Transaction.subscription_id).all() # type: ignore
+                transaction = self.db.query(Transaction,Offer,Store,Subscription).join(Offer,Offer.id==Transaction.offer_id).join(Store,Store.id==Transaction.store_id).join(Subscription,Subscription.id==Transaction.subscription_id).filter(Transaction.customer_id==self.current_user.id).all() # type: ignore
             print(transaction)
             if transaction:
                 for tnx,off,stor,sub in transaction:

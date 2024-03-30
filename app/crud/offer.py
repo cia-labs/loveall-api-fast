@@ -8,7 +8,7 @@ from app.schema.offer import OfferSchema,OfferSchemaUpdate
 from app.models.subscription import SubscriptionType
 import logging
 import logging
-from app.models.user import User
+from app.models.user import User, UserRole
 from app.models.store import Store
 
 
@@ -106,8 +106,10 @@ class OfferDBActions:
         Fetch offer
         """
         try:
-            offers = None
-            offers = self.db.query(Offer,OfferType,SubscriptionType,Store).join(OfferType, Offer.offer_type_id == OfferType.id).join(SubscriptionType,Offer.subscription_type_id== SubscriptionType.id).join(Store,Offer.store_id==Store.id).all() # type: ignore
+            offers = self.db.query(Offer,OfferType,SubscriptionType,Store).join(OfferType, Offer.offer_type_id == OfferType.id).join(SubscriptionType,Offer.subscription_type_id== SubscriptionType.id).join(Store,Offer.store_id==Store.id)
+            if self.current_user.is_merchant():
+                offers = offers.filter(Offer.merchant_id==self.current_user.id) # type: ignore
+            offers  = offers.all()
             if offers:
                 # Format the result to include offer details along with offer type details
                 formatted_offers = [{

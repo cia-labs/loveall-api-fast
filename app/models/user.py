@@ -1,4 +1,5 @@
 import enum
+from sqlalchemy import ForeignKey
 from sqlalchemy.sql.schema import Column
 from sqlalchemy.sql.sqltypes import String, DateTime, JSON, Integer, Enum
 from sqlalchemy.sql.functions import func
@@ -49,18 +50,21 @@ class User(Base):
 
     # is superuser
     def is_superuser(self):
-        if self.role == UserRole.ADMIN: # type: ignore
+        if self.role.value == UserRole.ADMIN.value: # type: ignore
             return True
+        return False
     def is_merchant(self):
-        if self.role == UserRole.MERCHANT:
+        if self.role.value == UserRole.MERCHANT.value:
             return True
+        return False
     def is_customer(self):
-        if self.role == UserRole.CUSTOMER:
+        if self.role.value == UserRole.CUSTOMER.value:
             return True
+        return False
     
 
     def get_by_email(email):
-        return User.query.filter_by(email=email).first()
+        return User.query.filter_by(email=email).first() #type: ignore
 
     def dict(self):
         return {
@@ -73,3 +77,28 @@ class User(Base):
             "creation_time": self.creation_time,
             "modification_time": self.modification_time
         }
+    
+
+class ActiveToken(Base):
+    """
+    Defines the DB ORM model for the active token table
+    """
+    __tablename__ = 'active_token'
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
+    user_id = Column(Integer,ForeignKey('user.id', ondelete='cascade'), nullable=False)
+    token = Column(String(255), nullable=False)
+    expiry = Column(DateTime, nullable=False)
+    used = Column(Integer, default=0, nullable=False)
+    creation_time = Column(DateTime, nullable=False, default=func.now())
+    modification_time = Column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
+
+    def __init__(self, user_id, token, expiry, used, creation_time, modification_time):
+            """
+            Constructor for the ActiveToken class
+            """
+            self.user_id = user_id
+            self.token = token
+            self.expiry = expiry
+            self.used = used
+            self.creation_time = creation_time
+            self.modification_time = modification_time

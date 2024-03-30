@@ -34,7 +34,7 @@ class StoreDBActions:
                 logger.info(f'User is superuser')
                 stores = self.db.query(Store).all()
             else:
-                stores = self.db.query(Store).all()
+                stores = self.db.query(Store).filter(Store.merchant_id==self.current_user.id).all()
             if stores:
                 return True, stores
             return False, f'Store not found'
@@ -102,6 +102,10 @@ class StoreDBActions:
         """
         try:
             result = None
+            allowed = ["phone","name","description","meta_data","address"]
+            for key in list(store.keys()):
+                if key not in allowed:
+                    del store[key]
             final_update = {**store,**{
                     "modification_time": str(datetime.now()),
                 }}
