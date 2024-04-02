@@ -28,7 +28,7 @@ class LogConfig(BaseModel):
             "class": "logging.FileHandler",
             "level": "DEBUG",
             "formatter": "extended",
-            "filename": "/Users/surya.m/Documents/CIAECO/test/loveall-api-fast/debug.log",
+            "filename": "/app/debug.log",
             "encoding": "utf8",
             "delay": True,
         },
@@ -36,7 +36,7 @@ class LogConfig(BaseModel):
             "class": "logging.FileHandler",
             "level": "ERROR",
             "formatter": "extended",
-            "filename": "/Users/surya.m/Documents/CIAECO/test/loveall-api-fast/error.log",
+            "filename": "/app/error.log",
             "encoding": "utf8",
             "delay": True,
         }
