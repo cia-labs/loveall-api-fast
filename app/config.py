@@ -2,8 +2,8 @@ import json
 import os
 import time
 
-# base_dir = '/app/'
-base_dir = '/Users/surya.m/Documents/CIAECO/test/loveall-api-fast/'
+base_dir = '/app/'
+# base_dir = '/Users/surya.m/Documents/CIAECO/test/loveall-api-fast/'
 
 ENV = os.getenv("API_ENV")
 JWT_SECRET = os.getenv("JWT_SECRET")

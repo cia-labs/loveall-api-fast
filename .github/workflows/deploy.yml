@@ -39,3 +39,8 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ghcr.io/${{ github.repository_owner }}/loveall-api-fast:${{ github.sha }}
+
+    - name: POST request to re-deploy on portainer webhook
+      run: |
+        curl -X POST https://docker.cialabs.tech/api/stacks/webhooks/2972aeb5-54d5-4013-ac99-4b020dc018fa?BUILD_HASH=${{ github.sha }} -H "Content-Type: application/json" 
+
